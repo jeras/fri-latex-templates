@@ -419,10 +419,67 @@ Preostalih problemov se tokrat ne bom loteval.
 Problem jezika stanj brez predslik bi potreboval teorijo 2D formalnega jezika, ki še ne obstaja.
 Poleg tega je povezan s problemom reverzibilnosti, ki je na spološno dokazano nerešljiv \cite{Kari1989}.
 
+\chapter{Definicija 2D celičnega avtomata}
+
+Predstavljena definicija 2D avtomata je enostavna in manj formalna
+v primerjavi z definicijo 1D avtomata v podobnih člankih.
+Bolj podrobna definicija ni potrebna, saj se 2D avtomati, še ne povezujejo
+z drugimi vejami matematike toliko kakor 1D avtomati.
+
+V grafičnih upodobitvaj je uporabljena izometrična projekcija,
+ker je za potrebe analize osnovni 2D mreži dodana tretja dimenzija,
+ki opisuje prostor predslik.
+
+Osnovni element 2D celičnega avtomata je celica kakor del mreže celic.
+Mreža je lahko pravokotna, šestkotna ali celo kvazikristalna, tukaj se
+bomo omejili na pravokotno mrežo. Na slošno je velikost mreže lahko neskončna,
+velikost končne mreže je devfinirana z parom \(N={N_x,N_y}\).
+
+Trenutno stanje neke celice \(c_x\) je odvisno od prejšnjega stanja njene okolice \(n_x\).
+Podobno se bomo tudi pri obliki okolice omejili na pravokotnik.
+Velikost okolice naj bo definirana s parom \(M={M_x,M_y}\)
+in število celic v okolici je \(m=M_x \times M_y\).
+
+
 
 \chapter{Konstrukcija mreže predslik}
 
+Mreža predslik je grafični konstrukt, ki omogoča upodobitev posameznih pojmov,
+if definicije celičnih avtomatov kakor ločene grafične elemente. In odnosi med
+temi elementi definirajo pravila na katerih se gradijo algoritmi za iskanje
+predslik.
+
 \section{De Bruijnov diagram}
+
+Osnovani element grafične upodobitve je De Bruijinov diagram. V osnovi ta obravnava
+ciklične premike končnih zaporedij simbolov, ter njihovo prekrivanje. Vozlišča v
+diagramu so vsa možna končna zaporedja, povečave med njimi pa definirajo kako se
+ta zaporedja prekrivajo med seboj.
+
+Pri 1D celičnih avtomatih se problem neposredno preslika na De Bruijinov graf. McIntosh
+in njegova skupina uporabljajo za analizo te De Bruijinove grafe neposredno. Sam sem pa
+razvil modificiran graf, kjer so vozlišča podvojena, in gredo poti vedno od originala
+proti dvojniku. To omogoča veriženje grafov, in razširitev osnovnega De Bruijinovega
+grafa, ki opisuje okolico ene celice v verižen graf, ki opisuje verigo celic. ??? \cite{}
+uporabi podoben pristop za analizo 2D problema, tukaj pa je uporabljen nekoliko
+drugačen pristop.
+
+Za potrebe opisa 2D celičnih avtomatov, je bila elementom De Bruijinovega grafa dodana
+nova dimanzija. Povezave med vozliči se spremenijo v ploskve, in vozlišča se spremenijo
+v robove ploskev.
+
+Elementi celičnaga avtomata, ki se preslikajo v graf so:
+\begin{itemize}[noitemsep,nolistsep]
+\item nabor vseh možnih okolic celice postane nabor vseh ploskev
+\item nabor prekrivanj okolic v smeri 2D dimanzij postane nabor povezav
+\item nabor prekrivanj okolic v diagonalni smeri postane nabor vozlišč
+\end{itemize}
+
+\subsection{Prekrivanje okolic v smeri 2D dimanzij}
+
+Okolice se podobno prekrivajo v \(x\) in \(y\) dimenziji.
+
+\subsection{Prekrivanje okolic v diagonalni smeri}
 
 \section{Mreža}
 
@@ -433,7 +490,7 @@ Poleg tega je povezan s problemom reverzibilnosti, ki je na spološno dokazano n
 
 \section{Robni pogoji}
 
-\section{procesiranje v eni dimenziji}
+\section{Procesiranje v eni dimenziji}
 
 \section{Procesiranje v drugi dimenziji}
 
@@ -442,31 +499,13 @@ Poleg tega je povezan s problemom reverzibilnosti, ki je na spološno dokazano n
 
 \chapter{Primerjava z znanimi algoritmi}
 
-\section{Razgledanost}
-
-\section{Jezik diplomskega dela}
+\section{Procesna zahtevnost}
 
 
 \subsection{Sklepne ugotovitve}
 
 Sklepne ugotovitve naj prikažejo oceno o opravljenem delu in povzamejo težave, na katere je naletel kandidat. Kot rezultat dela
 lahko navede ideje, ki so nastale med delom, in bi lahko bile predmet novih raziskav.
-
-\subsection{Priloge}
-Priloge (slike, diagrami, algoritmi, načrti), 
-če so potrebne, kandidat izdela kot posebna poglavja (dodatki), ki jih zaradi preglednosti ni smiselno vključiti v glavni del naloge. Vsi
-dodatki morajo biti naslovljeni in oštevilčeni, običajno z velikimi tiskanimi črkami. 
-
-Na tem mestu je priporočljivo navesti tudi seznama slik in tabel.
-
-\subsection{Viri}
-Vire navede kandidat po abecednem vrstnem redu priimkov avtorjev. Navajajo naj se le tisti viri, na katere se
-kandidat v besedilu sklicuje! Dolg seznam ni dokaz, da ima kandidat tudi tak pregled čez literaturo. Za navajanje virov naj se uporabi
-slovenska inačica formata IEEE. V tem formatu se viri (članek v zborniku konference,  knjiga, članek v reviji in spletna stran) navedejo  kot
-je to prikazano v poglavju Literatura (stran \pageref{stran_literatura}). Sklicevanje na vir se v besedilu naloge označi z zaporedno številko
-vira v oglatem oklepaju, npr. \cite{peytonjones93} oziroma \cite{trucco98,wadler89,IEEE}, kadar se na istem mestu sklicuje na več
-različnih virov.  Zglede za druge vrste virov je mogoče dobiti v revijah IEEE, ki so na voljo v knjižnici, ali na spletnem naslovu
-\cite{IEEE}.
 
 \newpage
 
@@ -475,12 +514,6 @@ različnih virov.  Zglede za druge vrste virov je mogoče dobiti v revijah IEEE,
 \appendix
 
 %\addcontentsline{toc}{chapter}{\protect Dodatki}
-
-\chapter{Kaj so priloge ali dodatki}
-
-Priloge (slike, diagrami, algoritmi, načrti), 
-če so potrebne, kandidat izdela kot posebna poglavja (Dodatek A, Dodatek B, \ldots), ki jih zaradi preglednosti ni smiselno vključiti v glavni
-del naloge. Vsi dodatki morajo biti naslovljeni in oštevilčeni, običajno z velikimi tiskanimi črkami. 
 
 \newpage
 
@@ -495,7 +528,6 @@ del naloge. Vsi dodatki morajo biti naslovljeni in oštevilčeni, običajno z ve
 
 %\listofalgorithms
 
-
 %********************************************
 
 \newpage
@@ -504,7 +536,6 @@ del naloge. Vsi dodatki morajo biti naslovljeni in oštevilčeni, običajno z ve
 \addcontentsline{toc}{chapter}{Literatura}
 \label{stran_literatura}
 \bibliography{magisterij} 
-
 
 \end{document}
 
