@@ -433,14 +433,21 @@ ki opisuje prostor predslik.
 Osnovni element 2D celičnega avtomata je celica kakor del mreže celic.
 Mreža je lahko pravokotna, šestkotna ali celo kvazikristalna, tukaj se
 bomo omejili na pravokotno mrežo. Na slošno je velikost mreže lahko neskončna,
-velikost končne mreže je devfinirana z parom \(N={N_x,N_y}\).
+velikost končne mreže je definirana s parom \(N={N_x,N_y}\).
 
 Trenutno stanje neke celice \(c_x\) je odvisno od prejšnjega stanja njene okolice \(n_x\).
 Podobno se bomo tudi pri obliki okolice omejili na pravokotnik.
 Velikost okolice naj bo definirana s parom \(M={M_x,M_y}\)
-in število celic v okolici je \(m=M_x \times M_y\).
+in število celic v okolici je \(m=M_x \times M_y\). Prostorski odnos med okolico
+in celico v prihodnjem stanju avtomata, ki jo ta okolica določa, ni podrobno definiran.
+Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
+nujno pomembno.
 
-
+\begin{figure}[htb]
+\centerline{\psfig{figure=neighborhood_isometric,width=16cm}}
+\caption[Okolica.]{Okolica celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
+\label{neighborhood}
+\end{figure}
 
 \chapter{Konstrukcija mreže predslik}
 
