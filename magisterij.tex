@@ -20,6 +20,8 @@
 \usepackage{graphicx,epsfig}
 \usepackage[slovene]{babel}
 \usepackage{cite}
+\usepackage{nomencl}
+\usepackage{enumitem}
 
 \usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black,pagebackref]{hyperref}
 \usepackage{tikz}
@@ -387,11 +389,12 @@ Doslej sem že razvil napredne algoritme za izračun predslik 1D sistema.
 Skozi zgodovino so taki algoritmi napredovali, tako da je padala njihova
 procesna zahtevnost in opisna/implementacijska zahtevnost.
 \begin{enumerate}[noitemsep,nolistsep]
-\item 'brute force' algoritmi \( O(c^n) \)
-\item improvizirani algoritmi
-\item zasnove matematičnega modela
-\item optimalni algoritmi \( O(n \log(n)) \) ali celo \( O(n) \)
+ \item 'brute force' algoritmi \( O(c^n) \)
+ \item improvizirani algoritmi
+ \item zasnove matematičnega modela
+ \item optimalni algoritmi \( O(n \log(n)) \) ali celo \( O(n) \)
 \end{enumerate}
+
 Iskanje slik 2D sistema je trenutno nekje med improvizacijo in matematičnim modelom.
 Z magistrsko nalogo bi rad razvil algoritme, ki se nagibajo k optimalnosti.
 
