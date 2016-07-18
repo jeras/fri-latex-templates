@@ -20,7 +20,6 @@
 \usepackage{graphicx,epsfig}
 \usepackage[slovene]{babel}
 \usepackage{cite}
-\usepackage{nomencl}
 \usepackage{enumitem}
 
 \usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black,pagebackref]{hyperref}
@@ -52,6 +51,11 @@
 \newcommand{\tikzname}{Ti\emph{k}Z}
 
 \input{cc}
+
+%********************************************
+% kratice, simboli
+\newcommand{\abbrlabel}[1]{\makebox[3cm][l]{\textbf{#1}\ \dotfill}}
+\newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}}}{\end{list}}
 
 %********************************************
 
@@ -259,10 +263,15 @@ $\;$
 
 \thispagestyle{empty}
 
-2D dvo dimenzionalni
-CA celični avtomati
-GoL Game of Life (igra življenja)
-GoE Garden of Eden (stanje brez predslik)
+% simboli
+
+\begin{abbreviations}
+\item[1D] eno dimenzionalen
+\item[2D] dvo dimenzionalen
+\item[CA] celični avtomat
+\item[GoL] Game of Life (igra življenja)
+\item[GoE] Garden of Eden (stanje brez predslik)
+\end{abbreviations}
 
 %\cleardoublepage
 
