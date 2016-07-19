@@ -271,6 +271,8 @@ $\;$
 \item[CA] celični avtomat
 \item[GoL] Game of Life (igra življenja)
 \item[GoE] Garden of Eden (stanje brez predslik)
+\item[trid] okolica CA sestevljena iz treh celic
+\item[quad] okolica CA sestevljena iz štirih celic
 \end{abbreviations}
 
 %\cleardoublepage
@@ -392,8 +394,6 @@ tako, da je celice iz vrstice 2D polja združil v simbole regularnega jezika, za
 vrstic pa predstavlja besedo. Originalni članek je v francoščini, zato še iščem članek,
 kjer bi pristop opisal v angleščini. Podoben pristop s končnimi avtomati nameravam uporabiti tudi sam.
 
-
-
 Doslej sem že razvil napredne algoritme za izračun predslik 1D sistema.
 Skozi zgodovino so taki algoritmi napredovali, tako da je padala njihova
 procesna zahtevnost in opisna/implementacijska zahtevnost.
@@ -443,14 +443,23 @@ ker je za potrebe analize osnovni 2D mreži dodana tretja dimenzija,
 ki opisuje prostor predslik.
 
 Osnovni element 2D celičnega avtomata je celica kakor del mreže celic.
+Vsaka celica ima diskretno vrednost \(c\) iz nabora stanj celice \(S\).
+Stanja so običajno kar oštevilčena.
+
+\[ c \in S \]
+
+\[ S = \{ 0, 1, 2, S-1 \} \]
+\[ S = \{ 0, 1, 2, {\lvert S \rvert} -1 \} \]
+
 Mreža je lahko pravokotna, šestkotna ali celo kvazikristalna, tukaj se
 bomo omejili na pravokotno mrežo. Na slošno je velikost mreže lahko neskončna,
-velikost končne mreže je definirana s parom \(N={N_x,N_y}\).
+običajno pa se končne mreže definira kakor pravokotnik velikosti \(N_x \times N_y\)
+in skupno število celic v končni mreži je \(N=\lvert N_x \times N_y \rvert\).
 
-Trenutno stanje neke celice \(c_x\) je odvisno od prejšnjega stanja njene okolice \(n_x\).
-Podobno se bomo tudi pri obliki okolice omejili na pravokotnik.
-Velikost okolice naj bo definirana s parom \(M={M_x,M_y}\)
-in število celic v okolici je \(m=M_x \times M_y\). Prostorski odnos med okolico
+Trenutno stanje neke celice \(c_{x,y}\) je odvisno od prejšnjega stanja njene okolice \(n_{x,y}\).
+Podobno se bomo tudi pri obliki okolice omejili na pravokotnik velikosti \(M_x \times M_y\).
+Število celic v okolici je \(m=\lvert M_x \times M_y \rvert\).
+Na voljo je \({\lvert S \rvert}^m\) možnih okolic. Prostorski odnos med okolico
 in celico v prihodnjem stanju avtomata, ki jo ta okolica določa, ni podrobno definiran.
 Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
 nujno pomembno.
@@ -460,6 +469,18 @@ nujno pomembno.
 \caption[Okolica.]{Okolica celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
 \label{neighborhood}
 \end{figure}
+
+Preslikava sedanje okolice \(n_{x,y}^{t}\) v prihodnjo istoležno celico \(c_{x,y}^{t+1}\) je definiran
+s tranzicijsko funkcijo \(f\).
+
+\[ c_{x,y}^{t+1} = f(n_{x,y}^{t}) \]
+
+Za potrebe iskanja predslik je zanimiva obratna funkcija \(f^{-1}\), ki ob
+podanem stanju trenutne celice \(c_{x,y}^{t}\) vrne množico okolic,
+ki se preslikajo v to vrednost.
+
+\[ f^{-1}(c^{t}) = \{ n^{t-1} \in S^m \arrowvert f(n^{t-1}) = c^{t} \} \]
+\[ \lvert f^{-1}(c^{t}) \cvert \leq {\lvert S \rvert}^m \]
 
 \chapter{Konstrukcija mreže predslik}
 
