@@ -21,6 +21,7 @@
 \usepackage[slovene]{babel}
 \usepackage{cite}
 \usepackage{enumitem}
+\usepackage{amsmath}
 
 \usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black,pagebackref]{hyperref}
 \usepackage{tikz}
@@ -446,10 +447,9 @@ Osnovni element 2D celičnega avtomata je celica kakor del mreže celic.
 Vsaka celica ima diskretno vrednost \(c\) iz nabora stanj celice \(S\).
 Stanja so običajno kar oštevilčena.
 
-\[ c \in S \]
-
-\[ S = \{ 0, 1, 2, S-1 \} \]
-\[ S = \{ 0, 1, 2, {\lvert S \rvert} -1 \} \]
+\[ c \in S
+   \quad \textrm{and} \quad
+   S = \{ 0, 1, 2, {\lvert S \rvert} -1 \} \]
 
 Mreža je lahko pravokotna, šestkotna ali celo kvazikristalna, tukaj se
 bomo omejili na pravokotno mrežo. Na slošno je velikost mreže lahko neskončna,
@@ -459,9 +459,14 @@ in skupno število celic v končni mreži je \(N=\lvert N_x \times N_y \rvert\).
 Trenutno stanje neke celice \(c_{x,y}\) je odvisno od prejšnjega stanja njene okolice \(n_{x,y}\).
 Podobno se bomo tudi pri obliki okolice omejili na pravokotnik velikosti \(M_x \times M_y\).
 Število celic v okolici je \(m=\lvert M_x \times M_y \rvert\).
-Na voljo je \({\lvert S \rvert}^m\) možnih okolic. Prostorski odnos med okolico
-in celico v prihodnjem stanju avtomata, ki jo ta okolica določa, ni podrobno definiran.
-Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
+Na voljo je \({\lvert S \rvert}^m\) možnih okolic.
+
+\[ n \in S^m
+   \quad \textrm{and} \quad
+   S^m = \{ 0, 1, 2, {\lvert S \rvert}^m -1 \} \]
+
+Prostorski odnos med okolico in celico v prihodnjem stanju avtomata, ki jo ta okolica določa,
+ni podrobno definiran. Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
 nujno pomembno.
 
 \begin{figure}[htb]
@@ -479,15 +484,36 @@ Za potrebe iskanja predslik je zanimiva obratna funkcija \(f^{-1}\), ki ob
 podanem stanju trenutne celice \(c_{x,y}^{t}\) vrne množico okolic,
 ki se preslikajo v to vrednost.
 
-\[ f^{-1}(c^{t}) = \{ n^{t-1} \in S^m \arrowvert f(n^{t-1}) = c^{t} \} \]
-\[ \lvert f^{-1}(c^{t}) \cvert \leq {\lvert S \rvert}^m \]
+\[ f^{-1}(c^{t}) = \{ n^{t-1} \in S^m \ \arrowvert \ f(n^{t-1}) = c^{t} \} \]
+
+Podana konstrukcija mreže predslik in algoritem za izračun predslik omogočata uporabo
+bolj splošne definicije, kjer je za vsako celico definiran lasten nabor predlik,
+ki je neodvisen od stanja celice. Ta pospložitev je uporabljena za konstrukcijo umetnih
+mrež predslik, ki poudarjajo konkretne probleme, ki definirajo kompleksnost algoritma.
+
+\[ n^{t-1} \in S^m \]
 
 \chapter{Konstrukcija mreže predslik}
 
 Mreža predslik je grafični konstrukt, ki omogoča upodobitev posameznih pojmov,
-if definicije celičnih avtomatov kakor ločene grafične elemente. In odnosi med
+iz definicije celičnih avtomatov, kakor ločene grafične elemente. Odnosi med
 temi elementi definirajo pravila na katerih se gradijo algoritmi za iskanje
 predslik.
+
+Elemente celičnega avtomata, kakor okolice in prekrivanja okolic je potrebno indeksirati,
+tako da se lahko vsakemu elementu pripiše unikatna števna vrednost.
+Vsaki okolici je pripisana zaporedna vrednost, ki je konstruirana kakor \(m\) mestno število
+v \(S\)-iškem številskem sistemu (za podane primere dvojiški).
+Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice.
+
+\[ n = \sum |S|^{y N_x + x} \cdot c_{x,y} \]
+\[ n \in \{0, 1, \dots N_x N_y -1\} \]
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=neighborhood_index_isometric,width=8cm}}
+\caption[Okolica.]{Indeksiranje okolice celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
+\label{neighborhood_index}
+\end{figure}
 
 \section{De Bruijnov diagram}
 
