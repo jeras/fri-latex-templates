@@ -519,33 +519,55 @@ Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice.
 
 Osnovani element grafične upodobitve je De Bruijinov diagram. V osnovi ta obravnava
 ciklične premike končnih zaporedij simbolov, ter njihovo prekrivanje. Vozlišča v
-diagramu so vsa možna končna zaporedja, povečave med njimi pa definirajo kako se
+diagramu so vsa možna končna zaporedja, povezave med njimi pa definirajo kako se
 ta zaporedja prekrivajo med seboj.
 
 Pri 1D celičnih avtomatih se problem neposredno preslika na De Bruijinov graf. McIntosh
 in njegova skupina uporabljajo za analizo te De Bruijinove grafe neposredno. Sam sem pa
 razvil modificiran graf, kjer so vozlišča podvojena, in gredo poti vedno od originala
 proti dvojniku. To omogoča veriženje grafov, in razširitev osnovnega De Bruijinovega
-grafa, ki opisuje okolico ene celice v verižen graf, ki opisuje verigo celic. ??? \cite{}
-uporabi podoben pristop za analizo 2D problema, tukaj pa je uporabljen nekoliko
-drugačen pristop.
+grafa, ki opisuje okolico ene celice v verižen graf, ki opisuje verigo celic.
 
-Za potrebe opisa 2D celičnih avtomatov, je bila elementom De Bruijinovega grafa dodana
-nova dimanzija. Povezave med vozliči se spremenijo v ploskve, in vozlišča se spremenijo
-v robove ploskev.
+??? \cite{} uporabi podoben pristop za analizo 2D problema, tukaj pa je uporabljen nekoliko
+drugačen pristop. Za potrebe opisa 2D celičnih avtomatov, je bila elementom
+De Bruijinovega grafa dodana nova dimenzija. Povezave med vozliči se spremenijo
+v ploskve, in vozlišča se spremenijo v robove ploskev.
 
 Elementi celičnaga avtomata, ki se preslikajo v graf so:
 \begin{itemize}[noitemsep,nolistsep]
 \item nabor vseh možnih okolic celice postane nabor vseh ploskev
-\item nabor prekrivanj okolic v smeri 2D dimanzij postane nabor povezav
-\item nabor prekrivanj okolic v diagonalni smeri postane nabor vozlišč
+\item nabor prekrivanj okolic v smeri 2D dimenzij (slika \ref{overlap_dimension}) postane nabor povezav
+\item nabor prekrivanj okolic v diagonalni smeri (slika \ref{overlap_diagonal}) postane nabor vozlišč
 \end{itemize}
+Vsi elementi se indeksirajo po enakem principu kakor nabor okolic.
 
-\subsection{Prekrivanje okolic v smeri 2D dimanzij}
+\begin{figure}[htb]
+\centerline{\psfig{figure=overlap_dimension_isometric,width=8cm}}
+\caption[Prekrivaje okolic.]{Prekrivanje okolic sosednjih celic v smeri dimenzij X in Y.}
+\label{overlap_dimension}
+\end{figure}
 
-Okolice se podobno prekrivajo v \(x\) in \(y\) dimenziji.
+\begin{figure}[htb]
+\centerline{\psfig{figure=overlap_diagonal_isometric,width=8cm}}
+\caption[Prekrivanje okolic - diagonalno.]{Prekrivanje okolic sosednjih celic v diagonalni smeri.}
+\label{overlap_diagonal}
+\end{figure}
 
-\subsection{Prekrivanje okolic v diagonalni smeri}
+Nastali graf (slika \ref{network_single}) ima poleg vozlišč in povezav med njimi tudi ploskve. Ploskve bi v teoriji grafov
+opisali kakor zanke v grafu, z dodano omejitvijo, da mora vsako vozlišče in povezava v zanki
+pripadati drugemu prekrivanju okolic.
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=network_single,width=5cm}}
+\caption[Mreža ene celice.]{Mreža ene celice za binarni CA z okolico quad.}
+\label{network_single}
+\end{figure}
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=neighborhood_surfaces,width=16cm}}
+\caption[Nabor ploskev.]{Nabor ploskev za vse možne okolice za binarni CA z okolico quad.}
+\label{neighborhood_surfaces}
+\end{figure}
 
 \section{Mreža}
 
