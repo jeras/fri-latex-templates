@@ -471,7 +471,7 @@ nujno pomembno.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood,width=16cm}}
-\caption[Okolica.]{Okolica celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
+\caption[Velikost okolice.]{Okolica celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
 \label{neighborhood}
 \end{figure}
 
@@ -485,6 +485,9 @@ podanem stanju trenutne celice \(c_{x,y}^{t}\) vrne množico okolic,
 ki se preslikajo v to vrednost.
 
 \[ f^{-1}(c^{t}) = \{ n^{t-1} \in S^m \ \arrowvert \ f(n^{t-1}) = c^{t} \} \]
+
+Dodaten pogoj za predsliko polja celic je, da se morajo okolice sosednjih celic
+ujemati povsod, kjer se prekrivajo.
 
 Podana konstrukcija mreže predslik in algoritem za izračun predslik omogočata uporabo
 bolj splošne definicije, kjer je za vsako celico definiran lasten nabor predlik,
@@ -544,7 +547,7 @@ Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood_index,width=8cm}}
-\caption[Okolica.]{Indeksiranje okolice celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
+\caption[Indeksiranje okolice.]{Indeksiranje okolice celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
 \label{neighborhood_index}
 \end{figure}
 
@@ -559,7 +562,7 @@ To ob indeksiranju da nabor:
 \[ o_y \in \{0, 1, \dots M_x (N_y-1) -1\} \]
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=overlap_dimension,width=8cm}}
+\centerline{\psfig{figure=overlap_dimension,width=10cm}}
 \caption[Prekrivaje okolic.]{Prekrivanje okolic sosednjih celic v smeri dimenzij X in Y, za velikost okolice \(M_x=M_y=3\).}
 \label{overlap_dimension}
 \end{figure}
@@ -570,7 +573,7 @@ To ob indeksiranju da nabor:
 \[ o_{xy} \in \{0, 1, \dots (M_x-1) (N_y-1) -1\} \]
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=overlap_diagonal,width=8cm}}
+\centerline{\psfig{figure=overlap_diagonal,width=10cm}}
 \caption[Prekrivanje okolic - diagonalno.]{Prekrivanje okolic sosednjih celic v diagonalni smeri, za velikost okolice \(M_x=M_y=3\).}
 \label{overlap_diagonal}
 \end{figure}
@@ -613,26 +616,41 @@ Dokazati želimo, da je neka konfiguracija celic predslika dane sedanjosti
 če in samo če je ta ekvivalentna zvezni ploskvi v mreži predslik.
 
 \textbf{Prvi element:}
-Iz definicije velja, da je za eno samo celico v mreži nabor ploskev
-enak naboru vseh predslik.
+Iz definicije velja, da je za eno samo celico v mreži nabor ploskev enak naboru vseh predslik.
 \textbf{Naslednji element:}
 Obstoječi mreži predslik za več celic z danim naborom zveznih ploskev dodamo novo celico.
-Da 
-
-
-Dokaz, da se osnovni graf pravilno saja v mrežo,
-torej, da se ploskvi ujemata takrat in samo takrat, kadar se vezi ujemata,
-in da se vezi ujemajo takrat in samo takrat, kadar se vozliči ujemata.
-če in samo če
+Ploskev iz nabora dodane celice se zvezno veže z obstoječim naborom zveznih ploskev natanko v primeru,
+ko se z eno od ploskev ujema v robu (povezavi med vozliščema).
+Temu je tako, ker so indeksi vozlišč in povezav ekvivalentni vrednosti prekrivanj okolic.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=network_array,width=14cm}}
-\caption[Mreža polja celic.]{Mreža velikosti \(N_x=3\) in \(N_y=3\) za binarni CA z okolico quad.}
+\caption[Mreža polja celic.]{Mreža velikosti \(N_x=3\) in \(N_y=3\) za binarni CA z okolico quad.
+Poudarjena je ena zvezna ploskev (konfiguracija pripadajoče predslike je izpisana) in njen rob.}
 \label{network_array}
 \end{figure}
 
 \section{Robni pogoji} 
 
+Pri 1D CA so robni pogoji definirani na dveh koncih,
+ki omejujejo končno število celic na neskončni premici.
+Če je 1D CA deginiran kakor daljica je robni pogoj samo eden.
+Robni pogoj definira katere okolice (vozlišča pri mreži predslik za 1D CA)
+in s kakšnimi utežmi so na voljo ob robu.
+Lahko si jih predstavljamo tudi kakor vpliv, ki ga ima neskončen poltrak celic,
+ki sega izven roba opazovane konfiguracije.
+
+Pri 2D CA je robni pogoj definiran na sklenjeni poti okoli ploskve opazovane konfiguracije celic.
+V mreži predslik za 2D CA povezave med vozlišči definirajo rob ploskve (slika \ref{network_array}).
+Na splono ima vsaka ploskev v mreži svoj rob, robni pogoj določa kako je ta ploskev obravnavana.
+Ker uporabna vrednost splošnega robnega pogoja še ni znana,
+in bi splošnost izrazito povečala zahtevnost algoritma za iskanje predslik,
+so tukaj vsi robovi obravnavani enako. Temu bomo rekli odprt rob,
+ker ta ne definira nobenih omejitev, katere zvezne ploskve v mreži predslik
+so dovoljene in katere ne.
+
+Obstaja še eden enostaven robni pogoj, ki je definiran za ciklično sklenjena končna CA polja.
+Ta tip robnega pogoja tukaj ne bo obravnavan, ker še dodatno poveča kompleksnost algoritmov.
 
 \chapter{Algiritem za štetje in izpis predslik}
 
