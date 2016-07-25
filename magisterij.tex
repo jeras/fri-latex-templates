@@ -273,7 +273,7 @@ $\;$
 \item[GoL] Game of Life (igra življenja)
 \item[GoE] Garden of Eden (stanje brez predslik)
 \item[trid] okolica CA sestevljena iz treh celic
-\item[quad] okolica CA sestevljena iz štirih celic
+\item[quad] okolica CA sestevljena iz štirih celic \(M_x=M_y=2\)
 \end{abbreviations}
 
 %\cleardoublepage
@@ -436,14 +436,14 @@ Poleg tega je povezan s problemom reverzibilnosti, ki je na spološno dokazano n
 
 Predstavljena definicija 2D avtomata je enostavna in manj formalna
 v primerjavi z definicijo 1D avtomata v podobnih člankih.
-Bolj podrobna definicija ni potrebna, saj se 2D avtomati, še ne povezujejo
-z drugimi vejami matematike toliko kakor 1D avtomati.
+Bolj podrobna definicija ni potrebna, saj se opisani problemi za 2D avtomate,
+še ne povezujejo z drugimi vejami matematike toliko kakor 1D avtomati.
 
 V grafičnih upodobitvaj je uporabljena izometrična projekcija,
 ker je za potrebe analize osnovni 2D mreži dodana tretja dimenzija,
 ki opisuje prostor predslik.
 
-Osnovni element 2D celičnega avtomata je celica kakor del mreže celic.
+Osnovni element 2D celičnega avtomata je celica kakor del polja celic.
 Vsaka celica ima diskretno vrednost \(c\) iz nabora stanj celice \(S\).
 Stanja so običajno kar oštevilčena.
 
@@ -451,10 +451,10 @@ Stanja so običajno kar oštevilčena.
    \quad \textrm{and} \quad
    S = \{ 0, 1, 2, {\lvert S \rvert} -1 \} \]
 
-Mreža je lahko pravokotna, šestkotna ali celo kvazikristalna, tukaj se
-bomo omejili na pravokotno mrežo. Na slošno je velikost mreže lahko neskončna,
-običajno pa se končne mreže definira kakor pravokotnik velikosti \(N_x \times N_y\)
-in skupno število celic v končni mreži je \(N=\lvert N_x \times N_y \rvert\).
+Mreža polja je lahko pravokotna, šestkotna ali celo kvazikristalna, tukaj se
+bomo omejili na pravokotno mrežo. Na slošno je velikost polja lahko neskončna,
+običajno pa se končna polja definira kakor pravokotnik velikosti \(N_x \times N_y\)
+in skupno število celic v končnem polju je \(N=\lvert N_x \times N_y \rvert\).
 
 Trenutno stanje neke celice \(c_{x,y}\) je odvisno od prejšnjega stanja njene okolice \(n_{x,y}\).
 Podobno se bomo tudi pri obliki okolice omejili na pravokotnik velikosti \(M_x \times M_y\).
@@ -488,10 +488,18 @@ ki se preslikajo v to vrednost.
 
 Podana konstrukcija mreže predslik in algoritem za izračun predslik omogočata uporabo
 bolj splošne definicije, kjer je za vsako celico definiran lasten nabor predlik,
-ki je neodvisen od stanja celice. Ta pospložitev je uporabljena za konstrukcijo umetnih
+ki je neodvisen od stanja celice. Ta posplošitev je uporabljena za konstrukcijo umetnih
 mrež predslik, ki poudarjajo konkretne probleme, ki definirajo kompleksnost algoritma.
 
 \[ n^{t-1} \in S^m \]
+
+Za dano polje celic velikosti \(N_x \times N_y\) in z odprtimi robovi,
+je možno izračunati prihodnje stanje polja velikosti \((N_x-(M_x-1)) \times (N_y-(M_y-1))\).
+V primeru, če so robovi polja ciklično zaprti (polje v obliki thorusa),
+je pa polje prihodnjega stanja enako veliko kakor polje sedanjega.
+Podobno velja za računanje predslik, za sedanje polje velikosti \(N_x \times N_y\)
+je za odprte robove velikost polja predslik \((N_x+(M_x-1)) \times (N_y+(M_y-1))\).
+Za ciklične robove pa sta velikosti enaki.
 
 \chapter{Konstrukcija mreže predslik}
 
@@ -499,21 +507,6 @@ Mreža predslik je grafični konstrukt, ki omogoča upodobitev posameznih pojmov
 iz definicije celičnih avtomatov, kakor ločene grafične elemente. Odnosi med
 temi elementi definirajo pravila na katerih se gradijo algoritmi za iskanje
 predslik.
-
-Elemente celičnega avtomata, kakor okolice in prekrivanja okolic je potrebno indeksirati,
-tako da se lahko vsakemu elementu pripiše unikatna števna vrednost.
-Vsaki okolici je pripisana zaporedna vrednost, ki je konstruirana kakor \(m\) mestno število
-v \(S\)-iškem številskem sistemu (za podane primere dvojiški).
-Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice.
-
-\[ n = \sum |S|^{y N_x + x} \cdot c_{x,y} \]
-\[ n \in \{0, 1, \dots N_x N_y -1\} \]
-
-\begin{figure}[htb]
-\centerline{\psfig{figure=neighborhood_index,width=8cm}}
-\caption[Okolica.]{Indeksiranje okolice celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
-\label{neighborhood_index}
-\end{figure}
 
 \section{De Bruijnov diagram}
 
@@ -535,21 +528,50 @@ v ploskve, in vozlišča se spremenijo v robove ploskev.
 
 Elementi celičnaga avtomata, ki se preslikajo v graf so:
 \begin{itemize}[noitemsep,nolistsep]
-\item nabor vseh možnih okolic celice postane nabor vseh ploskev
+\item nabor vseh možnih okolic celice postane nabor vseh ploskev (slika \ref{neighborhood_surfaces})
 \item nabor prekrivanj okolic v smeri 2D dimenzij (slika \ref{overlap_dimension}) postane nabor povezav
 \item nabor prekrivanj okolic v diagonalni smeri (slika \ref{overlap_diagonal}) postane nabor vozlišč
 \end{itemize}
-Vsi elementi se indeksirajo po enakem principu kakor nabor okolic.
+
+Elemente celičnega avtomata, kakor okolice in prekrivanja okolic je potrebno indeksirati,
+tako da se lahko vsakemu elementu pripiše unikatna števna vrednost.
+Vsaki okolici je pripisana zaporedna vrednost, ki je konstruirana kakor \(m\) mestno število
+v \(S\)-iškem številskem sistemu (za podane primere dvojiški).
+Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice.
+
+\[ n = \sum |S|^{y N_x + x} \cdot c_{x,y} \]
+\[ n \in \{0, 1, \dots N_x N_y -1\} \]
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=neighborhood_index,width=8cm}}
+\caption[Okolica.]{Indeksiranje okolice celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
+\label{neighborhood_index}
+\end{figure}
+
+Celice se v smeri dimenzije X prekrivajo za ploskev velikosti \(O_x=M_x-1\) in \(O_y=M_y\) (slika \ref{overlap_dimension}).
+To ob indeksiranju da nabor:
+\[ o_x = \sum |S|^{y (M_x-1) + x} \cdot c_{x,y} \]
+\[ o_x \in \{0, 1, \dots (M_x-1) N_y -1\} \]
+
+Celice se v smeri dimenzije Y prekrivajo za ploskev velikosti \(O_x=M_x\) in \(O_y=M_y-1\) (slika \ref{overlap_dimension}).
+To ob indeksiranju da nabor:
+\[ o_y = \sum |S|^{y M_x + x} \cdot c_{x,y} \]
+\[ o_y \in \{0, 1, \dots M_x (N_y-1) -1\} \]
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=overlap_dimension,width=8cm}}
-\caption[Prekrivaje okolic.]{Prekrivanje okolic sosednjih celic v smeri dimenzij X in Y.}
+\caption[Prekrivaje okolic.]{Prekrivanje okolic sosednjih celic v smeri dimenzij X in Y, za velikost okolice \(M_x=M_y=3\).}
 \label{overlap_dimension}
 \end{figure}
 
+Celice se v diagonalni smeri prekrivajo za ploskev velikosti \(O_x=M_x-1\) in \(O_y=M_y-1\) (slika \ref{overlap_diagonal}).
+To ob indeksiranju da nabor:
+\[ o_{xy} = \sum |S|^{y (M_x-1) + x} \cdot c_{x,y} \]
+\[ o_{xy} \in \{0, 1, \dots (M_x-1) (N_y-1) -1\} \]
+
 \begin{figure}[htb]
 \centerline{\psfig{figure=overlap_diagonal,width=8cm}}
-\caption[Prekrivanje okolic - diagonalno.]{Prekrivanje okolic sosednjih celic v diagonalni smeri.}
+\caption[Prekrivanje okolic - diagonalno.]{Prekrivanje okolic sosednjih celic v diagonalni smeri, za velikost okolice \(M_x=M_y=3\).}
 \label{overlap_diagonal}
 \end{figure}
 
@@ -559,17 +581,44 @@ pripadati drugemu prekrivanju okolic.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=network_single,width=5cm}}
-\caption[Mreža ene celice.]{Mreža ene celice za binarni CA z okolico quad.}
+\caption[Mreža ene celice.]{Mreža ene celice za binarni CA z okolico quad \(M_x=M_y=2\).}
 \label{network_single}
 \end{figure}
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood_surfaces,width=16cm}}
-\caption[Nabor ploskev.]{Nabor ploskev za vse možne okolice za binarni CA z okolico quad.}
+\caption[Nabor ploskev.]{Nabor ploskev za vse možne okolice za binarni CA z okolico quad \(M_x=M_y=2\).}
 \label{neighborhood_surfaces}
 \end{figure}
 
 \section{Mreža}
+
+Diagrame, ki opisujejo preteklost posamezne celice, je možno sestaviti v mrežo,
+ki opisuje polje več celic. Nabor predslik celotnega polja je ekvivalenten naboru
+vseh zveznih ploskev, ki prekrivajo celotno polje in, ki jih je možno sestaviti iz
+naborov ploskev diagramov posameznih celic.
+
+Preslikava iz zvezne ploskve v mreži predslik v konfiguracijo polja celic predslike je enolična.
+Najlažje je razumeti preslikavo za okolico velikosti \(3 \times 3\),
+od vsakega odseka ploskve za posamezno celico se vzame centralno celico,
+na koncu pa se doda še za eno celico širok rob okoli celotne ploskve.
+
+Podani primeri uporabljajo binarni CA z quad okolico.
+Za ta CA je velikost diagonalnega prekrivanja okolic ena sama celica,
+Posledično ima nabor vozlišč le dve vrednosti, ki neposredno predstavljajo
+vrednosti celic v predsliki (slika \ref{network_array}).
+
+Razširitev diagrama ene celice v mrežo lahko dokažemo z indukcijo.
+Dokazati želimo, da je neka konfiguracija celic predslika dane sedanjosti
+če in samo če je ta ekvivalentna zvezni ploskvi v mreži predslik.
+
+\textbf{Prvi element:}
+Iz definicije velja, da je za eno samo celico v mreži nabor ploskev
+enak naboru vseh predslik.
+\textbf{Naslednji element:}
+Obstoječi mreži predslik za več celic z danim naborom zveznih ploskev dodamo novo celico.
+Da 
+
 
 Dokaz, da se osnovni graf pravilno saja v mrežo,
 torej, da se ploskvi ujemata takrat in samo takrat, kadar se vezi ujemata,
