@@ -371,11 +371,11 @@ Algoritem za štetje predslik je možno pretvoriti v algoritem za preverjanje al
 tako da se opracije nad celimi števili pretvori v logične opreracije nad Boolovimi staji.
 
 Raziskave algoritmov sem se lotil s predpostavko, da je možno opraviti štetje s zahtevnostjo,
-ki je linearno odvisna od velikosti problema \( O(n) \)  (n je število opazovanih celic). Čeprav je to možno pri 1D problemu,
+ki je linearno odvisna od velikosti problema \( O(N) \)  (n je število opazovanih celic). Čeprav je to možno pri 1D problemu,
 se izkaže da 2D problem ni tako preprost. Predstavljeni so primeri iz katerih je razvidno,
 da algoritem z linearno zahtevnostjo ne more pravilno opisati vseh situacij.
 Zahtevnost opisanega algotitma sicer raste s kvadratom eksponenta eksponentno z eno
-od dimenzij CA mreže  \( O(2^2n) \), ja pa možno da obstaja algiritem z nižjo kompleksnostjo.
+od dimenzij CA mreže  \( O(2^2N) \), ja pa možno da obstaja algiritem z nižjo kompleksnostjo.
 
 Opisan algoritem je primerjan z ostalimi doslej znanimi algoritmi. Čeprav s stališča procesne
 zahtevnosti ne prinaša želenega napredka, pa to da temelji na pregledni grafični upodobitvi
@@ -399,10 +399,10 @@ Doslej sem že razvil napredne algoritme za izračun predslik 1D sistema.
 Skozi zgodovino so taki algoritmi napredovali, tako da je padala njihova
 procesna zahtevnost in opisna/implementacijska zahtevnost.
 \begin{enumerate}[noitemsep,nolistsep]
- \item 'brute force' algoritmi \( O(c^n) \)
+ \item 'brute force' algoritmi \( O(c^N) \)
  \item improvizirani algoritmi
  \item zasnove matematičnega modela
- \item optimalni algoritmi \( O(n \log(n)) \) ali celo \( O(n) \)
+ \item optimalni algoritmi \( O(N \log(N)) \) ali celo \( O(N) \)
 \end{enumerate}
 
 Iskanje slik 2D sistema je trenutno nekje med improvizacijo in matematičnim modelom.
@@ -654,14 +654,49 @@ Ta tip robnega pogoja tukaj ne bo obravnavan, ker še dodatno poveča kompleksno
 
 \chapter{Algiritem za štetje in izpis predslik}
 
+Pri 1D CA ima algoritem za štetje predslik linearno \(O(N)\) procesno in pomnilniško zahtevnost.
+Posplošeno to pomeni, da se vsaka celica pojavi v izračunu samo enkrat.
+Dejansko ima vsak algoritem tudi logaritmično komponento,
+saj število bitov potrebnih za zapis števcev raste logaritmično s številom celic.
+Algoritem za izpis predslik ima tudi vedno eksponentno maksimalno kompleksnost,
+saj maksimalno in povprečno število predslik raste eksponentno
+v odvisnosti od števila celic.
+
+Za 2D CA se je izkazalo, da obstajajo problemi, ki niso rešljivi z linearno kompleksnostjo.
+Prikazani algoritem ima maksimalno eksponentno kompleksnost
+v odvisnosti od posamezne dimenzije \(O(S^{N_x} S^{N_y})\).
+Za sedaj še odprta možnost za obstoj algoritma z kompleksnstjo
+med linearno in eksponentno zahtevnostjo.
+
+Opisani algoritem za štetje predslik razdeli polje celic na vrstice v dimenziji X.
+Na podlagi zunanjega robnega pogoja, je najprej poiskan nabor predslik za prvo vrstico.
+Nabor predslik je izračunan kakor uteži za robove na nasprotni strani.
+Te uteži so uporabljene kakor vhodni robni pogoj za naslednjo vrstico.
+Robne uteži izračunane za zadnjo vrstico predstavljajo število sseh predslik.
+
+Algoritem za izpis predslik je nadaljevaje algoritma za štetje.
+Štarta se z znanim številom predslik, ki ga je dalo štetje in se
+izpisuje predslike po vrsticah v obratnem vrstnem redu kakor je potekalo štetje.
+
 \section{Robni pogoji}
 
 \section{Procesiranje v eni dimenziji}
+
+
 
 \section{Procesiranje v drugi dimenziji}
 
 \section{Izpis predslik}
 
+\section{Nezmožnost procesiranja z linearno kompleksnostjo}
+
+Podan je primer, ki kaže zakaj procesiraje z linearno kompleksnostjo ni mogoče.
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=network_algorithm_issue,width=14cm}}
+\caption[Mreža polja celic.]{Mreža velikosti \(N_x=3\) in \(N_y=3\) za binarni CA z okolico quad.}
+\label{network_algorithm_issue}
+\end{figure}
 
 \chapter{Primerjava z znanimi algoritmi}
 
