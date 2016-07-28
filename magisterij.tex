@@ -368,7 +368,7 @@ najdlje od atraktorja na robu korita. GoE stanja prav tako kakor delci privlači
 Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja GoE stanj /cite{}.
 S stališča algoritma za štetje predslik je GoE stanje tako, ki ima 0 predslik.
 Algoritem za štetje predslik je možno pretvoriti v algoritem za preverjanje ali je stanje GoE,
-tako da se operacije nad celimi števili pretvori v logične operacije nad Boolovimi staji.
+tako da se operacije nad celimi števili pretvori v logične operacije nad Boolovimi stanji.
 
 Raziskave algoritmov sem se lotil s predpostavko, da je možno opraviti štetje s zahtevnostjo,
 ki je linearno odvisna od velikosti problema \( O(N) \)  (n je število opazovanih celic). Čeprav je to možno pri 1D problemu,
@@ -731,7 +731,7 @@ Posledično kompleksnost algoritma raste eksponentno z dolžino vrstice \(O(C^{N
 V drugi dimenziji se procesira niz vrstic. Vsaka vrstica se začne in konča
 z robnim pogojem, ti robni pogoji so prerezi ploskev v celotni mreži predslik.
 Za tem, ko so procesirane vse vrstice, je znan končni rob nabora vseh zveznih
-ploskev na celotni mreži predslik. Če je uporabljena boolova algebra je znan
+ploskev na celotni mreži predslik. Če je uporabljena Boolova algebra je znan
 le obstoj predslik, če pa je uporabljeno množenje in seštevanje,
 je na koncu znano tudi število predslik.
 
@@ -794,9 +794,20 @@ obstoj predslik, in jih ne štejejo ali izpisujejo.
 
 \section{Iskanje GoE}
 
+Conway je leta 1970 predstavil GoL. Že leta 1971 sta Roger Banks in Steve Ward
+predstavila prvo GoE stanje velikosti \(9 \times 33\) celic.
+Odkritje je bilo objavljeno v \cite{}. Kasneje je Don Woods \cite{} s pomočjo računalnika
+dokazal, da je stanje res GoE.
+\url{http://www.conwaylife.com/w/index.php?title=Lifeline_Volume_4}
+\url{http://www.conwaylife.com/w/index.php?title=Lifeline_Volume_3}
+
+Leta 1974 je Jean Hardouin-Duparc razvil novejši algoritem,
+Iskanje GoE (stanja brez predslik) 
 
 
 \section{Iskanje predslik}
+
+
 \cite{Erlan2012}
 \url{https://github.com/PeterBorah/atabot}
 \url{https://github.com/bryanduxbury/cellular_chronometer/tree/master/rb}
