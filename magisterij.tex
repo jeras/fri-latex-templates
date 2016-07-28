@@ -684,7 +684,7 @@ izpisuje predslike po vrsticah v obratnem vrstnem redu kakor je potekalo štetje
 
 Procesiranje se začne z eno dimenzionalnim nizom celic (vrstico).
 Vsaki celici v nizu pripada lastna mreža predslik, eno dimenzinalnemu nizu celic
-posledično pripada povezan niz mrež predslik (slika \ref{}).
+posledično pripada povezan niz mrež predslik (slika \ref{algorithm_line} mreža 1).
 Vsaka segment mreže v nizu ima svoj nabor veljavnih okolic,
 ki je definiran s tranzicijsko funkcijo (ali pa je posplošeno poljuben nabor).
 Na začetku se ploskve okolic sosednjih celic še ne povezijejo v
@@ -695,30 +695,40 @@ Ker se vsaka vrstica povezuje s predhodnjo in naslednjo vrstico, je potrebno
 upoštevati tudi zveznost ploskev na prehodu med vrsticami.
 Ta povezava med vrsticami je prerez opazovane ploskve na meji med vrsticama.
 Vsaka ploskev je obravnavana posebej in prerez je izražen kakor robni pogoj.
-Začetni robni pogoj za vsako vrstico je nabor poti med vozlišči na začetni vrstice.
-Vsaka pot je obravnavana posebej.
+Začetni robni pogoj za vsako vrstico je nabor poti med vozlišči na začetku vrstice.
+Vsaka pot je obravnavana posebej (slika \ref{algorithm_line} mreža 2, odebeljena pot).
 
 Začetni robni pogoj se aplicira tako, da se izloči iz obravnave vse ploskve,
-ki nimajo skupnega roba z robno potjo. Za tem korakom, so vse ploskve definirane
+ki nimajo skupnega roba z robno potjo (slika \ref{algorithm_line}
+pregod iz mreže 1 v mrežo 2). Za tem korakom, so vse ploskve definirane
 v dveh od štirih vozlišč, do nezveznosti lahko prihaja le še na robu nasprotnem
-začetnega roba.
+začetnemu robu.
 
 Problem se reducira iz tri dimenzionalne mreže in procesiranja ploskev v
-dvo dimenzionalno mrežo, kjer se procesirajo poti med vozlišči.
-To je problem, ekvivalenten iskanju predslik (zvenih poti v grafu) za 1D CA.
+dvo dimenzionalno mrežo, kjer se procesirajo poti med vozlišči (slika \ref{algorithm_line}
+prehod iz mreže 2 v mrežo 3). To je problem, ekvivalenten iskanju predslik
+(zvenih poti v grafu) za 1D CA, za kar se uporabi algoritem opisan v \cite{}.
+Rezultat so poti na prerezu med ploskvami (slika \ref{algorithm_line} mreža 4,
+končni robni pogoj je odebeljen).
 
+\begin{figure}[htb]
+\centerline{\psfig{figure=algorithm_line,width=14cm}}
+\caption[Mreža polja celic.]{Mreža velikosti \(N_x=3\) in \(N_y=3\) za binarni CA z okolico quad.
+Poudarjena je ena zvezna ploskev (konfiguracija pripadajoče predslike je izpisana) in njen rob.}
+\label{algorithm_line}
+\end{figure}
 
+Po procesiranju nabora vseh začetnih robnih pogojev, nastane nabor vseh končnih robnih pogojev.
+Ta nabor se v naslednjem koraku uporabi kakor začetni robni pogoj za naslednjo vrstico.
 
 Nabor vseh možnih poti na meji vrstice raste eksponentno z dolžino vrstice.
 Število vseh poti se izračuna iz števila vejitev na vsakem vozlišču in dolžine poti.
 Za deljenje po vrsticah v dimenziji X je ta nabor \( (M_y-1)^{N_x+1} \).
 Posledično kompleksnost algoritma raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
 
-Če procesiranje poteka v smeri dimenzij X in Y potem je robni pogoj definiran
-na strani, kjer se procesiranje začne (slika \ref{}).
-
-
 \section{Procesiranje v drugi dimenziji}
+
+
 
 \section{Izpis predslik}
 
