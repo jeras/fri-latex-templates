@@ -669,19 +669,53 @@ Za sedaj še odprta možnost za obstoj algoritma z kompleksnstjo
 med linearno in eksponentno zahtevnostjo.
 
 Opisani algoritem za štetje predslik razdeli polje celic na vrstice v dimenziji X.
+Delitev po stolpcih v dimenziji Y bi bila ekvivalentna,
+tako da je to arbitrarna odločitev za podani algoritem.
 Na podlagi zunanjega robnega pogoja, je najprej poiskan nabor predslik za prvo vrstico.
 Nabor predslik je izračunan kakor uteži za robove na nasprotni strani.
 Te uteži so uporabljene kakor vhodni robni pogoj za naslednjo vrstico.
-Robne uteži izračunane za zadnjo vrstico predstavljajo število sseh predslik.
+Robne uteži izračunane za zadnjo vrstico predstavljajo število vseh predslik.
 
 Algoritem za izpis predslik je nadaljevaje algoritma za štetje.
 Štarta se z znanim številom predslik, ki ga je dalo štetje in se
 izpisuje predslike po vrsticah v obratnem vrstnem redu kakor je potekalo štetje.
 
-\section{Robni pogoji}
-
 \section{Procesiranje v eni dimenziji}
 
+Procesiranje se začne z eno dimenzionalnim nizom celic (vrstico).
+Vsaki celici v nizu pripada lastna mreža predslik, eno dimenzinalnemu nizu celic
+posledično pripada povezan niz mrež predslik (slika \ref{}).
+Vsaka segment mreže v nizu ima svoj nabor veljavnih okolic,
+ki je definiran s tranzicijsko funkcijo (ali pa je posplošeno poljuben nabor).
+Na začetku se ploskve okolic sosednjih celic še ne povezijejo v
+zvezno ploskev čez celoten niz. Izločiti je potrebno vse ploskve okolic,
+ki se ne povezijejo s okolicami svojih sosednjih celic.
+
+Ker se vsaka vrstica povezuje s predhodnjo in naslednjo vrstico, je potrebno
+upoštevati tudi zveznost ploskev na prehodu med vrsticami.
+Ta povezava med vrsticami je prerez opazovane ploskve na meji med vrsticama.
+Vsaka ploskev je obravnavana posebej in prerez je izražen kakor robni pogoj.
+Začetni robni pogoj za vsako vrstico je nabor poti med vozlišči na začetni vrstice.
+Vsaka pot je obravnavana posebej.
+
+Začetni robni pogoj se aplicira tako, da se izloči iz obravnave vse ploskve,
+ki nimajo skupnega roba z robno potjo. Za tem korakom, so vse ploskve definirane
+v dveh od štirih vozlišč, do nezveznosti lahko prihaja le še na robu nasprotnem
+začetnega roba.
+
+Problem se reducira iz tri dimenzionalne mreže in procesiranja ploskev v
+dvo dimenzionalno mrežo, kjer se procesirajo poti med vozlišči.
+To je problem, ekvivalenten iskanju predslik (zvenih poti v grafu) za 1D CA.
+
+
+
+Nabor vseh možnih poti na meji vrstice raste eksponentno z dolžino vrstice.
+Število vseh poti se izračuna iz števila vejitev na vsakem vozlišču in dolžine poti.
+Za deljenje po vrsticah v dimenziji X je ta nabor \( (M_y-1)^{N_x+1} \).
+Posledično kompleksnost algoritma raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
+
+Če procesiranje poteka v smeri dimenzij X in Y potem je robni pogoj definiran
+na strani, kjer se procesiranje začne (slika \ref{}).
 
 
 \section{Procesiranje v drugi dimenziji}
@@ -693,9 +727,9 @@ izpisuje predslike po vrsticah v obratnem vrstnem redu kakor je potekalo štetje
 Podan je primer, ki kaže zakaj procesiraje z linearno kompleksnostjo ni mogoče.
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=network_algorithm_issue,width=14cm}}
+\centerline{\psfig{figure=algorithm_issue,width=14cm}}
 \caption[Mreža polja celic.]{Mreža velikosti \(N_x=3\) in \(N_y=3\) za binarni CA z okolico quad.}
-\label{network_algorithm_issue}
+\label{algorithm_issue}
 \end{figure}
 
 \chapter{Primerjava z znanimi algoritmi}
