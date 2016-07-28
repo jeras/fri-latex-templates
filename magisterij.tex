@@ -321,7 +321,7 @@ It was developed with the help of a graphical representation, which enables usin
 
 \vspace{0.5cm}
 \noindent
-cellular automata, preimages, computational complexity, reversibility, Garden of Eden, Game of Life, trid, quad
+cellular automata, preimages, ataviser, computational complexity, reversibility, Garden of Eden, Game of Life, trid, quad
 
 
 %********************************************
@@ -684,7 +684,7 @@ izpisuje predslike po vrsticah v obratnem vrstnem redu kakor je potekalo štetje
 
 Procesiranje se začne z eno dimenzionalnim nizom celic (vrstico).
 Vsaki celici v nizu pripada lastna mreža predslik, eno dimenzinalnemu nizu celic
-posledično pripada povezan niz mrež predslik (slika \ref{algorithm_line} mreža 1).
+posledično pripada povezan niz mrež predslik (slika \ref{algorithm_line} mreža \textbf{1}).
 Vsaka segment mreže v nizu ima svoj nabor veljavnih okolic,
 ki je definiran s tranzicijsko funkcijo (ali pa je posplošeno poljuben nabor).
 Na začetku se ploskve okolic sosednjih celic še ne povezijejo v
@@ -696,19 +696,19 @@ upoštevati tudi zveznost ploskev na prehodu med vrsticami.
 Ta povezava med vrsticami je prerez opazovane ploskve na meji med vrsticama.
 Vsaka ploskev je obravnavana posebej in prerez je izražen kakor robni pogoj.
 Začetni robni pogoj za vsako vrstico je nabor poti med vozlišči na začetku vrstice.
-Vsaka pot je obravnavana posebej (slika \ref{algorithm_line} mreža 2, odebeljena pot).
+Vsaka pot je obravnavana posebej (slika \ref{algorithm_line} mreža \textbf{2}, odebeljena pot).
 
 Začetni robni pogoj se aplicira tako, da se izloči iz obravnave vse ploskve,
 ki nimajo skupnega roba z robno potjo (slika \ref{algorithm_line}
-pregod iz mreže 1 v mrežo 2). Za tem korakom, so vse ploskve definirane
+pregod iz mreže \textbf{1} v mrežo \textbf{2}). Za tem korakom, so vse ploskve definirane
 v dveh od štirih vozlišč, do nezveznosti lahko prihaja le še na robu nasprotnem
 začetnemu robu.
 
 Problem se reducira iz tri dimenzionalne mreže in procesiranja ploskev v
 dvo dimenzionalno mrežo, kjer se procesirajo poti med vozlišči (slika \ref{algorithm_line}
-prehod iz mreže 2 v mrežo 3). To je problem, ekvivalenten iskanju predslik
+prehod iz mreže \textbf{2} v mrežo \textbf{3}). To je problem, ekvivalenten iskanju predslik
 (zvenih poti v grafu) za 1D CA, za kar se uporabi algoritem opisan v \cite{}.
-Rezultat so poti na prerezu med ploskvami (slika \ref{algorithm_line} mreža 4,
+Rezultat so poti na prerezu med ploskvami (slika \ref{algorithm_line} mreža \textbf{4},
 končni robni pogoj je odebeljen).
 
 \begin{figure}[htb]
@@ -728,23 +728,81 @@ Posledično kompleksnost algoritma raste eksponentno z dolžino vrstice \(O(C^{N
 
 \section{Procesiranje v drugi dimenziji}
 
-
+V drugi dimenziji se procesira niz vrstic. Vsaka vrstica se začne in konča
+z robnim pogojem, ti robni pogoji so prerezi ploskev v celotni mreži predslik.
+Za tem, ko so procesirane vse vrstice, je znan končni rob nabora vseh zveznih
+ploskev na celotni mreži predslik. Če je uporabljena boolova algebra je znan
+le obstoj predslik, če pa je uporabljeno množenje in seštevanje,
+je na koncu znano tudi število predslik.
 
 \section{Izpis predslik}
+
+Ni nujno, da se vsak vrstični začetni pogoj preslika v nabor končnih pogojev.
+Možno je da nobena pot na končnem robu ne zadošča začetnemu pogoju in mreži predslik.
+Torej po prejčnih korakih še ni točno določeno, katere ploskve se združujejo v zvezno
+celoto in katere ne.
+
+Procesiranje po drugi dimenziji v obratni smeri kakor pri štetju, izloča še preostale
+slepe poti. Hkrati je možno še izpisovati predslike. Že na začetku procesiranja
+v obratni smeri, je znano število vseh predslik, kar omogoča rezervacijo pomnilnika.
+Končne robne poti in njihove uteži, se uporabijo za popisati zadnjo vrstico celic
+v predslikah. Z vsakim korakom v obratni smeri se popišejo še nove vrstice.
+
+Algoritem tukaj ni podrobno opisan, je pa preprosta razširitev algoritma uporabljenega
+za 1D CA opisanega v \cite{}.
 
 \section{Nezmožnost procesiranja z linearno kompleksnostjo}
 
 Podan je primer, ki kaže zakaj procesiraje z linearno kompleksnostjo ni mogoče.
 
+Cilj raziskovalnega dela za to raziskovalno nalogo je bil poiskati
+učinkovit algoritem za iskanje predslik 2D CA. Na podlagi izkušenj z 1D CA
+sem optimistično pričakoval, da bo možno problem rešiti v linearnem času.
+
+Algoritem v linearnem času, bi vsako celico obravnaval le enkrat
+ali na splošno bi bilo število obravnav manjhna konstanta (4 krat,
+če se izvaja procesiranje skozi mrežo predslik v 4 smereh/prehodih).
+Tak algoritem predpostavlja, da je možno celoten nabor začetnih
+robnih pogojev upoštevati hkrati v enem samem prehodu. Po nekaj
+poizkusih sem ugotovil da temu ni tako. Nekatere poti iz nabora je
+potrebno upoštevati ločeno.
+
+V podanem primeru (slika \ref{algorithm_issue}) se prvi dve vrstici zaključita
+naborom dveh končnih poti \textbf{0110} in \textbf{1111}. Če bi te dve poti
+uporabili hkrati kakor začetni robni pogoj za naslednjo vrstico, bi dobili
+enak rezultat kakor, če bi bili del robnega pogoja še poti \textbf{0111} in \textbf{1110}.
+Iz mreže je razvidno, da te dve poti nista preseka neke zvezne ploskve.
+Posledično hkratno obravnavanje celotnega nabora robnih pogojev ni možno,
+kar pomeni, da je število obravnav neke celice odvisno od velikosti problema.
+
+Zgoraj opisani algoritem izrecno obravnava vsak robni pogoj iz nabora ločeno.
+Je pa videti, da bi bilo možno hkrati obravnavati robove, ki nimajo nobenega skupnega
+vozlišča. Najberž obstajajo tudi druge optimizacije algoritma, ki lahko zmanjšajo
+procesno kompleksnost.
+
 \begin{figure}[htb]
 \centerline{\psfig{figure=algorithm_issue,width=14cm}}
-\caption[Mreža polja celic.]{Mreža velikosti \(N_x=3\) in \(N_y=3\) za binarni CA z okolico quad.}
+\caption[Ovira za procesiranje z linearno zahtevnostjo.]{Ovira za procesiranje z linearno zahtevnostjo.}
 \label{algorithm_issue}
 \end{figure}
 
 \chapter{Primerjava z znanimi algoritmi}
 
-\section{Procesna zahtevnost}
+Obstoječi algoritmi za predslike 2D CA se osredotočajo izključno na GoL.
+Največ algoritmov je namenjenih iskanju GoE stanj, skratka preverjajo le
+obstoj predslik, in jih ne štejejo ali izpisujejo.
+
+\section{Iskanje GoE}
+
+
+
+\section{Iskanje predslik}
+\cite{Erlan2012}
+\url{https://github.com/PeterBorah/atabot}
+\url{https://github.com/bryanduxbury/cellular_chronometer/tree/master/rb}
+\url{https://www.kaggle.com/c/conway-s-reverse-game-of-life}
+
+\section{Polni algoritmi}
 
 
 \subsection{Sklepne ugotovitve}
