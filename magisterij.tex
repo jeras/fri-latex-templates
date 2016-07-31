@@ -9,47 +9,27 @@
 %               Franc.Solina@fri.uni-lj.si
 %*****************************************************************
 
-\documentclass[12pt,a4paper,openany]{book}
+\documentclass[12pt,a4paper,openany,twoside]{book}
 
 %Uporabljeni paketi
 \usepackage[utf8]{inputenc}
 \usepackage{cmap}
 \usepackage{type1ec}
 \usepackage[T1]{fontenc}
-\usepackage{fancyhdr}
 \usepackage{graphicx,epsfig}
 \usepackage[slovene]{babel}
 \usepackage{cite}
 \usepackage{enumitem}
 \usepackage{amsmath}
-
 \usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black,pagebackref]{hyperref}
-\usepackage{tikz}
-
-%Velikost strani - dvostransko
-\oddsidemargin 1.4cm
-\evensidemargin 0.35cm
-\textwidth 14cm
-\topmargin 0.26cm
-\headheight 0.6cm
-\headsep 1.5cm
-\textheight 20cm
+\usepackage[top=2cm, bottom=3cm, inner=3cm, outer=2cm]{geometry}
 
 %Nastavitev glave in repa strani
-\pagestyle{fancy}
-\fancyhead{}
-\renewcommand{\chaptermark}[1]{\markboth{\textsf{Poglavje \thechapter:\ #1}}{}}
-\renewcommand{\sectionmark}[1]{\markright{\textsf{\thesection\  #1}}{}}
-\fancyhead[RE]{\leftmark}
-\fancyhead[LO]{\rightmark}
-\fancyhead[LE,RO]{\thepage}
-\fancyfoot{}
-\renewcommand{\headrulewidth}{0.0pt}
-\renewcommand{\footrulewidth}{0.0pt}
+\pagestyle{myheadings}
 
-\newcommand{\gnuplot}{\textbf{gnuplot}}
-\newcommand{\pgfname}{\textsc{pgf}}
-\newcommand{\tikzname}{Ti\emph{k}Z}
+% stil odstavkov
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{5mm plus2mm minus2mm}
 
 \input{cc}
 
@@ -57,47 +37,44 @@
 % kratice, simboli
 \newcommand{\abbrlabel}[1]{\makebox[3cm][l]{\textbf{#1}\ \dotfill}}
 \newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}}}{\end{list}}
-
 %********************************************
 
 \begin{document}
 
+%********************************************
 % stran 1 med uvodnimi listi
 \thispagestyle{empty} 
-
 \begin{center}
-{\large 
-UNIVERZA V LJUBLJANI\\
-FAKULTETA ZA RAČUNALNIŠTVO IN INFORMATIKO\\
-}
-
-\vspace{3cm}
-{\LARGE Iztok Jeras}\\
-
-\vspace{2cm}
-\textsc{\textbf{\LARGE 
-Predslike 2D celičnih avtomatov
-}}
-
-\vspace{2cm}
-{ MAGISTERSKO DELO}\\
-{ NA UNIVERZITETNEM ŠTUDIJU}\\
-
-\vspace{2cm} 
-{\Large Mentor: prof. dr. Branko Šter}
-
-\vfill
-{\Large Ljubljana, 2016}
+             {\large UNIVERZA V LJUBLJANI\\
+                     FAKULTETA ZA RAČUNALNIŠTVO IN INFORMATIKO\\}
+\vspace{3cm} {\large Iztok Jeras}\\
+\vspace{2cm} {\large \textbf{Predslike 2D celičnih avtomatov}}\\
+\vspace{2cm} {MAGISTERSKO DELO\\ NA UNIVERZITETNEM ŠTUDIJU}\\
+\vfill       {\Large Ljubljana, 2016}
 \end{center}
-
 \newpage
-
 \ \thispagestyle{empty}
-
 \newpage
-
 %********************************************
 
+%********************************************
+% stran 1 med uvodnimi listi
+\thispagestyle{empty} 
+\begin{center}
+             {\large UNIVERZA V LJUBLJANI\\
+                     FAKULTETA ZA RAČUNALNIŠTVO IN INFORMATIKO\\}
+\vspace{3cm} {\large Iztok Jeras}\\
+\vspace{2cm} {\large \textbf{Predslike 2D celičnih avtomatov}}\\
+\vspace{2cm} {MAGISTERSKO DELO\\ NA UNIVERZITETNEM ŠTUDIJU}\\
+\vspace{2cm} {\Large Mentor: prof. dr. Branko Šter}
+\vfill       {\Large Ljubljana, 2016}
+\end{center}
+\newpage
+\ \thispagestyle{empty}
+\newpage
+%********************************************
+
+%********************************************
 % stran 2 med uvodnimi listi
 \thispagestyle{empty}
 
@@ -126,17 +103,13 @@ Podrobnosti licence so dostopne na spletni strani \url{http://www.gnu.org/licens
 
 \begin{center} 
 \ \\ \vfill
-{\em
-Besedilo je oblikovano z urejevalnikom besedil \LaTeX. \\ Slike so izdelane s pomočjo jezika \pgfname/\tikzname. \\ Grafi so narisani
-s pomočjo programa \gnuplot.}
+{\em Besedilo je oblikovano z urejevalnikom besedil \LaTeX.\\
+Slike in grafi so narisani s pomočjo programa Inkscape.}
 \end{center}
 
 \newpage
-
 \ \thispagestyle{empty}
-
 \newpage
-
 %********************************************
 
 % stran 3 med uvodnimi listi
