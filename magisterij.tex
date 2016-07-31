@@ -420,9 +420,11 @@ Osnovni element 2D celičnega avtomata je celica kakor del polja celic.
 Vsaka celica ima diskretno vrednost \(c\) iz nabora stanj celice \(S\).
 Stanja so običajno kar oštevilčena.
 
-\[ c \in S
-   \quad \textrm{and} \quad
-   S = \{ 0, 1, 2, {\lvert S \rvert} -1 \} \]
+\begin{equation}
+c \in S
+\quad \textrm{and} \quad
+S = \{ 0, 1, 2, {\lvert S \rvert} -1 \}
+\end{equation}
 
 Mreža polja je lahko pravokotna, šestkotna ali celo kvazikristalna, tukaj se
 bomo omejili na pravokotno mrežo. Na splošno je velikost polja lahko neskončna,
@@ -434,9 +436,11 @@ Podobno se bomo tudi pri obliki okolice omejili na pravokotnik velikosti \(M_x \
 Število celic v okolici je \(m=\lvert M_x \times M_y \rvert\).
 Na voljo je \({\lvert S \rvert}^m\) možnih okolic.
 
-\[ n \in S^m
-   \quad \textrm{and} \quad
-   S^m = \{ 0, 1, 2, {\lvert S \rvert}^m -1 \} \]
+\begin{equation}
+n \in S^m
+\quad \textrm{and} \quad
+S^m = \{ 0, 1, 2, {\lvert S \rvert}^m -1 \}
+\end{equation}
 
 Prostorski odnos med okolico in celico v prihodnjem stanju avtomata, ki jo ta okolica določa,
 ni podrobno definiran. Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
@@ -451,13 +455,17 @@ nujno pomembno.
 Preslikava sedanje okolice \(n_{x,y}^{t}\) v prihodnjo istoležno celico \(c_{x,y}^{t+1}\) je definiran
 s tranzicijsko funkcijo \(f\).
 
-\[ c_{x,y}^{t+1} = f(n_{x,y}^{t}) \]
+\begin{equation}
+c_{x,y}^{t+1} = f(n_{x,y}^{t})
+\end{equation}
 
 Za potrebe iskanja predslik je zanimiva obratna funkcija \(f^{-1}\), ki ob
 podanem stanju trenutne celice \(c_{x,y}^{t}\) vrne množico okolic,
 ki se preslikajo v to vrednost.
 
-\[ f^{-1}(c^{t}) = \{ n^{t-1} \in S^m \ \arrowvert \ f(n^{t-1}) = c^{t} \} \]
+\begin{equation}
+f^{-1}(c^{t}) = \{ n^{t-1} \in S^m \ \arrowvert \ f(n^{t-1}) = c^{t} \}
+\end{equation}
 
 Dodaten pogoj za predsliko polja celic je, da se morajo okolice sosednjih celic
 ujemati povsod, kjer se prekrivajo.
@@ -515,24 +523,36 @@ Vsaki okolici je pripisana zaporedna vrednost, ki je konstruirana kakor \(m\) me
 v \(S\)-iškem številskem sistemu (za podane primere dvojiški).
 Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice.
 
-\[ n = \sum |S|^{y N_x + x} \cdot c_{x,y} \]
-\[ n \in \{0, 1, \dots N_x N_y -1\} \]
+\begin{equation}
+n = \sum |S|^{y N_x + x} \cdot c_{x,y}
+\end{equation}
+\begin{equation}
+n \in \{0, 1, \dots N_x N_y -1\}
+\end{equation}
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=neighborhood_index,width=8cm}}
+\centerline{\psfig{figure=neighborhood_index,width=14cm}}
 \caption[Indeksiranje okolice.]{Indeksiranje okolice celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
 \label{neighborhood_index}
 \end{figure}
 
 Celice se v smeri dimenzije X prekrivajo za ploskev velikosti \(O_x=M_x-1\) in \(O_y=M_y\) (slika \ref{overlap_dimension}).
 To ob indeksiranju da nabor:
-\[ o_x = \sum |S|^{y (M_x-1) + x} \cdot c_{x,y} \]
-\[ o_x \in \{0, 1, \dots (M_x-1) N_y -1\} \]
+\begin{equation}
+o_x = \sum |S|^{y (M_x-1) + x} \cdot c_{x,y}
+\end{equation}
+\begin{equation}
+o_x \in \{0, 1, \dots (M_x-1) N_y -1\}
+\end{equation}
 
 Celice se v smeri dimenzije Y prekrivajo za ploskev velikosti \(O_x=M_x\) in \(O_y=M_y-1\) (slika \ref{overlap_dimension}).
 To ob indeksiranju da nabor:
-\[ o_y = \sum |S|^{y M_x + x} \cdot c_{x,y} \]
-\[ o_y \in \{0, 1, \dots M_x (N_y-1) -1\} \]
+\begin{equation}
+o_y = \sum |S|^{y M_x + x} \cdot c_{x,y}
+\end{equation}
+\begin{equation}
+o_y \in \{0, 1, \dots M_x (N_y-1) -1\}
+\end{equation}
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=overlap_dimension,width=10cm}}
@@ -542,8 +562,12 @@ To ob indeksiranju da nabor:
 
 Celice se v diagonalni smeri prekrivajo za ploskev velikosti \(O_x=M_x-1\) in \(O_y=M_y-1\) (slika \ref{overlap_diagonal}).
 To ob indeksiranju da nabor:
-\[ o_{xy} = \sum |S|^{y (M_x-1) + x} \cdot c_{x,y} \]
-\[ o_{xy} \in \{0, 1, \dots (M_x-1) (N_y-1) -1\} \]
+\begin{equation}
+o_{xy} = \sum |S|^{y (M_x-1) + x} \cdot c_{x,y}
+\end{equation}
+\begin{equation}
+o_{xy} \in \{0, 1, \dots (M_x-1) (N_y-1) -1\}
+\end{equation}
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=overlap_diagonal,width=10cm}}
