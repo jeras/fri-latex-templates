@@ -242,8 +242,9 @@ $\;$
 \begin{abbreviations}
 \item[1D] eno dimenzionalen
 \item[2D] dvo dimenzionalen
+\item[3D] tri dimenzionalen
 \item[CA] celični avtomat
-\item[GoL] Game of Life (igra življenja)
+\item[GoL] Conway's Game of Life (Conwayeva igra življenja)
 \item[GoE] Garden of Eden (stanje brez predslik)
 \item[trid] okolica CA sestevljena iz treh celic
 \item[quad] okolica CA sestevljena iz štirih celic \(M_x=M_y=2\)
@@ -263,11 +264,12 @@ $\;$
 
 \addcontentsline{toc}{chapter}{Povzetek}
 
-Medtem ko je računanje predslik 1D celičnih avtomatov dobro raziskan in
+Medtem, ko je računanje predslik 1D celičnih avtomatov dobro raziskan in
 podrobno dokumentiran problem, je to področje pri 2D celičnih avtomatih manj
 raziskano. To magistrsko delo poizkuša aplicirati metode razvite za 1D avtomate
-na 2D problem. Prikazan je algoritem, ki omogočajo štetje in izpis predslik.
-Razvit je bil s pomočjo grafičnega modela, ki omogoča uporabo teorije grafov pri izračunih in dokazih.
+na 2D problem. Prikazan je algoritem, ki omogoča štetje in izpis predslik.
+Razvit je bil s pomočjo grafičnega modela, mreže predslik, 
+ki omogoča uporabo teorije grafov pri izračunih in dokazih.
 
 \vspace{1.3cm}
 \noindent
@@ -275,7 +277,7 @@ Razvit je bil s pomočjo grafičnega modela, ki omogoča uporabo teorije grafov 
 
 \vspace{0.5cm}
 \noindent
-celični avtomati, predslike, procesna zahtevnost, reverzibilnost, trid, quad
+celični avtomati, predslike, procesna zahtevnost, reverzibilnost, rajski vrt, Conwayeva igra življenja, trid, quad
 
 
 \chapter*{Abstract}
@@ -284,7 +286,7 @@ celični avtomati, predslike, procesna zahtevnost, reverzibilnost, trid, quad
 
 While computing preimages of 1D cellular automata is a well researched and
 documented problem, for 2D cellular automata there is less research available.
-This masters thesis attempts to apply methotds developed for 1D automata to the
+This masters thesis attempts to apply methods developed for 1D automata to the
 2D problem. An algorithm is shown, which can count and list preimages.
 It was developed with the help of a graphical representation, which enables using graph theory for computation and proofs.
 
@@ -294,7 +296,7 @@ It was developed with the help of a graphical representation, which enables usin
 
 \vspace{0.5cm}
 \noindent
-cellular automata, preimages, ataviser, computational complexity, reversibility, Garden of Eden, Game of Life, trid, quad
+cellular automata, preimages, ataviser, computational complexity, reversibility, Garden of Eden, Conway's Game of Life, trid, quad
 
 
 %********************************************
@@ -305,17 +307,17 @@ cellular automata, preimages, ataviser, computational complexity, reversibility,
 
 Ker lahko vsak univerzalen sistem modelira vsak drugi univerzalen sistem, predpostavimo,
 da lahko z univerzalnimi CA modeliramo vesolje. Samo modeliranje vesolja
-je še izven našega dosega, poizkuša pa se vsaj doseči povezave z teoretično fiziko.
-S stališča informacijske teorije in termodinamike je predvsem zanimiv model gravitacije
+je še izven našega dosega, poizkuša pa se vsaj približati teorijo CA in teoretično fiziko.
+S strani informacijske teorije in termodinamike je predvsem zanimiv model gravitacije
 kakor entropijske sile (Entropic gravity \cite{Verlinde2010}), ki predpostavlja, da je
-3D vesolje projekcija procesov, ki se odvijajo na 2D ploskvi. Podobno CA omogočajo
-opazovanje abstraktnega kopiranja informacij (replikacija) in evolucijo \cite{Salzberg2004}.
+3D vesolje projekcija procesov, ki se odvijajo na 2D ploskvi. Z druge strani pa CA omogočajo
+opazovanje abstraktnega kopiranja informacij (replikacija) in evolucije \cite{Salzberg2004}.
 
 \section{Informacijska dinamika}
 
 Informacijsko dinamiko CA se najpogosteje opisuje samo kakor reverzibilno ali ireverzibilno,
 obstaja tudi nekaj člankov, ki opazujejo entropijo sistema.
-Pogosto je tudi opazovanje dinamike delcev pri Game of Life ali elementarnem pravilu 110.
+Pogosto je tudi opazovanje dinamike delcev pri GoL in elementarnem pravilu 110.
 Ne obstaja pa še splošna teorija dinamike informacij v CA.
 V svojem članku \cite{JerasDobnikar2007} in prispevkih na konferencah \cite{DBLP:conf/iccS/JerasD06, DBLP:conf/automata/Jeras08},
 sem grafično upodobil predslike trenutnega stanja za 1D problem.
@@ -405,40 +407,41 @@ Preostalih problemov se tokrat ne bom loteval.
 Problem jezika stanj brez predslik bi potreboval teorijo 2D formalnega jezika, ki še ne obstaja.
 Poleg tega je povezan s problemom reverzibilnosti, ki je na splošno dokazano nerešljiv \cite{Kari1989}.
 
-\chapter{Definicija 2D celičnega avtomata}
-
-Predstavljena definicija 2D avtomata je enostavna in manj formalna
-v primerjavi z definicijo 1D avtomata v podobnih člankih.
-Bolj podrobna definicija ni potrebna, saj se opisani problemi za 2D avtomate,
-še ne povezujejo z drugimi vejami matematike toliko kakor 1D avtomati.
-
 V grafičnih upodobitvi je uporabljena izometrična projekcija,
 ker je za potrebe analize osnovni 2D mreži dodana tretja dimenzija,
 ki opisuje prostor predslik.
 
-Osnovni element 2D celičnega avtomata je celica kakor del polja celic.
+\chapter{Definicija 2D CA}
+
+Predstavljena definicija 2D CA je enostavna in manj formalna
+v primerjavi z definicijo 1D CA v podobnih prispevkih.
+Bolj formalna definicija ni potrebna, saj se opisani problemi za 2D CA,
+še ne povezujejo z drugimi vejami matematike toliko kakor 1D CA.
+
+Osnovni element 2D CA je celica kakor del polja celic.
 Vsaka celica ima diskretno vrednost \(c\) iz nabora stanj celice \(S\).
 Stanja so običajno kar oštevilčena.
 
 \begin{equation}
 c \in S
-\quad \textrm{and} \quad
+\quad \textrm{in} \quad
 S = \{ 0, 1, 2, {\lvert S \rvert} -1 \}
 \end{equation}
 
 Mreža polja je lahko pravokotna, šestkotna ali celo kvazikristalna, tukaj se
 bomo omejili na pravokotno mrežo. Na splošno je velikost polja lahko neskončna,
-običajno pa se končna polja definira kakor pravokotnik velikosti \(N_x \times N_y\)
+bolj običajna pa so končna polja definira kakor pravokotnik velikosti \(N_x \times N_y\)
 in skupno število celic v končnem polju je \(N=\lvert N_x \times N_y \rvert\).
 
-Trenutno stanje neke celice \(c_{x,y}\) je odvisno od prejšnjega stanja njene okolice \(n_{x,y}\).
-Podobno se bomo tudi pri obliki okolice omejili na pravokotnik velikosti \(M_x \times M_y\).
+Prihodnje stanje neke celice \(c_{x,y}\) (na položaju \((x,y)\)
+je odvisno od trenutnega stanja pripadajoče okolice \(n_{x,y}\) (slika \ref{neighborhood}).
+Podobno se bom tudi pri obliki okolice omejil na pravokotnik velikosti \(M_x \times M_y\).
 Število celic v okolici je \(m=\lvert M_x \times M_y \rvert\).
 Na voljo je \({\lvert S \rvert}^m\) možnih okolic.
 
 \begin{equation}
 n \in S^m
-\quad \textrm{and} \quad
+\quad \textrm{in} \quad
 S^m = \{ 0, 1, 2, {\lvert S \rvert}^m -1 \}
 \end{equation}
 
@@ -448,12 +451,12 @@ nujno pomembno.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood,width=16cm}}
-\caption[Velikost okolice.]{Okolica celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
+\caption[Velikost okolice.]{Celica \(c_{x,y}\) in pripadajoča okolica \(n_{x,y}\) z dimenzijama \(M_x=M_y=3\).}
 \label{neighborhood}
 \end{figure}
 
 Preslikava sedanje okolice \(n_{x,y}^{t}\) v prihodnjo istoležno celico \(c_{x,y}^{t+1}\) je definiran
-s tranzicijsko funkcijo \(f\).
+s tranzicijsko funkcijo \(f\), ki vsaki vrednosti okolice pripiše vrednost celice.
 
 \begin{equation}
 c_{x,y}^{t+1} = f(n_{x,y}^{t})
@@ -467,15 +470,13 @@ ki se preslikajo v to vrednost.
 f^{-1}(c^{t}) = \{ n^{t-1} \in S^m \ \arrowvert \ f(n^{t-1}) = c^{t} \}
 \end{equation}
 
-Dodaten pogoj za predsliko polja celic je, da se morajo okolice sosednjih celic
+Dodaten pogoj za predslike polja celic je, da se morajo okolice sosednjih celic
 ujemati povsod, kjer se prekrivajo.
 
 Podana konstrukcija mreže predslik in algoritem za izračun predslik omogočata uporabo
-bolj splošne definicije, kjer je za vsako celico definiran lasten nabor predslik,
+bolj splošne definicije, kjer je za vsako celico definiran lasten nabor predslik \( n^{t-1} \in S^m \),
 ki je neodvisen od stanja celice. Ta posplošitev je uporabljena za konstrukcijo umetnih
 mrež predslik, ki poudarjajo konkretne probleme, ki definirajo kompleksnost algoritma.
-
-\[ n^{t-1} \in S^m \]
 
 Za dano polje celic velikosti \(N_x \times N_y\) in z odprtimi robovi,
 je možno izračunati prihodnje stanje polja velikosti \((N_x-(M_x-1)) \times (N_y-(M_y-1))\).
@@ -487,8 +488,8 @@ Za ciklične robove pa sta velikosti enaki.
 
 \chapter{Konstrukcija mreže predslik}
 
-Mreža predslik je grafični konstrukt, ki omogoča upodobitev posameznih pojmov,
-iz definicije celičnih avtomatov, kakor ločene grafične elemente. Odnosi med
+Mreža predslik je grafični konstrukt, ki omogoča upodobitev posameznih pojmov
+iz definicije CA, kakor ločene grafične elemente. Odnosi med
 temi elementi definirajo pravila na katerih se gradijo algoritmi za iskanje
 predslik.
 
@@ -499,85 +500,110 @@ ciklične premike končnih zaporedij simbolov, ter njihovo prekrivanje. Vozliš�
 diagramu so vsa možna končna zaporedja, povezave med njimi pa definirajo kako se
 ta zaporedja prekrivajo med seboj.
 
-Pri 1D celičnih avtomatih se problem neposredno preslika na De Bruijinov graf. McIntosh
+Pri 1D CA se problem neposredno preslika na De Bruijinov graf. McIntosh
 in njegova skupina uporabljajo za analizo te De Bruijinove grafe neposredno. Sam sem pa
 razvil modificiran graf, kjer so vozlišča podvojena, in gredo poti vedno od originala
 proti dvojniku. To omogoča veriženje grafov, in razširitev osnovnega De Bruijinovega
-grafa, ki opisuje okolico ene celice v verižen graf, ki opisuje verigo celic.
+grafa, ki opisuje okolico ene celice, v verižen graf, ki opisuje verigo celic.
 
-??? \cite{} uporabi podoben pristop za analizo 2D problema, tukaj pa je uporabljen nekoliko
-drugačen pristop. Za potrebe opisa 2D celičnih avtomatov, je bila elementom
+Za potrebe opisa 2D celičnih avtomatov, je bila elementom
 De Bruijinovega grafa dodana nova dimenzija. Povezave med vozliči se spremenijo
 v ploskve, in vozlišča se spremenijo v robove ploskev.
-
 Elementi celičnega avtomata, ki se preslikajo v graf so:
 \begin{itemize}[noitemsep,nolistsep]
 \item nabor vseh možnih okolic celice postane nabor vseh ploskev (slika \ref{neighborhood_surfaces})
-\item nabor prekrivanj okolic v smeri 2D dimenzij (slika \ref{overlap_dimension}) postane nabor povezav
-\item nabor prekrivanj okolic v diagonalni smeri (slika \ref{overlap_diagonal}) postane nabor vozlišč
+\item nabor prekrivanj okolic v smeri 2D dimenzij (slika \ref{overlap_dimension_quad}) postane nabor povezav
+\item nabor prekrivanj okolic v diagonalni smeri (slika \ref{overlap_diagonal_quad}) postane nabor vozlišč
 \end{itemize}
 
 Elemente celičnega avtomata, kakor okolice in prekrivanja okolic je potrebno indeksirati,
 tako da se lahko vsakemu elementu pripiše unikatna števna vrednost.
 Vsaki okolici je pripisana zaporedna vrednost, ki je konstruirana kakor \(m\) mestno število
 v \(S\)-iškem številskem sistemu (za podane primere dvojiški).
-Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice.
+Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice
+(sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}).
 
 \begin{equation}
 n = \sum |S|^{y N_x + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-n \in \{0, 1, \dots N_x N_y -1\}
+n \in \{0, 1, \dots |S|^{N_x N_y}-1\}
 \end{equation}
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=neighborhood_index,width=14cm}}
-\caption[Indeksiranje okolice.]{Indeksiranje okolice celice s podanima dimenzijama \(M_x=3\) in \(M_y=3\).}
-\label{neighborhood_index}
+\centerline{\psfig{figure=neighborhood_index_moore,width=14cm}}
+\caption[Indeksiranje okolice \(3 \times 3\).]{Indeksiranje okolice celice z dimenzijama \(M_x=M_y=3\).}
+\label{neighborhood_index_moore}
 \end{figure}
 
-Celice se v smeri dimenzije X prekrivajo za ploskev velikosti \(O_x=M_x-1\) in \(O_y=M_y\) (slika \ref{overlap_dimension}).
+\begin{figure}[htb]
+\centerline{\psfig{figure=neighborhood_index_quad,width=12cm}}
+\caption[Indeksiranje okolice \(2 \times 2\).]{Indeksiranje okolice celice z dimenzijama \(M_x=M_y=2\).}
+\label{neighborhood_index_quad}
+\end{figure}
+
+Celice se v smeri dimenzije X prekrivajo za ploskev velikosti \((M_x-1) \times M_y\) (sliki \ref{overlap_dimension_moore} in \ref{overlap_dimension_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
 o_x = \sum |S|^{y (M_x-1) + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_x \in \{0, 1, \dots (M_x-1) N_y -1\}
+o_x \in \{0, 1, \dots |S|^{(M_x-1)N_y}-1\}
 \end{equation}
 
-Celice se v smeri dimenzije Y prekrivajo za ploskev velikosti \(O_x=M_x\) in \(O_y=M_y-1\) (slika \ref{overlap_dimension}).
+Celice se v smeri dimenzije Y prekrivajo za ploskev velikosti \(M_x \times (M_y-1)\) (sliki \ref{overlap_dimension_moore} in \ref{overlap_dimension_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
 o_y = \sum |S|^{y M_x + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_y \in \{0, 1, \dots M_x (N_y-1) -1\}
+o_y \in \{0, 1, \dots |S|^{M_x(N_y-1)}-1\}
 \end{equation}
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=overlap_dimension,width=10cm}}
-\caption[Prekrivaje okolic.]{Prekrivanje okolic sosednjih celic v smeri dimenzij X in Y, za velikost okolice \(M_x=M_y=3\).}
-\label{overlap_dimension}
+\centerline{\psfig{figure=overlap_dimension_moore,width=10cm}}
+\caption[Prekrivaje okolic \(3 \times 3\) v smeri dimenzij X in Y.]
+{Prekrivanje okolic sosednjih celic v smeri dimenzij X in Y, za velikost okolice \(M_x=M_y=3\).
+Okolice se prekrivajo v 6 celicah od 9.}
+\label{overlap_dimension_moore}
 \end{figure}
 
-Celice se v diagonalni smeri prekrivajo za ploskev velikosti \(O_x=M_x-1\) in \(O_y=M_y-1\) (slika \ref{overlap_diagonal}).
+\begin{figure}[htb]
+\centerline{\psfig{figure=overlap_dimension_quad,width=10cm}}
+\caption[Prekrivaje okolic \(2 \times 2\) v smeri dimenzij X in Y.]
+{Prekrivanje okolic sosednjih celic v smeri dimenzij X in Y, za velikost okolice \(M_x=M_y=2\).
+Okolice se prekrivajo v 2 celicah od 4.}
+\label{overlap_dimension_quad}
+\end{figure}
+
+Celice se v diagonalni smeri prekrivajo za ploskev velikosti \((M_x-1) \times (M_y-1)\) (sliki \ref{overlap_diagonal_moore} in \ref{overlap_diagonal_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
 o_{xy} = \sum |S|^{y (M_x-1) + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_{xy} \in \{0, 1, \dots (M_x-1) (N_y-1) -1\}
+o_{xy} \in \{0, 1, \dots |S|^{(M_x-1)(N_y-1)}-1\}
 \end{equation}
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=overlap_diagonal,width=10cm}}
-\caption[Prekrivanje okolic - diagonalno.]{Prekrivanje okolic sosednjih celic v diagonalni smeri, za velikost okolice \(M_x=M_y=3\).}
-\label{overlap_diagonal}
+\centerline{\psfig{figure=overlap_diagonal_moore,width=10cm}}
+\caption[Prekrivanje okolic \(3 \times 3\) - diagonalno.]
+{Prekrivanje okolic sosednjih celic v diagonalni smeri, za velikost okolice \(M_x=M_y=3\).
+Okolice se prekrivajo v 4 celicah od 9.}
+\label{overlap_diagonal_moore}
 \end{figure}
 
-Nastali graf (slika \ref{network_single}) ima poleg vozlišč in povezav med njimi tudi ploskve. Ploskve bi v teoriji grafov
-opisali kakor zanke v grafu, z dodano omejitvijo, da mora vsako vozlišče in povezava v zanki
-pripadati drugemu prekrivanju okolic.
+\begin{figure}[htb]
+\centerline{\psfig{figure=overlap_diagonal_quad,width=10cm}}
+\caption[Prekrivanje okolic \(2 \times 2\) - diagonalno.]
+{Prekrivanje okolic sosednjih celic v diagonalni smeri, za velikost okolice \(M_x=M_y=2\).
+Okolice se prekrivajo v eni celici od 9.}
+\label{overlap_diagonal_quad}
+\end{figure}
+
+Nastali graf (slika \ref{network_single}) ima poleg vozlišč in povezav med njimi tudi ploskve.
+Ploskve bi v teoriji grafov opisali kakor zanke v grafu, z dodano omejitvijo,
+da mora vsako vozlišče ali povezava v zanki pripadati drugemu prekrivanju okolic.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=network_single,width=5cm}}
@@ -595,7 +621,7 @@ pripadati drugemu prekrivanju okolic.
 
 Diagrame, ki opisujejo preteklost posamezne celice, je možno sestaviti v mrežo,
 ki opisuje polje več celic. Nabor predslik celotnega polja je ekvivalenten naboru
-vseh zveznih ploskev, ki prekrivajo celotno polje in, ki jih je možno sestaviti iz
+vseh \textit{zveznih} ploskev, ki prekrivajo celotno polje in, ki jih je možno sestaviti iz
 naborov ploskev diagramov posameznih celic.
 
 Preslikava iz zvezne ploskve v mreži predslik v konfiguracijo polja celic predslike je enolična.
@@ -603,27 +629,29 @@ Najlažje je razumeti preslikavo za okolico velikosti \(3 \times 3\),
 od vsakega odseka ploskve za posamezno celico se vzame centralno celico,
 na koncu pa se doda še za eno celico širok rob okoli celotne ploskve.
 
-Podani primeri uporabljajo binarni CA z quad okolico.
-Za ta CA je velikost diagonalnega prekrivanja okolic ena sama celica,
-Posledično ima nabor vozlišč le dve vrednosti, ki neposredno predstavljajo
+Podani primeri uporabljajo binarni CA s quad okolico.
+Za ta CA je velikost diagonalnega prekrivanja okolic ena sama celica (slika \ref{overlap_diagonal_quad}),
+posledično ima nabor vozlišč le dve vrednosti, ki neposredno predstavljajo
 vrednosti celic v predsliki (slika \ref{network_array}).
+Nabor okolic/ploskev pa obsega 16 kombinacij (slika \ref{neighborhood_surfaces}).
 
 Razširitev diagrama ene celice v mrežo lahko dokažemo z indukcijo.
 Dokazati želimo, da je neka konfiguracija celic predslika dane sedanjosti
-če in samo če je ta ekvivalentna zvezni ploskvi v mreži predslik.
+\textit{če in samo če} je ta ekvivalentna zvezni ploskvi v mreži predslik.
 
 \textbf{Prvi element:}
 Iz definicije velja, da je za eno samo celico v mreži nabor ploskev enak naboru vseh predslik.
 \textbf{Naslednji element:}
-Obstoječi mreži predslik za več celic z danim naborom zveznih ploskev dodamo novo celico.
-Ploskev iz nabora dodane celice se zvezno veže z obstoječim naborom zveznih ploskev natanko v primeru,
-ko se z eno od ploskev ujema v robu (povezavi med vozliščema).
+Obstoječi mreži predslik novo celico.
+Ploskev iz nabora dodane celice se zvezno veže s ploskvijo
+iz obstoječega nabora zveznih ploskev natanko v primeru,
+ko se z njo ujema v robu (povezavi med vozliščema).
 Temu je tako, ker so indeksi vozlišč in povezav ekvivalentni vrednosti prekrivanj okolic.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=network_array,width=14cm}}
 \caption[Mreža polja celic.]{Mreža velikosti \(N_x=3\) in \(N_y=3\) za binarni CA z okolico quad.
-Poudarjena je ena zvezna ploskev (konfiguracija pripadajoče predslike je izpisana) in njen rob.}
+Poudarjena je ena zvezna ploskev in njen rob (konfiguracija pripadajoče predslike je izpisana).}
 \label{network_array}
 \end{figure}
 
@@ -631,10 +659,10 @@ Poudarjena je ena zvezna ploskev (konfiguracija pripadajoče predslike je izpisa
 
 Pri 1D CA so robni pogoji definirani na dveh koncih,
 ki omejujejo končno število celic na neskončni premici.
-Če je 1D CA definiran kakor daljica je robni pogoj samo eden.
+Če je 1D CA definiran kakor poltrak je robni pogoj samo eden.
 Robni pogoj definira katere okolice (vozlišča pri mreži predslik za 1D CA)
 in s kakšnimi utežmi so na voljo ob robu.
-Lahko si jih predstavljamo tudi kakor vpliv, ki ga ima neskončen poltrak celic,
+Lahko si jih predstavljamo tudi kakor vpliv, neskončnega poltraka celic,
 ki sega izven roba opazovane konfiguracije.
 
 Pri 2D CA je robni pogoj definiran na sklenjeni poti okoli ploskve opazovane konfiguracije celic.
