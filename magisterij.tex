@@ -476,6 +476,17 @@ f^{-1}(c^{t}) = \{ n^{t-1} \in S^m \ \arrowvert \ f(n^{t-1}) = c^{t} \}
 Dodaten pogoj za predslike polja celic je, da se morajo okolice sosednjih celic
 ujemati povsod, kjer se prekrivajo.
 
+Tranzicijsko funkcijo je možno definirati s pravilom.
+Pravilo \(r\) je celo število v \(S\)-iškem številskem sestavu,
+kjer so cifre zaporedje vrednosti celic za vsako od \(|S|^m\) možnih okolic.
+Vseh pravil je na voljo \(|S|^{|S|^m}\).
+\begin{equation}
+r = \sum_{n=0}^{n=|S|^m} |S|^n \cdot f(n)
+\end{equation}
+\begin{equation}
+r \in \{0, 1, \dots |S|^{|S|^m}-1\}
+\end{equation}
+
 Podana konstrukcija mreže predslik in algoritem za izračun predslik omogočata uporabo
 bolj splošne definicije, kjer je za vsako celico definiran lasten nabor predslik \( n^{t-1} \in S^m \),
 ki je neodvisen od stanja celice. Ta posplošitev je uporabljena za konstrukcijo umetnih
