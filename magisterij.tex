@@ -697,38 +697,38 @@ Pri 1D CA ima algoritem za štetje predslik linearno \(O(N)\) procesno in pomnil
 Posplošeno to pomeni, da se vsaka celica pojavi v izračunu samo enkrat.
 Dejansko ima vsak algoritem tudi logaritmično komponento,
 saj število bitov potrebnih za zapis števcev raste logaritmično s številom celic.
-Algoritem za izpis predslik ima tudi vedno eksponentno maksimalno kompleksnost,
+Algoritem za izpis predslik ima tudi eksponentno maksimalno kompleksnost,
 saj maksimalno in povprečno število predslik raste eksponentno
 v odvisnosti od števila celic.
 
 Za 2D CA se je izkazalo, da obstajajo problemi, ki niso rešljivi z linearno kompleksnostjo.
 Prikazani algoritem ima maksimalno eksponentno kompleksnost
 v odvisnosti od posamezne dimenzije \(O(S^{N_x} S^{N_y})\).
-Za sedaj še odprta možnost za obstoj algoritma z kompleksnostjo
-med linearno in eksponentno zahtevnostjo.
+Za sedaj je še odprta možnost za obstoj algoritma s kompleksnostjo
+med linearno in eksponentno.
 
 Opisani algoritem za štetje predslik razdeli polje celic na vrstice v dimenziji X.
 Delitev po stolpcih v dimenziji Y bi bila ekvivalentna,
-tako da je to arbitrarna odločitev za podani algoritem.
-Na podlagi zunanjega robnega pogoja, je najprej poiskan nabor predslik za prvo vrstico.
-Nabor predslik je izračunan kakor uteži za robove na nasprotni strani.
+tako da je to arbitrarna. S stališča procesne zahtevnosti je najbolje izbrati krajšo dimenzijo.
+Na podlagi zunanjega robnega pogoja je najprej poiskan nabor predslik za prvo vrstico.
+Nabor predslik je izračunan kakor uteži za robove na nasprotni strani od začetne.
 Te uteži so uporabljene kakor vhodni robni pogoj za naslednjo vrstico.
 Robne uteži izračunane za zadnjo vrstico predstavljajo število vseh predslik.
 
 Algoritem za izpis predslik je nadaljevaje algoritma za štetje.
-Starta se z znanim številom predslik, ki ga je dalo štetje in se
-izpisuje predslike po vrsticah v obratnem vrstnem redu kakor je potekalo štetje.
+Starta z znanim številom predslik, ki ga je dalo štetje, in izpisuje predslike
+po vrsticah v obratni smeri, kakor je potekalo štetje.
 
 \section{Procesiranje v eni dimenziji}
 
 Procesiranje se začne z eno dimenzionalnim nizom celic (vrstico).
 Vsaki celici v nizu pripada lastna mreža predslik, eno dimenzionalnemu nizu celic
 posledično pripada povezan niz mrež predslik (slika \ref{algorithm_line} mreža \textbf{1}).
-Vsaka segment mreže v nizu ima svoj nabor veljavnih okolic,
+Vsak segment mreže v nizu ima svoj nabor veljavnih okolic,
 ki je definiran s tranzicijsko funkcijo (ali pa je posplošeno poljuben nabor).
 Na začetku se ploskve okolic sosednjih celic še ne povezujejo v
 zvezno ploskev čez celoten niz. Izločiti je potrebno vse ploskve okolic,
-ki se ne povezujejo s okolicami svojih sosednjih celic.
+ki se ne povezujejo z okolicami svojih sosednjih celic.
 
 Ker se vsaka vrstica povezuje s predhodno in naslednjo vrstico, je potrebno
 upoštevati tudi zveznost ploskev na prehodu med vrsticami.
@@ -746,14 +746,14 @@ začetnemu robu.
 Problem se reducira iz tri dimenzionalne mreže in procesiranja ploskev v
 dvo dimenzionalno mrežo, kjer se procesirajo poti med vozlišči (slika \ref{algorithm_line}
 prehod iz mreže \textbf{2} v mrežo \textbf{3}). To je problem, ekvivalenten iskanju predslik
-(zvenih poti v grafu) za 1D CA, za kar se uporabi algoritem opisan v \cite{}.
+(zvenih poti v grafu) za 1D CA, za kar se uporabi algoritem opisan v \cite{JerasDobnikar2007}.
 Rezultat so poti na prerezu med ploskvami (slika \ref{algorithm_line} mreža \textbf{4},
 končni robni pogoj je odebeljen).
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=algorithm_line,width=14cm}}
-\caption[Mreža polja celic.]{Mreža velikosti \(N_x=3\) in \(N_y=3\) za binarni CA z okolico quad.
-Poudarjena je ena zvezna ploskev (konfiguracija pripadajoče predslike je izpisana) in njen rob.}
+\caption[Algoritem procesiranja vrstice.]{Mreža vrstice velikosti \(N_x=3\) za binarni CA z okolico quad.
+Nabor okolic/ploskev za posamezno celico je arbitraren, izbran tako, da poudari korake algoritma.}
 \label{algorithm_line}
 \end{figure}
 
@@ -762,7 +762,7 @@ Ta nabor se v naslednjem koraku uporabi kakor začetni robni pogoj za naslednjo 
 
 Nabor vseh možnih poti na meji vrstice raste eksponentno z dolžino vrstice.
 Število vseh poti se izračuna iz števila vejitev na vsakem vozlišču in dolžine poti.
-Za deljenje po vrsticah v dimenziji X je ta nabor \( (M_y-1)^{N_x+1} \).
+Za deljenje po vrsticah v dimenziji X je ta nabor \( |S|^{(M_y-1)^{N_x+1}} \).
 Posledično kompleksnost algoritma raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
 
 \section{Procesiranje v drugi dimenziji}
@@ -788,7 +788,7 @@ Končne robne poti in njihove uteži, se uporabijo za popisati zadnjo vrstico ce
 v predslikah. Z vsakim korakom v obratni smeri se popišejo še nove vrstice.
 
 Algoritem tukaj ni podrobno opisan, je pa preprosta razširitev algoritma uporabljenega
-za 1D CA opisanega v \cite{}.
+za 1D CA opisanega v \cite{JerasDobnikar2007}.
 
 \section{Nezmožnost procesiranja z linearno kompleksnostjo}
 
