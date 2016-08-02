@@ -21,6 +21,7 @@
 \usepackage{cite}
 \usepackage{enumitem}
 \usepackage{amsmath}
+\usepackage{url}
 \usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black,pagebackref]{hyperref}
 \usepackage[top=2cm, bottom=3cm, inner=3cm, outer=2cm]{geometry}
 
@@ -305,7 +306,7 @@ cellular automata, preimages, ataviser, computational complexity, reversibility,
 
 \section{Celični avtomat kakor model vesolja}
 
-Ker lahko vsak univerzalen sistem modelira vsak drugi univerzalen sistem, predpostavimo,
+Ker lahko vsak univerzalen sistem modelira vsak drugi univerzalen sistem, lahko predpostavimo,
 da lahko z univerzalnimi CA modeliramo vesolje. Samo modeliranje vesolja
 je še izven našega dosega, poizkuša pa se vsaj približati teorijo CA in teoretično fiziko.
 S strani informacijske teorije in termodinamike je predvsem zanimiv model gravitacije
@@ -331,16 +332,16 @@ ter iz grafov sklepati o izgubi informacij v 2D CA.
 Najbolje teoretično raziskan 2D CA je GoL (Game of Life ali slovensko igra življenja).
 Ogromno truda je bilo vloženega v raziskovanje delcev in njihove dinamike. S pomočjo
 osnovnih gradnikov, je mogoče skonstruirati kompleksnejše sisteme, med katerimi so
-najzanimivejši turingov stroj /cite{} in univerzalni konstruktor /cite{}.
+najzanimivejši turingov stroj \cite{Rendell2001} in univerzalni konstruktor \cite{Greene2013}.
 
-Delci so dejansko atraktorji v razvoju CA na končni običajno periodični mreži (thorus).
-Algoritmi za iskanje predslik so uporabljeni za določitev atraktorjevega korita /cite{}.
+Delci so dejansko atraktorji v razvoju CA na končni periodični mreži (thorus).
+Pri 1D CA se algoritmi za iskanje predslik uporabljajo za določitev atraktorjevega korita \cite{Wuensche1992}.
 V ireverzibilnem celičnem avtomatu se pojavljajo stanja brez predslik imenovana GoE
 (Garden of Eden ali rajski vrt). Pomensko so GoE nasprotje delcev, saj se nahajajo kar
-najdlje od atraktorja na robu korita. GoE stanja prav tako kakor delci privlačijo raziskovalce /cite{},
+najdlje od atraktorja na robu korita. GoE stanja prav tako kakor delci privlačijo raziskovalce \cite{},
 čeprav v manjši meri kakor delci.
 
-Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja GoE stanj /cite{}.
+Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja GoE stanj \cite{}.
 S stališča algoritma za štetje predslik je GoE stanje tako, ki ima 0 predslik.
 Algoritem za štetje predslik je možno pretvoriti v algoritem za preverjanje ali je stanje GoE,
 tako da se operacije nad celimi števili pretvori v logične operacije nad Boolovimi stanji.
@@ -351,6 +352,8 @@ se izkaže da 2D problem ni tako preprost. Predstavljeni so primeri iz katerih j
 da algoritem z linearno zahtevnostjo ne more pravilno opisati vseh situacij.
 Zahtevnost opisanega algoritma sicer raste s kvadratom eksponenta eksponentno z eno
 od dimenzij CA mreže  \( O(2^2N) \), ja pa možno da obstaja algoritem z nižjo kompleksnostjo.
+
+\section{Algoritmi za iskanje predslik}
 
 Opisan algoritem je primerjan z ostalimi doslej znanimi algoritmi. Čeprav s stališča procesne
 zahtevnosti ne prinaša želenega napredka, pa to da temelji na pregledni grafični upodobitvi
