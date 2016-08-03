@@ -368,7 +368,7 @@ in niso omejeni na opis predslik ene same celice.
 
 Razni avtorji \cite{Hartman2013} iščejo vzorce tipa 'Garden of Eden' v celičnem avtomatu 'Game of Life'.
 Zanimiv je pristop s teorijo končnih avtomatov in regularnih jezikov, ki je v
-osnovi namenjen eno dimenzionalnim sistemom. Jean Hardouin-Duparc ga je razširil
+osnovi namenjen eno dimenzionalnim sistemom. Duparc \cite{Duparc1972, Duparc1974} ga je razširil
 tako, da je celice iz vrstice 2D polja združil v simbole regularnega jezika, zaporedje več
 vrstic pa predstavlja besedo. Originalni članek je v francoščini, zato še iščem članek,
 kjer bi pristop opisal v angleščini. Podoben pristop s končnimi avtomati nameravam uporabiti tudi sam.
@@ -782,15 +782,21 @@ Torej po prejšnjih korakih še ni točno določeno, katere ploskve se združuje
 celoto in katere ne. Možne so ploskve, ki prekrivajo polje samo do neke vrstice in ne naprej.
 
 Procesiranje po drugi dimenziji poteka v obratni smeri kakor pri štetju,
-začne pri zadnji vrstici in konča pri prvi vrstici. Z vsakim korakom izloča še preostale
-slepe poti iz mreže predslik. Hkrati je možno še izpisovati predslike.
-Že na začetku procesiranja v obratni smeri, je že znano število vseh predslik,
-kar omogoča rezervacijo pomnilnika.
+začne pri zadnji vrstici in konča pri prvi vrstici (slika \ref{algorithm_list}).
+Z vsakim korakom izloča še preostale slepe poti iz mreže predslik.
+Hkrati je možno še izpisovati predslike. Že na začetku procesiranja v obratni smeri,
+je že znano število vseh predslik, kar omogoča rezervacijo pomnilnika.
 Končne robne poti in njihove uteži, se uporabijo za popis tekoče vrstice celic
 v predslikah. Z vsakim korakom v obratni smeri se popiše nova vrstica za vsako od preštetih predslik.
 Ko pride algoritem, spet do začetne vrstice, so vse predslike popisane.
 Hkrati so iz mreže predslik izločene vse slepe poti, ostanejo le še ploskve,
 ki tvorijo zvezne ploskve na celotnem polju celic.
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=algorithm_list,width=8cm}}
+\caption[Algoritem za izpis predslik.]{Potek smeri procesiranja pri algoritmu za izpis predslik.}
+\label{algorithm_list}
+\end{figure}
 
 Algoritem tukaj ni podrobno opisan, je pa preprosta razširitev algoritma uporabljenega
 za 1D CA opisanega v \cite{JerasDobnikar2007}. Za podrobnosti je na voljo izvorna koda v prilogah.
@@ -845,23 +851,36 @@ obstoj predslik, in jih ne štejejo ali izpisujejo.
 
 Conway je leta 1970 predstavil GoL. Že leta 1971 sta Roger Banks in Steve Ward
 predstavila prvo GoE stanje velikosti \(9 \times 33\) celic.
-Odkritje je bilo objavljeno v \cite{}. Kasneje je Don Woods \cite{Lifeline3, Lifeline4} s pomočjo računalnika
-dokazal, da je stanje res GoE.
+Odkritje je bilo objavljeno v \cite{Lifeline3}. Kasneje je Don Woods
+\cite{Lifeline3, Lifeline4} s pomočjo računalnika dokazal, da je stanje res GoE.
 
-Leta 1974 je Jean Hardouin-Duparc razvil novejši algoritem,
-Iskanje GoE (stanja brez predslik) 
+Leta 1974 je Duparc \cite{Duparc1974} razvil novejši algoritem.
+V zadnjih letih podoben algoritem uporablja Steven Eker
+(CSL, SRI International, California, USA).
 
+Drugacen algoritem uporablja Marijn Heule \cite{Hartman2013}.
+S sodelavci je zapisal vsa prekrivanja za določeno stanje kakor binarne enačbe.
+Te je nato dal v reševanje orodju za reševanje SAT problemov.
+Če rešitev ne obstaja, pomeni da je stanje GoE.
+Uporabljena je dodatna predpostavka, da bo rešitev
+zrcalno simetrična v obeh dimenzijah.
 
 \section{Iskanje predslik}
 
+Erlan \cite{Erlan2012} je predstavil igro pri kateri se za dano stanje
+GoL išče predslike. To dejansko ni implementacija algoritma za izkanje predslik,
+je pa vspodbudil druge k iskanju takega algoritma.
 
-\cite{Erlan2012}
-\url{https://github.com/PeterBorah/atabot}
-\url{https://github.com/bryanduxbury/cellular_chronometer/tree/master/rb}
+Pri iskanju imlementacij algoritma, sam našel Atabot \cite{Borah2013} in
+Celični kronometer \cite{Duxbury2013}. Cilj teh algoritmov sicer je iskanje
+predslik, ampak iskanje ni sistematično in cilj ni nabor vseh možnih predslik.
+Oba algoritma se poslužujeta določene hevristike pri iskanju.
+
 \url{https://www.kaggle.com/c/conway-s-reverse-game-of-life}
 
 \section{Polni algoritmi}
 
+\url{https://nbickford.wordpress.com/2012/04/15/reversing-the-game-of-life-for-fun-and-profit/}
 
 \subsection{Sklepne ugotovitve}
 
