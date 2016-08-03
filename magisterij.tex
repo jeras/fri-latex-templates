@@ -779,20 +779,25 @@ je na koncu znano tudi število predslik.
 Ni nujno, da se vsak vrstični začetni pogoj preslika v nabor končnih pogojev.
 Možno je da nobena pot na končnem robu ne zadošča začetnemu pogoju in mreži predslik.
 Torej po prejšnjih korakih še ni točno določeno, katere ploskve se združujejo v zvezno
-celoto in katere ne.
+celoto in katere ne. Možne so ploskve, ki prekrivajo polje samo do neke vrstice in ne naprej.
 
-Procesiranje po drugi dimenziji v obratni smeri kakor pri štetju, izloča še preostale
-slepe poti. Hkrati je možno še izpisovati predslike. Že na začetku procesiranja
-v obratni smeri, je znano število vseh predslik, kar omogoča rezervacijo pomnilnika.
-Končne robne poti in njihove uteži, se uporabijo za popisati zadnjo vrstico celic
-v predslikah. Z vsakim korakom v obratni smeri se popišejo še nove vrstice.
+Procesiranje po drugi dimenziji poteka v obratni smeri kakor pri štetju,
+začne pri zadnji vrstici in konča pri prvi vrstici. Z vsakim korakom izloča še preostale
+slepe poti iz mreže predslik. Hkrati je možno še izpisovati predslike.
+Že na začetku procesiranja v obratni smeri, je že znano število vseh predslik,
+kar omogoča rezervacijo pomnilnika.
+Končne robne poti in njihove uteži, se uporabijo za popis tekoče vrstice celic
+v predslikah. Z vsakim korakom v obratni smeri se popiše nova vrstica za vsako od preštetih predslik.
+Ko pride algoritem, spet do začetne vrstice, so vse predslike popisane.
+Hkrati so iz mreže predslik izločene vse slepe poti, ostanejo le še ploskve,
+ki tvorijo zvezne ploskve na celotnem polju celic.
 
 Algoritem tukaj ni podrobno opisan, je pa preprosta razširitev algoritma uporabljenega
-za 1D CA opisanega v \cite{JerasDobnikar2007}.
+za 1D CA opisanega v \cite{JerasDobnikar2007}. Za podrobnosti je na voljo izvorna koda v prilogah.
 
-\section{Nezmožnost procesiranja z linearno kompleksnostjo}
+\section{Nezmožnost procesiranja z linearno zahtevnostjo}
 
-Podan je primer, ki kaže zakaj procesiranje z linearno kompleksnostjo ni mogoče.
+Podan je primer, ki kaže zakaj procesiranje z linearno zahtevnostjo ni mogoče.
 
 Cilj raziskovalnega dela za to raziskovalno nalogo je bil poiskati
 učinkovit algoritem za iskanje predslik 2D CA. Na podlagi izkušenj z 1D CA
@@ -803,16 +808,21 @@ ali na splošno bi bilo število obravnav majhna konstanta (4 krat,
 če se izvaja procesiranje skozi mrežo predslik v 4 smereh/prehodih).
 Tak algoritem predpostavlja, da je možno celoten nabor začetnih
 robnih pogojev upoštevati hkrati v enem samem prehodu. Po nekaj
-poizkusih sem ugotovil da temu ni tako. Nekatere poti iz nabora je
+poizkusih sem ugotovil da temu ni tako. Vsaj nekatere poti iz nabora je
 potrebno upoštevati ločeno.
 
 V podanem primeru (slika \ref{algorithm_issue}) se prvi dve vrstici zaključita
 naborom dveh končnih poti \textbf{0110} in \textbf{1111}. Če bi te dve poti
-uporabili hkrati kakor začetni robni pogoj za naslednjo vrstico, bi dobili
+uporabili, hkrati kakor začetni robni pogoj za naslednjo vrstico, bi dobili
 enak rezultat kakor, če bi bili del robnega pogoja še poti \textbf{0111} in \textbf{1110}.
+To pa zato, ker algoritem, ki poti ne obravnava ločeno ne more vedeti
+kje se je pot začela, da bi jo lahko tudi pravilno zaključil.
+Posledično linearen algoritem lahko vzame začetek ene od poti in ga
+na vozliču skupnem obema potema nadaljuje po drugi poti.
 Iz mreže je razvidno, da te dve poti nista preseka neke zvezne ploskve.
-Posledično hkratno obravnavanje celotnega nabora robnih pogojev ni možno,
-kar pomeni, da je število obravnav neke celice odvisno od velikosti problema.
+Skratka hkratno obravnavanje celotnega nabora robnih pogojev ni možno,
+kar pomeni, da je število obravnav neke celice odvisno od števila poti
+in posledično od velikosti problema.
 
 Zgoraj opisani algoritem izrecno obravnava vsak robni pogoj iz nabora ločeno.
 Je pa videti, da bi bilo možno hkrati obravnavati robove, ki nimajo nobenega skupnega
@@ -835,10 +845,8 @@ obstoj predslik, in jih ne štejejo ali izpisujejo.
 
 Conway je leta 1970 predstavil GoL. Že leta 1971 sta Roger Banks in Steve Ward
 predstavila prvo GoE stanje velikosti \(9 \times 33\) celic.
-Odkritje je bilo objavljeno v \cite{}. Kasneje je Don Woods \cite{} s pomočjo računalnika
+Odkritje je bilo objavljeno v \cite{}. Kasneje je Don Woods \cite{Lifeline3, Lifeline4} s pomočjo računalnika
 dokazal, da je stanje res GoE.
-\url{http://www.conwaylife.com/w/index.php?title=Lifeline_Volume_4}
-\url{http://www.conwaylife.com/w/index.php?title=Lifeline_Volume_3}
 
 Leta 1974 je Jean Hardouin-Duparc razvil novejši algoritem,
 Iskanje GoE (stanja brez predslik) 
