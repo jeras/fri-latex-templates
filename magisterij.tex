@@ -116,6 +116,29 @@ Na tem mestu se diplomant zahvali vsem, ki so kakorkoli pripomogli k uspešni iz
 \item[GoE] Garden of Eden (stanje brez predslik)
 \item[trid] okolica CA sestevljena iz treh celic
 \item[quad] okolica CA sestevljena iz štirih celic \(M_x=M_y=2\)
+
+\item[\(C\)] poljubna konstanta
+\item[\(S\)] množica nabora stanj celice
+\item[\(|S|\)] število možnih stanj celice
+\item[\(c\)] stanje posamezne celice (celoštevilska vrednost)
+\item[\(c_{x,y}\)] vrednost celice na položaju \([x,y]\) znotraj 2D polja celic
+\item[\(c^t\)] vrednost celice v sedanjosti
+\item[\(c^{t+1}\)] vrednost celice v prihodnosti (eden korak)
+\item[\(N_x\)] velikost 2D polja celic v dimenziji X
+\item[\(N_y\)] velikost 2D polja celic v dimenziji Y
+\item[\(N\)] število celic v 2D polju
+\item[\(M_x\)] velikost 2D okolice celice v dimenziji X
+\item[\(M_y\)] velikost 2D okolice celice v dimenziji Y
+\item[\(m\)] število celic v 2D okolici
+\item[\(n\)] stanje okolice posamezne celice (celoštevilska vrednost)
+\item[\(n_{x,y}\)] vrednost okolice celice na položaju \([x,y]\) znotraj 2D polja celic
+\item[\(n^{t-1}\)] vrednost celice v preteklosti (eden korak)
+\item[\(n^t\)] vrednost okolice celice v sedanjosti
+\item[\(f\)] tranzicijska funkcija
+\item[\(f^{-1}\)] obratna tranzicijska funkcija
+\item[\(o_x\)] prekrivanje okolic v dimenziji X
+\item[\(o_y\)] prekrivanje okolic v dimenziji Y
+\item[\(o_{xy}\)] prekrivanje okolic v diagonalni smeri
 \end{abbreviations}
 
 %\cleardoublepage
@@ -171,7 +194,7 @@ cellular automata, preimages, ataviser, computational complexity, reversibility,
 
 \chapter{Uvod}
 
-\section{Celični avtomat kakor model vesolja}
+\section{CA kakor model vesolja}
 
 Ker lahko vsak univerzalen sistem modelira vsak drugi univerzalen sistem, lahko predpostavimo,
 da lahko z univerzalnimi CA modeliramo vesolje. Samo modeliranje vesolja
@@ -261,7 +284,7 @@ in orodje za prikaz poljubne mreže predslik \cite{Jeras2016-network}.
 Obe orodji se lahko zažene kar v internetnem brskalniku.
 
 V slikah je uporabljena izometrična projekcija,
-saj je za potrebe analize je osnovemu 2D polju dodana tretja dimenzija,
+saj je za potrebe analize je osnovnemu 2D polju dodana tretja dimenzija,
 ki opisuje prostor predslik (mreža predslik).
 
 \chapter{Definicija 2D CA}
@@ -716,7 +739,7 @@ V zadnjih letih podoben algoritem uporablja Steven Eker
 
 
 
-Drugacen algoritem uporablja Marijn Heule \cite{Hartman2013}.
+Drugačen algoritem uporablja Marijn Heule \cite{Hartman2013}.
 S sodelavci je zapisal vsa prekrivanja za določeno stanje kakor binarne enačbe.
 Te je nato dal v reševanje orodju za reševanje SAT problemov.
 Če rešitev ne obstaja, pomeni da je stanje GoE.
@@ -726,10 +749,10 @@ zrcalno simetrična v obeh dimenzijah.
 \section{Iskanje predslik}
 
 Erlan \cite{Erlan2012} je predstavil igro pri kateri se za dano stanje
-GoL išče predslike. To dejansko ni implementacija algoritma za izkanje predslik,
-je pa vspodbudil druge k iskanju takega algoritma.
+GoL išče predslike. To dejansko ni implementacija algoritma za iskanje predslik,
+je pa vzpodbudil druge k iskanju takega algoritma.
 
-Pri iskanju imlementacij algoritma, sam našel Atabot \cite{Borah2013} in
+Pri iskanju implementacij algoritma, sam našel Atabot \cite{Borah2013} in
 Celični kronometer \cite{Duxbury2013}. Cilj teh algoritmov sicer je iskanje
 predslik, ampak iskanje ni sistematično in cilj ni nabor vseh možnih predslik.
 Oba algoritma se poslužujeta določene hevristike pri iskanju.
@@ -794,7 +817,3 @@ Poleg tega je povezan s problemom reverzibilnosti, ki je na splošno dokazano ne
 \bibliography{magisterij} 
 
 \end{document}
-
-
-
-
