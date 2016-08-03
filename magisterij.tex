@@ -338,81 +338,64 @@ Delci so dejansko atraktorji v razvoju CA na končni periodični mreži (thorus)
 Pri 1D CA se algoritmi za iskanje predslik uporabljajo za določitev atraktorjevega korita \cite{Wuensche1992}.
 V ireverzibilnem celičnem avtomatu se pojavljajo stanja brez predslik imenovana GoE
 (Garden of Eden ali rajski vrt). Pomensko so GoE nasprotje delcev, saj se nahajajo kar
-najdlje od atraktorja na robu korita. GoE stanja prav tako kakor delci privlačijo raziskovalce \cite{},
+najdlje od atraktorja na robu korita. GoE stanja prav tako kakor delci privlačijo raziskovalce,
 čeprav v manjši meri kakor delci.
 
-Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja GoE stanj \cite{}.
-S stališča algoritma za štetje predslik je GoE stanje tako, ki ima 0 predslik.
+Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja GoE stanj.
+S stališča algoritma za štetje predslik je GoE stanje tako, ki nima nobene predslike.
 Algoritem za štetje predslik je možno pretvoriti v algoritem za preverjanje ali je stanje GoE,
 tako da se operacije nad celimi števili pretvori v logične operacije nad Boolovimi stanji.
 
 \section{Algoritmi za iskanje predslik}
 
 Raziskave algoritmov sem se lotil s predpostavko, da je možno opraviti štetje s zahtevnostjo,
-ki je linearno odvisna od velikosti problema \( O(N) \)  (n je število opazovanih celic). Čeprav je to možno pri 1D problemu,
-se izkaže da 2D problem ni tako preprost. Predstavljeni so primeri iz katerih je razvidno,
+ki je linearno odvisna od velikosti problema \( O(N) \)  (\(N\) je število opazovanih celic).
+Čeprav je to možno pri 1D problemu, se izkaže, da 2D problem ni tako preprost.
+Predstavljeni so primeri iz katerih je razvidno,
 da algoritem z linearno zahtevnostjo ne more pravilno opisati vseh situacij.
-Zahtevnost opisanega algoritma sicer raste s kvadratom eksponenta eksponentno z eno
-od dimenzij CA mreže  \( O(2^2N) \), je pa možno, da obstaja algoritem z nižjo kompleksnostjo.
+Zahtevnost opisanega algoritma sicer raste eksponentno z velikostjo ene
+od dimenzij CA polja \( O(C^N) \), je pa možno, da obstaja algoritem z nižjo kompleksnostjo.
 
-Opisan algoritem je primerjan z ostalimi doslej znanimi algoritmi. Čeprav s stališča procesne
-zahtevnosti ne prinaša želenega napredka, pa to da temelji na pregledni grafični upodobitvi
-daje upanje, da bojo razne optimizacije razvidne bodočim raziskovalcem.
+Pomembno vlogo pri razvoju opisanega algoritma ima mreža predslik.
+To je grafična upodobitev problema, katere cilj je lažje razumevanje problema in rešitev.
+Osnova za oblikovanje mreže predslik so De Bruijn-ovi diagrami.
+Paulina Léon in Genaro Martínez \cite{PaulinaGenaro2016}
+poizkušata aplicirati De Bruijn-ove diagrame na 2D CA,
+doslej je bilo to orodje uporabljeno le na 1D problemih.
+Točneje, opazujeta dva CA:'Game of Life' in 'Diffusion rule',
+s poudarkom na opazovanju stabilnih delcev.
+Sam uporabljam De Bruijn-ovi diagrame nekoliko drugače,
+in jih tudi drugače grafično upodabljam.
+Posamezen De Bruijn-ov diagram postane mreža predslik ene celice.
+Mreže posameznih celic se nato povezujejo,
+tako da na koncu opisujejo celotno polje celic.
 
-Paulina Léon in Genaro Martínez \cite{PaulinaGenaro2016} poizkušata aplicirati
-De Bruijn-ove diagrame na 2D celične avtomate, doslej je bilo to orodje uporabljeno le na 1D problemih.
-Točneje, opazujeta dva celična avtomata:'Game of Life' in 'Diffusion rule',
-s poudarkom na opazovanju stabilnih delcev. De Bruijn-ovi grafi so tudi osnova mojih raziskav,
-so pa drugače grafično upodobljeni, tako da se jih lahko poveže v opis celotnega celičnega sistema,
-in niso omejeni na opis predslik ene same celice.
-
-Razni avtorji \cite{Hartman2013} iščejo vzorce tipa 'Garden of Eden' v celičnem avtomatu 'Game of Life'.
-Zanimiv je pristop s teorijo končnih avtomatov in regularnih jezikov, ki je v
-osnovi namenjen eno dimenzionalnim sistemom. Duparc \cite{Duparc1972, Duparc1974} ga je razširil
-tako, da je celice iz vrstice 2D polja združil v simbole regularnega jezika, zaporedje več
-vrstic pa predstavlja besedo. Originalni članek je v francoščini, zato še iščem članek,
-kjer bi pristop opisal v angleščini. Podoben pristop s končnimi avtomati nameravam uporabiti tudi sam.
-
-Doslej sem že razvil napredne algoritme za izračun predslik 1D sistema.
+Doslej sem že razvil napredne algoritme za izračun predslik 1D CA \cite{JerasDobnikar2007}.
 Skozi zgodovino so taki algoritmi napredovali, tako da je padala njihova
 procesna zahtevnost in opisna/implementacijska zahtevnost.
 \begin{enumerate}[noitemsep,nolistsep]
- \item 'brute force' algoritmi \( O(c^N) \)
+ \item 'brute force' algoritmi \( O(C^N) \)
  \item improvizirani algoritmi
  \item zasnove matematičnega modela
- \item optimalni algoritmi \( O(N \log(N)) \) ali celo \( O(N) \)
+ \item optimalni algoritmi \( O(N) \)
 \end{enumerate}
+Iskanje predslik 2D CA je trenutno nekje med improvizacijo in matematičnim modelom.
 
-Iskanje slik 2D sistema je trenutno nekje med improvizacijo in matematičnim modelom.
-Z magistrsko nalogo bi rad razvil algoritme, ki se nagibajo k optimalnosti.
+Opisan algoritem na koncu primerjam z ostalimi doslej znanimi algoritmi.
+Čeprav s stališča procesne zahtevnosti ne prinaša želenega napredka,
+pa to, da temelji na pregledni grafični upodobitvi daje upanje,
+da bojo razne optimizacije razvidne bodočim raziskovalcem.
 
-Magistrsko delo bo obsegalo matematičen model, ki bo predvidoma temeljil na matričnih operacijah,
-kjer matrike predstavljajo grafe in končne avtomate.
-Za lažje razumevanje bo problem tudi grafično predstavljen.
-Algoritem bo implementiran kot računalniški program,
-ki bo omogočal tudi izris grafične predstavitve problema.
+Algoritem je implementiran kot računalniški program v jeziku C \cite{Jeras2016-algirithm}.
+Knjižnica GMP je uporabljena za zapis celih števil večjih od 64 bitov.
+Poleg samega algoritma za štetje in izpis predslik sem pripravil tudi
+orodje za simulacijo binarnega CA z okolico quad \cite{Jeras2016-quad}
+in orodje za prikaz poljubne mreže predslik \cite{Jeras2016-network}.
+Obe orodji se lahko zažene kar v internetnem brskalniku.
 
-Primerjava s sorodnimi deli bo s stališča procesne zahtevnosti algoritma in glede na to,
-katere znane probleme bo algoritem sposoben rešiti. Nekaj takih problemov, urejenih glede na zahtevnost, je:
-\begin{enumerate}[noitemsep,nolistsep]
-\item določitev, ali obstajajo predslike za dano trenutno stanje sistema
-\item štetje predslik
-\item naštevanje konfiguracij predslik
-\item jezik vseh stanj brez predslik
-\item vprašanje reverzibilnosti sistema
-\end{enumerate}
-
-Rešitev problema določitve obstoja predslik si že predstavljam. 
-Predvidevam, da bom uspel rešiti še problem preštevanja predslik,
-in ker je to manjši korak, tudi njihovo naštevanje.
-
-Preostalih problemov se tokrat ne bom loteval.
-Problem jezika stanj brez predslik bi potreboval teorijo 2D formalnega jezika, ki še ne obstaja.
-Poleg tega je povezan s problemom reverzibilnosti, ki je na splošno dokazano nerešljiv \cite{Kari1989}.
-
-V grafičnih upodobitvi je uporabljena izometrična projekcija,
-ker je za potrebe analize osnovni 2D mreži dodana tretja dimenzija,
-ki opisuje prostor predslik.
+V slikah je uporabljena izometrična projekcija,
+saj je za potrebe analize je osnovemu 2D polju dodana tretja dimenzija,
+ki opisuje prostor predslik (mreža predslik).
 
 \chapter{Definicija 2D CA}
 
@@ -854,9 +837,17 @@ predstavila prvo GoE stanje velikosti \(9 \times 33\) celic.
 Odkritje je bilo objavljeno v \cite{Lifeline3}. Kasneje je Don Woods
 \cite{Lifeline3, Lifeline4} s pomočjo računalnika dokazal, da je stanje res GoE.
 
-Leta 1974 je Duparc \cite{Duparc1974} razvil novejši algoritem.
+Leta 1974 je Duparc \cite{Duparc1972, Duparc1974} razvil novejši algoritem.
+Uporablja teorijo končnih avtomatov in regularnih jezikov, ki je v
+osnovi namenjen eno dimenzionalnim sistemom. Duparc ga je razširil
+tako, da je celice iz vrstice 2D polja združil v simbole regularnega jezika,
+zaporedje več vrstic pa predstavlja besedo. Originalni članek je v francoščini,
+tako da lahko algoritem opišem le na podlagi tega, kako ga opisujejo drugi.
+
 V zadnjih letih podoben algoritem uporablja Steven Eker
 (CSL, SRI International, California, USA).
+
+
 
 Drugacen algoritem uporablja Marijn Heule \cite{Hartman2013}.
 S sodelavci je zapisal vsa prekrivanja za določeno stanje kakor binarne enačbe.
@@ -886,6 +877,24 @@ Oba algoritma se poslužujeta določene hevristike pri iskanju.
 
 Sklepne ugotovitve naj prikažejo oceno o opravljenem delu in povzamejo težave, na katere je naletel kandidat. Kot rezultat dela
 lahko navede ideje, ki so nastale med delom, in bi lahko bile predmet novih raziskav.
+
+Primerjava s sorodnimi deli bo s stališča procesne zahtevnosti algoritma in glede na to,
+katere znane probleme bo algoritem sposoben rešiti. Nekaj takih problemov, urejenih glede na zahtevnost, je:
+\begin{enumerate}[noitemsep,nolistsep]
+\item določitev, ali obstajajo predslike za dano trenutno stanje sistema
+\item štetje predslik
+\item naštevanje konfiguracij predslik
+\item jezik vseh stanj brez predslik
+\item vprašanje reverzibilnosti sistema
+\end{enumerate}
+
+Rešitev problema določitve obstoja predslik si že predstavljam. 
+Predvidevam, da bom uspel rešiti še problem preštevanja predslik,
+in ker je to manjši korak, tudi njihovo naštevanje.
+
+Preostalih problemov se tokrat ne bom loteval.
+Problem jezika stanj brez predslik bi potreboval teorijo 2D formalnega jezika, ki še ne obstaja.
+Poleg tega je povezan s problemom reverzibilnosti, ki je na splošno dokazano nerešljiv \cite{Kari1989}.
 
 \newpage
 
