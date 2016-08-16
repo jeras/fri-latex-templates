@@ -276,6 +276,20 @@ Opisan algoritem na koncu primerjam z ostalimi doslej znanimi algoritmi.
 pa to, da temelji na pregledni grafični upodobitvi daje upanje,
 da bojo razne optimizacije razvidne bodočim raziskovalcem.
 
+Celični avtomat GoL je definiran z Moorovo okolico velikosti \(3 \times 3\).
+Tako velika okolica ima z \(9\) celicami \(2^9=512\) možnih stanj,
+zaradi česar so ilustracije mreže predslik velike in nepregledne.
+Splošno je znana manjša von Neumannova okolica velikosti \(3 \times 3\) v obliki križa iz \(5\) celic.
+Z \(2^5=32\) stanji bi bile ilustracije bolj pregledne, ampak obstajajo tudi okolice z manj celicami.
+Toffoli \cite{Toffoli2008} je leta 2008 spodbudil raziskovalce k iskanju univerzalnosti za CA
+z okolicama trid (tri celice na heksagonalnem polju) in quad (štiri celice na kvadratnem polju).
+Powley \cite{Powley2008} hitro dokaže obstoj univerzalnega avtomata z okolico trid,
+tako da ustvari avtomat, ki lahko s pomočjo določenega začetnega stanja
+simulira 1D elementarni celični avtomat, na primer pravilo 110.
+Sam sem obe okolici poznal že prej. Zame je njuna najboljša lastnost majhen nabor stanj okolice,
+\(2^4=16\) za quad in \(2^3=8\) za trid. Za primere je bil uporabljen quad,
+saj so diagrami na kvadratni mreži bolj enostavni in pregledni, kakor diagrami na heksagonalni mreži.
+
 Algoritem je implementiran kot računalniški program v jeziku C \cite{Jeras2016-algirithm}.
 Knjižnica GMP je uporabljena za zapis celih števil večjih od 64 bitov.
 Poleg samega algoritma za štetje in izpis predslik sem pripravil tudi
