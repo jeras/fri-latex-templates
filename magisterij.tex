@@ -735,7 +735,7 @@ Obstoječi algoritmi za predslike 2D CA se osredotočajo izključno na GoL.
 Največ algoritmov je namenjenih iskanju GoE stanj, skratka preverjajo le
 obstoj predslik, in jih ne štejejo ali izpisujejo.
 
-\section{Iskanje GoE}
+\section{Iskanje GoE za GoL}
 
 Conway je leta 1970 predstavil GoL. Že leta 1971 sta Roger Banks in Steve Ward
 predstavila prvo GoE stanje velikosti \(9 \times 33\) celic.
@@ -788,22 +788,39 @@ Te je nato dal v reševanje orodju za reševanje SAT problemov.
 Uporabljena je dodatna predpostavka, da bo rešitev zrcalno simetrična v obeh dimenzijah,
 kar občutno zmanjša zahtevnost procesiranja.
 
-\section{Iskanje predslik}
+\section{Iskanje predslik GoL na splošno}
 
 Erlan \cite{Erlan2012} je predstavil igro pri kateri se za dano stanje
 GoL išče predslike. To dejansko ni implementacija algoritma za iskanje predslik,
 je pa vzpodbudil druge k iskanju takega algoritma.
+
+Spletna stran \url{kaggle.com} je pripravila tekmovanje \cite{kaggle2013},
+kjer so morali kandidati reševati problem iskanja predslik. Podali so
+nabor stanj za katere je treba poiskati predslike in nabor učnih sekvenc.
+Pričakovali so rešitev, ki temelji na strojnem učenju ali optimiziranju,
+torej fokus ni bil na eksaktni rešitvi.
 
 Pri iskanju implementacij algoritma, sam našel Atabot \cite{Borah2013} in
 Celični kronometer \cite{Duxbury2013}. Cilj teh algoritmov sicer je iskanje
 predslik, ampak iskanje ni sistematično in cilj ni nabor vseh možnih predslik.
 Oba algoritma se poslužujeta določene hevristike pri iskanju.
 
-\url{https://www.kaggle.com/c/conway-s-reverse-game-of-life}
+\section{Polni algoritmi za štetje in izpis predslik}
 
-\section{Polni algoritmi}
+Opisani algoritmi za iskanje GoE stanj, na primer Woods,
+sicer omogočajo iskanje vseh predslik, ampak to ni njihov glavni namen.
+Optimizirani le za GoE stanja, kjer je predslik malo tudi za del konfiguracije.
+Predvsem niso optimizirani za splošni primer, kjer je lahko predslik veliko,
+posledično so potratni s porabo pomnilnika, saj hranijo celoten nabor predslik,
+medtem ko bi bilo bolje hraniti le progresivne razlike med predslikami.
 
-\url{https://nbickford.wordpress.com/2012/04/15/reversing-the-game-of-life-for-fun-and-profit/}
+Našel sem le eno aplikacijo, ki je namenjena štetju in izpisu vseh predslik.
+Bickford \cite{Bickford2012} prav tako kakor ostali procesira konfiguracijo
+po vrsticah, znotraj vrstice pa lahko uporablja različne algoritme (Woods, Duparc).
+Bickford opiše tudi algoritem, ki namesto procesiranja po vrsticah združuje predslike
+kvadratnih delov konfiguracij. Na žalost poda primerjavo med različnimi algoritmi
+le kakor procesni čas za posamezno implementacijo, ne pa tudi bolj splošne
+ocene maksimalne in povprečne procesne/pomnilniške zahtevnosti.
 
 \chapter{Sklepne ugotovitve}
 
