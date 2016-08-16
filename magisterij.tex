@@ -742,24 +742,51 @@ predstavila prvo GoE stanje velikosti \(9 \times 33\) celic.
 Odkritje je bilo objavljeno v \cite{Lifeline3}. Kasneje je Don Woods
 \cite{Lifeline3, Lifeline4} s pomočjo računalnika dokazal, da je stanje res GoE.
 
-Leta 1974 je Duparc \cite{Duparc1972, Duparc1974} razvil novejši algoritem.
-Uporablja teorijo končnih avtomatov in regularnih jezikov, ki je v
+Woodsov algoritem, tako kakor moj, deluje na vrsticah.
+Starta z eno vogalno celico, katere nabor predslik je kar nabor okolic,
+ki se preslikajo v stanje celice. V naslednjem koraku se opazuje sosednjo celico v vrstici.
+Za vse kombinacije okolic dodane celice in obstoječi nabor predslik se preveri,
+če se ujemajo kjer se okolice prekrivajo. Če se ujemajo, se doda sestavljeno predsliko v nabor,
+sicer predslika izpade iz nabora. Ko pride algoritem do konca vrstice nadaljuje v naslednji vrstici,
+le da je sedaj prekrivanje med naborom predslik in okolico dodane celice drugačno.
+Tako algoritem nadaljuje do konca celotne konfiguracije.
+Če je nabor predslik prazen, je opazovana konfiguracija GoE.
+Nabor predslik in s tem poraba pomnilnika in procesnega časa ostajajo
+relativno majhni v primerjavi z naborom vseh stanj.
+Temu je tako, ker imajo v praksi tudi deli GoE konfiguracije malo predslik.
+Algoritem bi bil za konfiguracije z dosti predslikami veliko bolj pomnilniško in časovno potraten.
+
+Nicolay Beluchenko je poiskal večje število GoE stanj velikosti \(11 \times 11\).
+Sicer ne poznam vseh njegovih pristopov, ampak vsaj v enem primeru je uporabljal
+podoben algoritem kakor Woods. Startal je s osrednjo celico in dodajal nove celice
+v spirali okoli osrednje. Za vrednost celice je uporabil tisto, ki je dala manjši nabor predslik.
+
+Leta 1974 je Duparc \cite{Duparc1972, Duparc1974} razvil drugačen algoritem,
+ter z njim poiskal GoE stanja velikosti \(6 \times 122\) in \(6 \times 117\).
+Algoritem uporablja teorijo končnih avtomatov in regularnih jezikov, ki je v
 osnovi namenjen eno dimenzionalnim sistemom. Duparc ga je razširil
 tako, da je celice iz vrstice 2D polja združil v simbole regularnega jezika,
-zaporedje več vrstic pa predstavlja besedo. Originalni članek je v francoščini,
-tako da lahko algoritem opišem le na podlagi tega, kako ga opisujejo drugi.
+zaporedje več vrstic pa predstavlja besedo.
+Duparcov algoritem ne obravnava vseh stanj vrstice enakovredno,
+temveč se osredotoča na vrstice, ki zmanjšujejo nabor predslik.
+Obravnavanje vseh stanj vrstic bi namreč preseglo pomnilniške sposobnosti
+takratne in sedanje strojne opreme že za kratke vrstice.
+Dokaže le, da vrstice dolžine 1 ne obstaja stolpec širine 1, ki bi bil GoE stanje.
+Originalni članek je v francoščini, tako da lahko algoritem opišem le na podlagi tega, kako ga opisujejo drugi.
 
-V zadnjih letih podoben algoritem uporablja Steven Eker
-(CSL, SRI International, California, USA).
-
-
+V zadnjih letih podoben algoritem uporablja Steven Eker (CSL, SRI International, California, USA).
+Dokazal je, da za pravokotne konfiguracije višine 2 in 3 ne obstajajo GoE stanja,
+dokaz za konfiguracije višine 4 z danim algoritmom še vedno presega sposobnosti sodobne strojne opreme.
+Število stanj avtomata, ki opisuje jezik GoE namreč raste eksponentno z višino.
+Elker je poiskal GoE stanja velikosti \(9 \times 11\), \(8 \times 12\) in \(5 \times 83\).
+Na žalost raziskovalcu delodajalec prepoveduje objavo rezultatov in podrobnosti, dokler ni opravljen interni pregled.
 
 Drugačen algoritem uporablja Marijn Heule \cite{Hartman2013}.
 S sodelavci je zapisal vsa prekrivanja za določeno stanje kakor binarne enačbe.
 Te je nato dal v reševanje orodju za reševanje SAT problemov.
 Če rešitev ne obstaja, pomeni da je stanje GoE.
-Uporabljena je dodatna predpostavka, da bo rešitev
-zrcalno simetrična v obeh dimenzijah.
+Uporabljena je dodatna predpostavka, da bo rešitev zrcalno simetrična v obeh dimenzijah,
+kar občutno zmanjša zahtevnost procesiranja.
 
 \section{Iskanje predslik}
 
