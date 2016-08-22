@@ -22,8 +22,11 @@
 \usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage{url}
-\usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black,pagebackref]{hyperref}
+\usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black]{hyperref}
 \usepackage[top=2cm, bottom=3cm, inner=3cm, outer=2cm]{geometry}
+%\usepackage[backend=bibtex]{biblatex}
+
+%\addbibresource{magisterij.bib}
 
 %Nastavitev glave in repa strani
 \pagestyle{myheadings}
@@ -733,7 +736,10 @@ procesno kompleksnost.
 
 Obstoječi algoritmi za predslike 2D CA se osredotočajo izključno na GoL.
 Največ algoritmov je namenjenih iskanju GoE stanj, skratka preverjajo le
-obstoj predslik, in jih ne štejejo ali izpisujejo.
+obstoj predslik, in jih ne štejejo ali izpisujejo. Tukaj opisani algoritem
+je zamišljen bolj univerzalno za poljuben 2D CA. Vendar univerzalnost v
+praksi ni ravno pomembna, saj izven raziskovalcev GoL ni dosti zanimanja
+za teoretične probleme, kakor je iskanje predslik.
 
 \section{Iskanje GoE za GoL}
 
@@ -758,7 +764,7 @@ Algoritem bi bil za konfiguracije z dosti predslikami veliko bolj pomnilniško i
 
 Nicolay Beluchenko je poiskal večje število GoE stanj velikosti \(11 \times 11\).
 Sicer ne poznam vseh njegovih pristopov, ampak vsaj v enem primeru je uporabljal
-podoben algoritem kakor Woods. Startal je s osrednjo celico in dodajal nove celice
+podoben algoritem kakor Woods. Startal je z osrednjo celico in dodajal nove celice
 v spirali okoli osrednje. Za vrednost celice je uporabil tisto, ki je dala manjši nabor predslik.
 
 Leta 1974 je Duparc \cite{Duparc1972, Duparc1974} razvil drugačen algoritem,
@@ -800,10 +806,11 @@ nabor stanj za katere je treba poiskati predslike in nabor učnih sekvenc.
 Pričakovali so rešitev, ki temelji na strojnem učenju ali optimiziranju,
 torej fokus ni bil na eksaktni rešitvi.
 
-Pri iskanju implementacij algoritma, sam našel Atabot \cite{Borah2013} in
-Celični kronometer \cite{Duxbury2013}. Cilj teh algoritmov sicer je iskanje
-predslik, ampak iskanje ni sistematično in cilj ni nabor vseh možnih predslik.
-Oba algoritma se poslužujeta določene hevristike pri iskanju.
+Pri iskanju implementacij algoritma, sam našel Atabot \cite{Borah2013},
+Celični kronometer \cite{Duxbury2013} in SAT baziran program \cite{Pigorsch2015}.
+Cilj teh algoritmov sicer je iskanje predslik, ampak iskanje ni sistematično
+in cilj ni nabor vseh možnih predslik.
+Algoritmi se tudi poslužujejo določene hevristike pri iskanju.
 
 \section{Polni algoritmi za štetje in izpis predslik}
 
@@ -822,28 +829,99 @@ kvadratnih delov konfiguracij. Na žalost poda primerjavo med različnimi algori
 le kakor procesni čas za posamezno implementacijo, ne pa tudi bolj splošne
 ocene maksimalne in povprečne procesne/pomnilniške zahtevnosti.
 
+Našel sem še aplikacijo napisano v jeziku APL \cite{ionreq2013}.
+Dokumentacija te aplikacije ni dovolj jasna, da bi bilo očitno, kaj točno počne.
+Iz primera pa sklepam, da je sposobna poiskati vse predslike.
+
 \chapter{Sklepne ugotovitve}
 
-Sklepne ugotovitve naj prikažejo oceno o opravljenem delu in povzamejo težave, na katere je naletel kandidat. Kot rezultat dela
-lahko navede ideje, ki so nastale med delom, in bi lahko bile predmet novih raziskav.
-
-Primerjava s sorodnimi deli bo s stališča procesne zahtevnosti algoritma in glede na to,
-katere znane probleme bo algoritem sposoben rešiti. Nekaj takih problemov, urejenih glede na zahtevnost, je:
+Probleme povezane z iskanjem predslik lahko delimo v nivoje gleda na zahtevnost:
 \begin{enumerate}[noitemsep,nolistsep]
 \item določitev, ali obstajajo predslike za dano trenutno stanje sistema
 \item štetje predslik
 \item naštevanje konfiguracij predslik
-\item jezik vseh stanj brez predslik
 \item vprašanje reverzibilnosti sistema
+\item jezik vseh GoE stanj
 \end{enumerate}
 
-Rešitev problema določitve obstoja predslik si že predstavljam. 
-Predvidevam, da bom uspel rešiti še problem preštevanja predslik,
-in ker je to manjši korak, tudi njihovo naštevanje.
+V magistrskem delu opišem algoritem, ki rešuje prve tri probleme.
+Preostala problema sta si sorodna.
+Problem reverzibilnosti je na splošno dokazano nerešljiv \cite{Kari1989}.
+Problem jezika GoE stanj je za 1D preprosto rešljiv, za 2D pa je
+verjetno podobno kakor vprašanje reverzibilnosti nerešljiv.
 
-Preostalih problemov se tokrat ne bom loteval.
+\section{Analiza 2D CA s pomočjo končnih avtomatov}
+
 Problem jezika stanj brez predslik bi potreboval teorijo 2D formalnega jezika, ki še ne obstaja.
-Poleg tega je povezan s problemom reverzibilnosti, ki je na splošno dokazano nerešljiv \cite{Kari1989}.
+Kljub temu je možno zastaviti probleme, ki se jih da preslikati v končni avtomat.
+Na primer, če obravnavamo vrstice kakor simbole jezika, lahko sestavimo končni avtomat.
+Simboli (stanja vrstic) definirajo prehode med stanji končnega avtomata. Stanja avtomata pa
+so vsi možni nabori robov vrstice. Pomembna je le prisotnost roba, ne pa tudi število.
+Poln nabor vsebuje vse možne robove, prazen nabor pa ne vsebuje nobenega roba.
+Vsako zaporedje vrstic (simbolov), ki v avtomatu pelje iz polnega v prazno stanje, je GoE konfiguracija.
+Zanke v avtomatu so pa sorodne delcem.
+
+Opisan pristop postane nepraktičen že za kratke vrstice.
+Število vseh možnih robov raste eksponentno z dolžino vrstice \(N_x\).
+To število \(|S|^{(M_y-1)N_x}\) je enako vsem načinom,
+na katere se lahko okolici dveh vrstic prekrivata.
+Stanja avtomata pa so vsi možni nabori robov.
+Nabor lahko opišemo kakor binarni niz, kjer vsak bit pomeni
+prisotnost ali odsotnost enega od robov.
+Vseh stanj končnega avtomata je tako \(2^{|S|^{(M_y-1)N_x}}\).
+Število stanj avtomata postane neobvladljivo že za kratke vrstice.
+
+\section{Izboljšave podanega algoritma}
+
+Implementacijo algoritema je možno izboljšati, tako da zahtevnost
+ne raste tako hitro z velikostjo problema.
+Za sedaj vidim samo rešitev, ki se osredotoča na povprečno zahtevnost, namesto na maksimalno zahtevnost.
+Na primer, sedaj algoritem rezervira pomnilnik za uteži vseh možnih robov,
+dovolj pa bi bilo, če bi bil rezerviran pomnilnik samo za robove z utežjo večjo od nič.
+Sploh pri iskanju GoE stanj, je robov malo v primerjavi z vsemi možnimi,
+in bi tak pristop dal dosti manjšo porabo pomnilnika,
+in verjetno tudi znižal čas procesiranja.
+
+Morda bi bilo možno vnaprej določiti zgornjo mejo števila ne ničelnih robov.
+To bi omogočalo zgodnjo oceno, če je izračun za dan problem izvedljiv.
+Na primer, če bi v vrstičnem procesiranju obravnavali vse začetne robove hkrati
+namesto vsakega posebej, bi dobili prevelik nabor končnih robov.
+Tak nabor bi vedno vseboval vse pravilne končne robove, in še nekaj napačnih.
+Ampak skupno število bilo lahko občutno manjše od polnega nabora.
+To število bi lahko uporabili za oceno porabe pomnilnika in časa.
+Na ta način bi bilo možno reševati probleme, ki so na meji tega,
+kar zmore sodobna strojna oprema.
+
+Samo implementacijo algoritma je možno tudi optimizirati.
+Univerzalnost algoritma, predvsem univerzalnost velikosti okolice
+prispeva dosti režijskih stroškov. Če bi bil algoritem specializiran
+samo za quad ali GoL, bi se lahko izognil precej operacijam.
+Podobno velja za nabor stanj, za binarne CA je možno optimizirati
+operacije, ki pretvarjajo 2D nize celic v cela števila in obratno.
+Poleg tega se lahko binarne podatke elegantno pakira v pomnilnik,
+in mogoče je uporabiti logične operacije nad celo besedo celic,
+namesto procesiranja vsake celice posebej.
+
+Procesiranje v algoritmu poteka v gnezdenih zankah in v znanem vrstnem redu.
+Zaporednost podatkov že sama po sebi omogoča dobro optimizacijo dostopa do predpomnilnika,
+tako da na tem področju ni dosti očitnih optimizacij.
+
+%********************************************
+
+\chapter{Priloga A: De Bruijinov diagram za GoL}
+
+Slika \ref{network_single_moore} prikazuje del De Bruijinovega diagrama za GoL.
+Graf z 16 vozlišči in 64 povezavami je očitno preveč kompleksen, da bi bil primeren za razlago algoritma.
+Število vseh možnih okolic, skratka ploskev v diagramu pa je celo 512.
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=network_single_moore,width=13cm}}
+\caption[Mreža ene celice za GoL.]{Mreža ene celice za binarni CA z Moorovo okolico \(M_x=M_y=3\).}
+\label{network_single_moore}
+\end{figure}
+
+\chapter{Priloga B: Primer delovanja algoritma}
+
 
 \newpage
 
@@ -854,15 +932,13 @@ Poleg tega je povezan s problemom reverzibilnosti, ki je na splošno dokazano ne
 %\addcontentsline{toc}{chapter}{\protect Dodatki}
 
 \newpage
-
 \addcontentsline{toc}{chapter}{Seznam slik}
 \addtocontents{toc}{\protect\vspace{-2ex}}
 \listoffigures
 
-\newpage
-
-\addcontentsline{toc}{chapter}{Seznam tabel}
-\listoftables
+%\newpage
+%\addcontentsline{toc}{chapter}{Seznam tabel}
+%\listoftables
 
 %\listofalgorithms
 
@@ -871,8 +947,11 @@ Poleg tega je povezan s problemom reverzibilnosti, ki je na splošno dokazano ne
 \newpage
 
 \bibliographystyle{slplainurl}
+%\bibliographystyle{apsrevSLO}
 \addcontentsline{toc}{chapter}{Literatura}
 \label{stran_literatura}
 \bibliography{magisterij} 
+
+%\printbibliography
 
 \end{document}
