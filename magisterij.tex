@@ -213,7 +213,7 @@ Informacijsko dinamiko CA se najpogosteje opisuje samo kakor reverzibilno ali ir
 obstaja tudi nekaj člankov, ki opazujejo entropijo sistema.
 Pogosto je tudi opazovanje dinamike delcev pri GoL in elementarnem pravilu 110.
 Ne obstaja pa še splošna teorija dinamike informacij v CA.
-V svojem članku \cite{JerasDobnikar2007} in prispevkih na konferencah \cite{DBLP:conf/iccS/JerasD06, DBLP:conf/automata/Jeras08},
+V svojem članku \cite{JerasDobnikar2007} in prispevkih na konferencah \cite{DBLP:conf/iccS/JerasD06, DBLP:conf/automata/Jeras08, Jeras2008-pyca},
 sem grafično upodobil predslike trenutnega stanja za 1D problem.
 Iz upodobitve je videti, da se ponekod izgubi več informacije kakor drugod,
 kar kaže na možnost izpeljave kvalitativne in kvantitativne teorije dinamike informacij;
@@ -870,6 +870,14 @@ Nabor lahko opišemo kakor binarni niz, kjer vsak bit pomeni
 prisotnost ali odsotnost enega od robov.
 Vseh stanj končnega avtomata je tako \(2^{|S|^{(M_y-1)N_x}}\).
 Število stanj avtomata postane neobvladljivo že za kratke vrstice.
+
+Najkrajša GoE beseda znotraj regularnega jezika GoE stanj, je tista,
+ki po najkrajši poti in brez zank pripelje iz polnega v prazen nabor.
+Pri 1D CA se je izkazalo, da je dolžina najkrajše GoE besede povezana s kompleksnostjo
+prostorsko-časovnih vzorcev, ki se pojavljajo pri danem pravilu.
+Podobno so verjetno tudi pri 2D CA GoE konfiguracije večje pri pravilih,
+ki omogočajo kompleksno dinamiko delcev. Verjetno bi bilo možno to izkoristiti
+za iskanje zanimivih pravil v okolici quad.
 
 \section{Izboljšave podanega algoritma}
 
