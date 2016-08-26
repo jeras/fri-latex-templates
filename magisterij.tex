@@ -607,7 +607,7 @@ so dovoljene in katere ne.
 
 Obstaja še eden enostaven robni pogoj, ki je definiran za ciklično sklenjena končna CA polja.
 Ta tip robnega pogoja tukaj ne bo obravnavan, ker še dodatno poveča kompleksnost algoritmov.
-Potrebno bi bilo namreč opraviti celotem postopek iskanja predslik za vsak začetni rob posebej.
+Potrebno bi bilo namreč opraviti celoten postopek iskanja predslik za vsak začetni rob posebej.
 Zvezna ploskev je predslika v cikličnem polju le, če se njen začetni in končni rob ujemata.
 Pojma začetnega in končnega roba sta opisana v poglavju o algoritmu.
 
@@ -617,27 +617,29 @@ Pri 1D CA ima algoritem za štetje predslik linearno \(O(N)\) procesno in pomnil
 Posplošeno to pomeni, da se vsaka celica pojavi v izračunu samo enkrat.
 Dejansko ima vsak algoritem tudi logaritmično komponento,
 saj število bitov potrebnih za zapis števcev raste logaritmično s številom celic.
-Algoritem za izpis predslik ima tudi eksponentno maksimalno kompleksnost,
+Algoritem za izpis predslik ima neizogibno eksponentno kompleksnost \(O(C^N)\),
 saj maksimalno in povprečno število predslik raste eksponentno
 v odvisnosti od števila celic.
 
 Za 2D CA se je izkazalo, da obstajajo problemi, ki niso rešljivi z linearno kompleksnostjo.
 Prikazani algoritem ima maksimalno eksponentno kompleksnost
 v odvisnosti od posamezne dimenzije \(O(S^{N_x} S^{N_y})\).
-Za sedaj je še odprta možnost za obstoj algoritma s kompleksnostjo
+Za sedaj je še odprta možnost za obstoj algoritma s polinomsko kompleksnostjo
 med linearno in eksponentno.
 
 Opisani algoritem za štetje predslik razdeli polje celic na vrstice v dimenziji X.
-Delitev po stolpcih v dimenziji Y bi bila ekvivalentna,
-tako da je to arbitrarna. S stališča procesne zahtevnosti je najbolje izbrati krajšo dimenzijo.
+Delitev po stolpcih v dimenziji Y bi bila ekvivalentna, tako da je to arbitrarna odločitev.
+S stališča procesne zahtevnosti je najbolje izbrati krajšo dimenzijo.
 Na podlagi zunanjega robnega pogoja je najprej poiskan nabor predslik za prvo vrstico.
 Nabor predslik je izračunan kakor uteži za robove na nasprotni strani od začetne.
-Te uteži so uporabljene kakor vhodni robni pogoj za naslednjo vrstico.
+seznam robov in njihove uteži so uporabljeni kakor vhodni robni pogoji za naslednjo vrstico.
 Robne uteži izračunane za zadnjo vrstico predstavljajo število vseh predslik.
 
 Algoritem za izpis predslik je nadaljevaje algoritma za štetje.
 Starta z znanim številom predslik, ki ga je dalo štetje, in izpisuje predslike
-po vrsticah v obratni smeri, kakor je potekalo štetje.
+po vrsticah v obratni smeri, kakor je potekalo štetje, od zadnje do prve vrstice.
+Pridobljen seznam predslik je sortiran. Smer sortiranja je odvisna od smeri procesiranja.
+Smer procesiranja je možno po potrebi spremeniti.
 
 \section{Procesiranje v eni dimenziji}
 
@@ -656,6 +658,7 @@ Ta povezava med vrsticami je prerez opazovane ploskve na meji med vrsticama.
 Vsaka ploskev je obravnavana posebej in prerez je izražen kakor robni pogoj.
 Začetni robni pogoj za vsako vrstico je nabor poti med vozlišči na začetku vrstice.
 Vsaka pot je obravnavana posebej (slika \ref{algorithm_line} mreža \textbf{2}, odebeljena pot).
+Začetni robni pogoj je ekvivalenten nizu prekrivanja okolic \(o_{y^-}\).
 
 Začetni robni pogoj se aplicira tako, da se izloči iz obravnave vse ploskve,
 ki nimajo skupnega roba z robno potjo (slika \ref{algorithm_line}
@@ -669,6 +672,7 @@ prehod iz mreže \textbf{2} v mrežo \textbf{3}). To je problem, ekvivalenten is
 (zvenih poti v grafu) za 1D CA, za kar se uporabi algoritem opisan v \cite{JerasDobnikar2007}.
 Rezultat so poti na prerezu med ploskvami (slika \ref{algorithm_line} mreža \textbf{4},
 končni robni pogoj je odebeljen).
+Končni robni pogoj je ekvivalenten nizu prekrivanja okolic \(o_{y^+}\).
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=algorithm_line,width=14cm}}
@@ -681,18 +685,29 @@ Po procesiranju nabora vseh začetnih robnih pogojev, nastane nabor vseh končni
 Ta nabor se v naslednjem koraku uporabi kakor začetni robni pogoj za naslednjo vrstico.
 
 Nabor vseh možnih poti na meji vrstice raste eksponentno z dolžino vrstice.
-Število vseh poti se izračuna iz števila vejitev na vsakem vozlišču in dolžine poti.
+Število vseh poti se izračuna iz števila vejitev na vsakem vozlišču \(|S|^{(M_y-1)}\) in dolžine poti \(N_x+1\).
 Za deljenje po vrsticah v dimenziji X je ta nabor \( |S|^{(M_y-1)^{N_x+1}} \).
 Posledično kompleksnost algoritma raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
 
 \section{Procesiranje v drugi dimenziji}
 
-V drugi dimenziji se procesira niz vrstic. Vsaka vrstica se začne in konča
-z robnim pogojem, ti robni pogoji so prerezi ploskev v celotni mreži predslik.
-Za tem, ko so procesirane vse vrstice, je znan končni rob nabora vseh zveznih
-ploskev na celotni mreži predslik. Če je uporabljena Boolova algebra je znan
-le obstoj predslik, če pa je uporabljeno množenje in seštevanje,
-je na koncu znano tudi število predslik.
+V drugi dimenziji se procesira zaporedje vrstic od prve do zadnje (slika \ref{algorithm_list}).
+Vsaka vrstica se začne in konča z robnim pogojem,
+ti robni pogoji so prerezi ploskev v celotni mreži predslik.
+Vsako vrstico je potrebno v drugi dimenziji procesirati le enkrat, kar pomeni,
+da je procesna zahtevnost linearno odvisna od števila vrstic \(O(N_y)\).
+
+Vsakemu robnemu pogoju je pripisana utež. Začetni robovi za prvo vrstico imajo pripisano utež \(w=1\).
+Na splošno se lahko več začetnih robov preslika v isti končni rob ene vrstice.
+Utež pripisana končnemu robu dane vrstice, je vsota uteži vseh začetnih robnih pogojev, ki se preslikajo vanj.
+Utež tako predstavlja število vseh predslik za dano in prejšnje vrstice, ki se končajo z opazovanim robom.
+Robovi s katerimi se ne konča nobena od predslik dobijo utež \(w=0\).
+
+Za tem, ko so procesirane vse vrstice, je znan končni rob nabora vseh zveznih ploskev na celotni mreži predslik.
+Vsota uteži vseh končnih robov daje število predslik celotne mreže.
+
+Z uporabo Boolove algebre \(w \in {0, 1}\) namesto operacij množenja in seštevanja,
+je možno poenostaviti iskanje predslik samo na njihov obstoj za opazovani robni pogoj.
 
 \section{Izpis predslik}
 
