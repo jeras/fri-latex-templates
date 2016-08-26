@@ -113,7 +113,7 @@ Na tem mestu se diplomant zahvali vsem, ki so kakorkoli pripomogli k uspešni iz
 \begin{abbreviations}
 \item[1D] eno dimenzionalen
 \item[2D] dvo dimenzionalen
-\item[3D] tri dimenzionalen
+\item[3D] tro dimenzionalen
 \item[CA] celični avtomat
 \item[GoL] Conway's Game of Life (Conwayeva igra življenja)
 \item[GoE] Garden of Eden (stanje brez predslik)
@@ -135,9 +135,9 @@ Na tem mestu se diplomant zahvali vsem, ki so kakorkoli pripomogli k uspešni iz
 \item[\(m\)] število celic v 2D okolici
 \item[\(n\)] stanje okolice posamezne celice (celoštevilska vrednost)
 \item[\(n_{x,y}\)] vrednost okolice celice na položaju \([x,y]\) znotraj 2D polja celic
-\item[\(n^{t-1}\)] vrednost celice v preteklosti (eden korak)
+\item[\(n^{t-1}\)] vrednost okolice celice v preteklosti (eden korak)
 \item[\(n^t\)] vrednost okolice celice v sedanjosti
-\item[\(f\)] tranzicijska funkcija
+\item[\(f\)] tranzicijska funkcija, ki definira časovno evolucijo avtomata
 \item[\(f^{-1}\)] obratna tranzicijska funkcija
 \item[\(o_x\)] prekrivanje okolic v dimenziji X
 \item[\(o_y\)] prekrivanje okolic v dimenziji Y
@@ -182,7 +182,8 @@ While computing preimages of 1D cellular automata is a well researched and
 documented problem, for 2D cellular automata there is less research available.
 This masters thesis attempts to apply methods developed for 1D automata to the
 2D problem. An algorithm is shown, which can count and list preimages.
-It was developed with the help of a graphical representation, which enables using graph theory for computation and proofs.
+It was developed with the help of a graphical representation, the preimage network,
+which enables using graph theory for computation and proofs.
 
 \vspace{1.3cm}
 \noindent
@@ -199,13 +200,14 @@ cellular automata, preimages, ataviser, computational complexity, reversibility,
 
 \section{CA kakor model vesolja}
 
-Ker lahko vsak univerzalen sistem modelira vsak drugi univerzalen sistem, lahko predpostavimo,
+Ker lahko vsak univerzalen sistem modelira vsak drug univerzalen sistem, lahko predpostavimo,
 da lahko z univerzalnimi CA modeliramo vesolje. Samo modeliranje vesolja
 je še izven našega dosega, poizkuša pa se vsaj približati teorijo CA in teoretično fiziko.
 S strani informacijske teorije in termodinamike je predvsem zanimiv model gravitacije
 kakor entropijske sile (Entropic gravity \cite{Verlinde2010}), ki predpostavlja, da je
-3D vesolje projekcija procesov, ki se odvijajo na 2D ploskvi. Z druge strani pa CA omogočajo
+3D vesolje projekcija procesov, ki se odvijajo na 2D ploskvi. Z druge strani pa CA tudi omogočajo
 opazovanje abstraktnega kopiranja informacij (replikacija) in evolucije \cite{Salzberg2004}.
+Oba sta pomembna informacijska pojava v našem vesolju.
 
 \section{Informacijska dinamika}
 
@@ -216,8 +218,8 @@ Ne obstaja pa še splošna teorija dinamike informacij v CA.
 V svojem članku \cite{JerasDobnikar2007} in prispevkih na konferencah \cite{DBLP:conf/iccS/JerasD06, DBLP:conf/automata/Jeras08, Jeras2008-pyca},
 sem grafično upodobil predslike trenutnega stanja za 1D problem.
 Iz upodobitve je videti, da se ponekod izgubi več informacije kakor drugod,
-kar kaže na možnost izpeljave kvalitativne in kvantitativne teorije dinamike informacij;
-žal se ta možnost še ni udejanila. Podobno je možno grafično upodobiti predslike 2D CA,
+kar kaže na možnost izpeljave kvalitativne in kvantitativne teorije dinamike informacij.
+Na žalost se ta možnost še ni udejanila. Podobno je možno grafično upodobiti predslike 2D CA,
 ter iz grafov sklepati o izgubi informacij v 2D CA.
 
 \section{Problem predslik 2D CA}
@@ -232,26 +234,26 @@ Pri 1D CA se algoritmi za iskanje predslik uporabljajo za določitev atraktorjev
 V vsakem CA, ki ni lokalno injektiven se pojavljajo stanja brez predslik imenovana GoE
 (Garden of Eden ali rajski vrt) \cite{Moore1962, Myhill1963}.
 Pomensko so GoE nasprotje delcev, saj se nahajajo kar
-najdlje od atraktorja na robu korita. GoE stanja prav tako kakor delci privlačijo raziskovalce,
-čeprav v manjši meri kakor delci.
+najdlje od atraktorja na robu korita. GoE stanja tudi privlačijo raziskovalce,
+čeprav v nekoliko manjši meri kakor delci.
 
 Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja GoE stanj.
 S stališča algoritma za štetje predslik je GoE stanje tako, ki nima nobene predslike.
-Algoritem za štetje predslik je možno pretvoriti v algoritem za preverjanje ali je stanje GoE,
+Algoritem za štetje predslik je možno pretvoriti v manj zahteven algoritem za preverjanje ali je stanje GoE,
 tako da se operacije nad celimi števili pretvori v logične operacije nad Boolovimi stanji.
 
 \section{Algoritmi za iskanje predslik}
 
-Raziskave algoritmov sem se lotil s predpostavko, da je možno opraviti štetje s zahtevnostjo,
+Raziskave algoritmov sem se lotil s predpostavko, da je možno opraviti štetje z zahtevnostjo,
 ki je linearno odvisna od velikosti problema \( O(N) \)  (\(N\) je število opazovanih celic).
 Čeprav je to možno pri 1D problemu, se izkaže, da 2D problem ni tako preprost.
 Predstavljeni so primeri iz katerih je razvidno,
 da algoritem z linearno zahtevnostjo ne more pravilno opisati vseh situacij.
 Zahtevnost opisanega algoritma sicer raste eksponentno z velikostjo ene
-od dimenzij CA polja \( O(C^N) \), je pa možno, da obstaja algoritem z nižjo kompleksnostjo.
+od dimenzij CA polja \( O(C^{N_x}) \), je pa možno, da obstaja algoritem z nižjo kompleksnostjo.
 
 Pomembno vlogo pri razvoju opisanega algoritma ima mreža predslik.
-To je grafična upodobitev problema, katere cilj je lažje razumevanje problema in rešitev.
+To je grafična upodobitev problema, katere cilj je lažje razumevanje problema in rešitve.
 Osnova za oblikovanje mreže predslik so De Bruijn-ovi diagrami.
 Paulina Léon in Genaro Martínez \cite{PaulinaGenaro2016}
 poizkušata aplicirati De Bruijn-ove diagrame na 2D CA,
@@ -277,7 +279,7 @@ Iskanje predslik 2D CA je trenutno nekje med improvizacijo in matematičnim mode
 
 Opisan algoritem na koncu primerjam z ostalimi doslej znanimi algoritmi.
 Čeprav s stališča procesne zahtevnosti ne prinaša želenega napredka,
-pa to, da temelji na pregledni grafični upodobitvi daje upanje,
+pa to, da temelji na pregledni grafični upodobitvi, daje upanje,
 da bojo razne optimizacije razvidne bodočim raziskovalcem.
 
 Celični avtomat GoL je definiran z Moorovo okolico velikosti \(3 \times 3\).
@@ -289,20 +291,21 @@ Toffoli \cite{Toffoli2008} je leta 2008 spodbudil raziskovalce k iskanju univerz
 z okolicama trid (tri celice na heksagonalnem polju) in quad (štiri celice na kvadratnem polju).
 Powley \cite{Powley2008} hitro dokaže obstoj univerzalnega avtomata z okolico trid,
 tako da ustvari avtomat, ki lahko s pomočjo določenega začetnega stanja
-simulira 1D elementarni celični avtomat, na primer pravilo 110.
-Sam sem obe okolici poznal že prej. Zame je njuna najboljša lastnost majhen nabor stanj okolice,
+simulira poljubni 1D elementarni celični avtomat, na primer pravilo 110.
+Sam sem obe okolici poznal že prej. Njuna najboljša lastnost je majhen nabor stanj okolice,
 \(2^4=16\) za quad in \(2^3=8\) za trid. Za primere je bil uporabljen quad,
 saj so diagrami na kvadratni mreži bolj enostavni in pregledni, kakor diagrami na heksagonalni mreži.
 
 Algoritem je implementiran kot računalniški program v jeziku C \cite{Jeras2016-algirithm}.
-Knjižnica GMP je uporabljena za zapis celih števil večjih od 64 bitov.
+Knjižnica GMP \footnote{The GNU Multiple Precision Arithmetic Library \url{https://gmplib.org/}}
+je uporabljena za zapis celih števil večjih od 64 bitov.
 Poleg samega algoritma za štetje in izpis predslik sem pripravil tudi
 orodje za simulacijo binarnega CA z okolico quad \cite{Jeras2016-quad}
 in orodje za prikaz poljubne mreže predslik \cite{Jeras2016-network}.
 Obe orodji se lahko zažene kar v internetnem brskalniku.
 
 V slikah je uporabljena izometrična projekcija,
-saj je za potrebe analize je osnovnemu 2D polju dodana tretja dimenzija,
+saj je za potrebe analize osnovnemu 2D polju dodana tretja dimenzija,
 ki opisuje prostor predslik (mreža predslik).
 
 \chapter{Definicija 2D CA}
