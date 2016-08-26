@@ -376,7 +376,7 @@ Pravilo \(r\) je celo število v \(S\)-iškem številskem sestavu,
 kjer so cifre zaporedje vrednosti celic za vsako od \(|S|^m\) možnih okolic.
 Vseh pravil je na voljo \(|S|^{|S|^m}\).
 \begin{equation}
-r = \sum_{n=0}^{n=|S|^m} |S|^n \cdot f(n)
+r = \sum_{n=0}^{n=|S|^m-1} |S|^n \cdot f(n)
 \end{equation}
 \begin{equation}
 r \in \{0, 1, \dots |S|^{|S|^m}-1\}
@@ -404,25 +404,32 @@ predslik.
 
 \section{De Bruijnov diagram}
 
-Osnovani element grafične upodobitve je De Bruijinov diagram. V osnovi ta obravnava
+Osnovni element grafične upodobitve je De Bruijinov diagram. V osnovi ta obravnava
 ciklične premike končnih zaporedij simbolov, ter njihovo prekrivanje. Vozlišča v
-diagramu so vsa možna končna zaporedja, povezave med njimi pa definirajo kako se
+diagramu so vsa možna končna zaporedja, povezave med njimi pa definirajo, kako se
 ta zaporedja prekrivajo med seboj.
 
 Pri 1D CA se problem neposredno preslika na De Bruijinov graf. McIntosh
 in njegova skupina uporabljajo za analizo te De Bruijinove grafe neposredno. Sam sem pa
 razvil modificiran graf, kjer so vozlišča podvojena, in gredo poti vedno od originala
-proti dvojniku. To omogoča veriženje grafov, in razširitev osnovnega De Bruijinovega
-grafa, ki opisuje okolico ene celice, v verižen graf, ki opisuje verigo celic.
+proti dvojniku (slika \ref{de_bruijn_diagram}).
+To omogoča veriženje grafov, in razširitev osnovnega De Bruijinovega grafa.
+Medtem ko osnovni De Bruijinov graf opisuje okolico ene celice, verižen graf opisuje verigo celic.
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=de_bruijn_diagram,width=12cm}}
+\caption[De Bruijinov graf, pravilo 110.]{De Bruijinov graf za elementarni 1D CA, pravilo 110.}
+\label{de_bruijn_diagram}
+\end{figure}
 
 Za potrebe opisa 2D celičnih avtomatov, je bila elementom
 De Bruijinovega grafa dodana nova dimenzija. Povezave med vozliči se spremenijo
 v ploskve, in vozlišča se spremenijo v robove ploskev.
 Elementi celičnega avtomata, ki se preslikajo v graf so:
 \begin{itemize}[noitemsep,nolistsep]
-\item nabor vseh možnih okolic celice postane nabor vseh ploskev (slika \ref{neighborhood_surfaces})
-\item nabor prekrivanj okolic v smeri 2D dimenzij (slika \ref{overlap_dimension_quad}) postane nabor povezav
-\item nabor prekrivanj okolic v diagonalni smeri (slika \ref{overlap_diagonal_quad}) postane nabor vozlišč
+\item nabor vseh možnih \textbf{okolic} celice postane nabor vseh \textbf{ploskev} (slika \ref{neighborhood_surfaces})
+\item nabor \textbf{prekrivanj okolic v smeri 2D dimenzij} (slika \ref{overlap_dimension_quad}) postane nabor \textbf{povezav}
+\item nabor \textbf{prekrivanj okolic v diagonalni smeri} (slika \ref{overlap_diagonal_quad}) postane nabor \textbf{vozlišč}
 \end{itemize}
 
 Elemente celičnega avtomata, kakor okolice in prekrivanja okolic je potrebno indeksirati,
@@ -433,20 +440,20 @@ Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice
 (sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}).
 
 \begin{equation}
-n = \sum_{x,y} |S|^{y N_x + x} \cdot c_{x,y}
+n = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{y M_x + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-n \in \{0, 1, \dots |S|^{N_x N_y}-1\}
+n \in \{0, 1, \dots, |S|^{M_x M_y}-1\}
 \end{equation}
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=neighborhood_index_moore,width=14cm}}
+\centerline{\psfig{figure=neighborhood_index_moore,width=12cm}}
 \caption[Indeksiranje okolice \(3 \times 3\).]{Indeksiranje okolice celice z dimenzijama \(M_x=M_y=3\).}
 \label{neighborhood_index_moore}
 \end{figure}
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=neighborhood_index_quad,width=12cm}}
+\centerline{\psfig{figure=neighborhood_index_quad,width=10cm}}
 \caption[Indeksiranje okolice \(2 \times 2\).]{Indeksiranje okolice celice z dimenzijama \(M_x=M_y=2\).}
 \label{neighborhood_index_quad}
 \end{figure}
@@ -454,23 +461,29 @@ n \in \{0, 1, \dots |S|^{N_x N_y}-1\}
 Celice se v smeri dimenzije X prekrivajo za ploskev velikosti \((M_x-1) \times M_y\) (sliki \ref{overlap_dimension_moore} in \ref{overlap_dimension_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
-o_x = \sum_{x,y} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+o_{x^-} = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-2 \\ y=M_y-1}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_x \in \{0, 1, \dots |S|^{(M_x-1)N_y}-1\}
+o_{x^+} = \sum_{\substack{x=1 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+\end{equation}
+\begin{equation}
+o_x \in \{0, 1, \dots, |S|^{(M_x-1)M_y}-1\}
 \end{equation}
 
 Celice se v smeri dimenzije Y prekrivajo za ploskev velikosti \(M_x \times (M_y-1)\) (sliki \ref{overlap_dimension_moore} in \ref{overlap_dimension_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
-o_y = \sum_{x,y} |S|^{y M_x + x} \cdot c_{x,y}
+o_{y^-} = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-2}} |S|^{y M_x + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_y \in \{0, 1, \dots |S|^{M_x(N_y-1)}-1\}
+o_{y^+} = \sum_{\substack{x=0 \\ y=1}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{y M_x + x} \cdot c_{x,y}
+\end{equation}
+\begin{equation}
+o_y \in \{0, 1, \dots, |S|^{M_x(M_y-1)}-1\}
 \end{equation}
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=overlap_dimension_moore,width=10cm}}
+\centerline{\psfig{figure=overlap_dimension_moore,width=8cm}}
 \caption[Prekrivaje okolic \(3 \times 3\) v smeri dimenzij X in Y.]
 {Prekrivanje okolic sosednjih celic v smeri dimenzij X in Y, za velikost okolice \(M_x=M_y=3\).
 Okolice se prekrivajo v 6 celicah od 9.}
@@ -478,7 +491,7 @@ Okolice se prekrivajo v 6 celicah od 9.}
 \end{figure}
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=overlap_dimension_quad,width=10cm}}
+\centerline{\psfig{figure=overlap_dimension_quad,width=8cm}}
 \caption[Prekrivaje okolic \(2 \times 2\) v smeri dimenzij X in Y.]
 {Prekrivanje okolic sosednjih celic v smeri dimenzij X in Y, za velikost okolice \(M_x=M_y=2\).
 Okolice se prekrivajo v 2 celicah od 4.}
@@ -488,10 +501,19 @@ Okolice se prekrivajo v 2 celicah od 4.}
 Celice se v diagonalni smeri prekrivajo za ploskev velikosti \((M_x-1) \times (M_y-1)\) (sliki \ref{overlap_diagonal_moore} in \ref{overlap_diagonal_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
-o_{xy} = \sum_{x,y} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+o_{{x^-}{y^-}} = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-2 \\ y=M_y-2}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_{xy} \in \{0, 1, \dots |S|^{(M_x-1)(N_y-1)}-1\}
+o_{{x^-}{y^+}} = \sum_{\substack{x=0 \\ y=1}}^{\substack{x=M_x-2 \\ y=M_y-1}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+\end{equation}
+\begin{equation}
+o_{{x^+}{y^-}} = \sum_{\substack{x=1 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-2}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+\end{equation}
+\begin{equation}
+o_{{x^+}{y^+}} = \sum_{\substack{x=1 \\ y=1}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+\end{equation}
+\begin{equation}
+o_{xy} \in \{0, 1, \dots, |S|^{(M_x-1)(M_y-1)}-1\}
 \end{equation}
 
 \begin{figure}[htb]
@@ -503,10 +525,10 @@ Okolice se prekrivajo v 4 celicah od 9.}
 \end{figure}
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=overlap_diagonal_quad,width=10cm}}
+\centerline{\psfig{figure=overlap_diagonal_quad,width=8cm}}
 \caption[Prekrivanje okolic \(2 \times 2\) - diagonalno.]
 {Prekrivanje okolic sosednjih celic v diagonalni smeri, za velikost okolice \(M_x=M_y=2\).
-Okolice se prekrivajo v eni celici od 9.}
+Okolice se prekrivajo v eni celici od 4.}
 \label{overlap_diagonal_quad}
 \end{figure}
 
