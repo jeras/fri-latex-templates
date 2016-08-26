@@ -544,7 +544,7 @@ da mora vsako vozlišče ali povezava v zanki pripadati drugemu prekrivanju okol
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood_surfaces,width=16cm}}
-\caption[Nabor ploskev.]{Nabor ploskev za vse možne okolice za binarni CA z okolico quad \(M_x=M_y=2\).}
+\caption[Nabor ploskev.]{Nabor ploskev za vseh 16 možnih vrednosti okolic za binarni CA z okolico quad \(M_x=M_y=2\).}
 \label{neighborhood_surfaces}
 \end{figure}
 
@@ -573,16 +573,16 @@ Dokazati želimo, da je neka konfiguracija celic predslika dane sedanjosti
 \textbf{Prvi element:}
 Iz definicije velja, da je za eno samo celico v mreži nabor ploskev enak naboru vseh predslik.
 \textbf{Naslednji element:}
-Obstoječi mreži predslik novo celico.
+Obstoječi mreži predslik dodamo novo celico.
 Ploskev iz nabora dodane celice se zvezno veže s ploskvijo
 iz obstoječega nabora zveznih ploskev natanko v primeru,
-ko se z njo ujema v robu (povezavi med vozliščema).
+ko se z njo ujema v robu (vozliščema in povezavi med njima).
 Temu je tako, ker so indeksi vozlišč in povezav ekvivalentni vrednosti prekrivanj okolic.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=network_array,width=14cm}}
 \caption[Mreža polja celic.]{Mreža velikosti \(N_x=3\) in \(N_y=3\) za binarni CA z okolico quad.
-Poudarjena je ena zvezna ploskev in njen rob (konfiguracija pripadajoče predslike je izpisana).}
+Poudarjena je ena zvezna ploskev in njen zvezen rob. Konfiguracija pripadajoče predslike je izpisana.}
 \label{network_array}
 \end{figure}
 
@@ -596,17 +596,20 @@ in s kakšnimi utežmi so na voljo ob robu.
 Lahko si jih predstavljamo tudi kakor vpliv, neskončnega poltraka celic,
 ki sega izven roba opazovane konfiguracije.
 
-Pri 2D CA je robni pogoj definiran na sklenjeni poti okoli ploskve opazovane konfiguracije celic.
+Pri 2D CA je robni pogoj definiran kakor utež sklenjene poti okoli ploskve opazovane konfiguracije celic.
 V mreži predslik za 2D CA povezave med vozlišči definirajo rob ploskve (slika \ref{network_array}).
-Na splošno ima vsaka ploskev v mreži svoj rob, robni pogoj določa kako je ta ploskev obravnavana.
+Na splošno ima vsaka zvezna ploskev v mreži svoj rob, robni pogoj določa, kako je ta ploskev obravnavana.
 Ker uporabna vrednost splošnega robnega pogoja še ni znana,
 in bi splošnost izrazito povečala zahtevnost algoritma za iskanje predslik,
-so tukaj vsi robovi obravnavani enako. Temu bomo rekli odprt rob,
+so tukaj vsi robovi obravnavani enako. Temu bomo rekli odprti rob,
 ker ta ne definira nobenih omejitev, katere zvezne ploskve v mreži predslik
 so dovoljene in katere ne.
 
 Obstaja še eden enostaven robni pogoj, ki je definiran za ciklično sklenjena končna CA polja.
 Ta tip robnega pogoja tukaj ne bo obravnavan, ker še dodatno poveča kompleksnost algoritmov.
+Potrebno bi bilo namreč opraviti celotem postopek iskanja predslik za vsak začetni rob posebej.
+Zvezna ploskev je predslika v cikličnem polju le, če se njen začetni in končni rob ujemata.
+Pojma začetnega in končnega roba sta opisana v poglavju o algoritmu.
 
 \chapter{Algoritem za štetje in izpis predslik}
 
