@@ -978,7 +978,9 @@ tako da na tem področju ni dosti očitnih optimizacij.
 
 %********************************************
 
-\chapter{Priloga A: De Bruijinov diagram za GoL}
+\appendix
+
+\chapter{De Bruijinov diagram za GoL}
 
 Slika \ref{network_single_moore} prikazuje del De Bruijinovega diagrama za GoL.
 Graf s 16 vozlišči in 64 povezavami je očitno preveč kompleksen, da bi bil primeren za razlago algoritma.
@@ -990,8 +992,157 @@ Graf s 16 vozlišči in 64 povezavami je očitno preveč kompleksen, da bi bil p
 \label{network_single_moore}
 \end{figure}
 
-\chapter{Priloga B: Primer delovanja algoritma}
+\chapter{Primer delovanja algoritma za CA z okolico quad}
 
+V naslednjem primeru je prikazano štetje in iskanje predslik
+za binarni CA (celica ima lahko \(2\) stanji) z okolico velikosti \(2 \times 2\)
+in pravilom številka \verb|0x725A|.
+
+Konfiguracija je majhna velikosti \(2 \times 2\) shranjena v datoteki \verb|test_2x2.cas|.
+Uporabil bi večjo konfiguracijo a na žalost ne poznam pravila,
+ki bi za večjo konfiguracijo dal majhno število predslik.
+
+Uporabljen je program \cite{Jeras2016-algirithm} z verzijo \verb|v1|.
+
+\begin{verbatim}
+$ ./ca2d_preimages 2 2 2 0x725a 2 2 test_2x2.cas
+CA parameters:
+  sts  : 2
+  ngb  : siz={2,2}, a=4, n=16
+  ovl-y: siz={1,2}, a=2, n=4
+  ovl-x: siz={2,1}, a=2, n=4
+  rem-y: siz={1,2}, a=2, n=4
+  rem-x: siz={2,1}, a=2, n=4
+  ver  : siz={1,1}, a=1, n=2
+  shf-y: siz={1,1}, a=1, n=2
+  shf-x: siz={1,1}, a=1, n=2
+
+RULE = 0x725a
+  tab [0] = [[0,0],[0,0]] = 0
+  tab [1] = [[1,0],[0,0]] = 1
+  tab [2] = [[0,1],[0,0]] = 0
+  tab [3] = [[1,1],[0,0]] = 1
+  tab [4] = [[0,0],[1,0]] = 1
+  tab [5] = [[1,0],[1,0]] = 0
+  tab [6] = [[0,1],[1,0]] = 1
+  tab [7] = [[1,1],[1,0]] = 0
+  tab [8] = [[0,0],[0,1]] = 0
+  tab [9] = [[1,0],[0,1]] = 1
+  tab [A] = [[0,1],[0,1]] = 0
+  tab [B] = [[1,1],[0,1]] = 0
+  tab [C] = [[0,0],[1,1]] = 1
+  tab [D] = [[1,0],[1,1]] = 1
+  tab [E] = [[0,1],[1,1]] = 1
+  tab [F] = [[1,1],[1,1]] = 0
+
+CA configuration siz [y↓,x→] = [2,2]:
+ 1 0
+ 0 1
+
+NETWORK: edge weights from forward/backward direction,
+         summed preimages
+net [dy=0][y=0] = [1 1 1 1 1 1 1 1 ]
+net [dy=0][y=1] = [2 2 0 2 3 3 0 1 ]
+net [dy=0][y=2] = [0 3 5 0 0 2 7 2 ]  cnt [0] = 19
+net [dy=1][y=0] = [0 4 4 0 0 4 5 2 ]  cnt [1] = 19
+net [dy=1][y=1] = [2 0 3 4 2 0 1 1 ]
+net [dy=1][y=2] = [1 1 1 1 1 1 1 1 ]
+
+preimage i=0:  CA configuration siz [y↓,x→] = [3,3]:
+ 1 0 0
+ 0 0 0
+ 0 1 0
+
+preimage i=1:  CA configuration siz [y↓,x→] = [3,3]:
+ 1 0 0
+ 0 0 0
+ 0 1 1
+
+preimage i=2:  CA configuration siz [y↓,x→] = [3,3]:
+ 1 0 0
+ 0 0 1
+ 0 1 0
+
+preimage i=3:  CA configuration siz [y↓,x→] = [3,3]:
+ 1 0 0
+ 0 0 1
+ 0 1 1
+
+preimage i=4:  CA configuration siz [y↓,x→] = [3,3]:
+ 0 1 0
+ 1 1 0
+ 1 0 0
+
+preimage i=5:  CA configuration siz [y↓,x→] = [3,3]:
+ 0 1 0
+ 1 1 0
+ 1 0 1
+
+preimage i=6:  CA configuration siz [y↓,x→] = [3,3]:
+ 0 1 0
+ 1 1 0
+ 0 1 1
+
+preimage i=7:  CA configuration siz [y↓,x→] = [3,3]:
+ 0 1 0
+ 1 1 0
+ 1 1 1
+
+preimage i=8:  CA configuration siz [y↓,x→] = [3,3]:
+ 1 0 1
+ 0 0 0
+ 0 1 0
+
+preimage i=9:  CA configuration siz [y↓,x→] = [3,3]:
+ 1 0 1
+ 0 0 0
+ 0 1 1
+
+preimage i=10:  CA configuration siz [y↓,x→] = [3,3]:
+ 1 0 1
+ 0 0 1
+ 0 1 0
+
+preimage i=11:  CA configuration siz [y↓,x→] = [3,3]:
+ 1 0 1
+ 0 0 1
+ 0 1 1
+
+preimage i=12:  CA configuration siz [y↓,x→] = [3,3]:
+ 0 1 1
+ 1 1 0
+ 1 0 0
+
+preimage i=13:  CA configuration siz [y↓,x→] = [3,3]:
+ 0 1 1
+ 1 1 0
+ 1 0 1
+
+preimage i=14:  CA configuration siz [y↓,x→] = [3,3]:
+ 0 1 1
+ 1 1 0
+ 0 1 1
+
+preimage i=15:  CA configuration siz [y↓,x→] = [3,3]:
+ 0 1 1
+ 1 1 0
+ 1 1 1
+
+preimage i=16:  CA configuration siz [y↓,x→] = [3,3]:
+ 0 1 1
+ 1 1 1
+ 1 0 0
+
+preimage i=17:  CA configuration siz [y↓,x→] = [3,3]:
+ 1 1 1
+ 0 0 1
+ 0 1 0
+
+preimage i=18:  CA configuration siz [y↓,x→] = [3,3]:
+ 1 1 1
+ 0 0 1
+ 0 1 1
+\end{verbatim}
 
 \newpage
 
