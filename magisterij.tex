@@ -718,23 +718,32 @@ celoto in katere ne. Možne so ploskve, ki prekrivajo polje samo do neke vrstice
 
 Procesiranje po drugi dimenziji poteka v obratni smeri kakor pri štetju,
 začne pri zadnji vrstici in konča pri prvi vrstici (slika \ref{algorithm_list}).
-Z vsakim korakom izloča še preostale slepe poti iz mreže predslik.
+Z vsakim korakom se izloča še preostale slepe poti iz mreže predslik.
+Za vsako vrstico je potrebno ponovno rešiti 1D problem,
+le da sta začetni in končni rob zamenjana.
+Začetni rob je zaporedje prekrivanja okolic \(o_{y^+}\))
+in končni rob je zaporedje prekrivanja okolic \(o_{y^-}\)).
+
 Hkrati je možno še izpisovati predslike. Že na začetku procesiranja v obratni smeri,
-je že znano število vseh predslik, kar omogoča rezervacijo pomnilnika.
-Končne robne poti in njihove uteži, se uporabijo za popis tekoče vrstice celic
-v predslikah. Z vsakim korakom v obratni smeri se popiše nova vrstica za vsako od preštetih predslik.
+je znano število vseh predslik, kar omogoča rezervacijo pomnilnika in inicializacijo seznama predslik.
+Končne robne poti in njihove uteži, se uporabijo za popis tekoče vrstice celic v predslikah.
+Indeks poti (določeno zaporedje prekrivajočih okolic) da vrednost celic v predsliki,
+uteži izračunane v smeri štetja pa dajo število predslik,
+ki jih je potrebno popisati z dano vrednostjo celic.
+
+Z vsakim korakom v obratni smeri se popiše nova vrstica za vsako od preštetih predslik.
 Ko pride algoritem, spet do začetne vrstice, so vse predslike popisane.
 Hkrati so iz mreže predslik izločene vse slepe poti, ostanejo le še ploskve,
 ki tvorijo zvezne ploskve na celotnem polju celic.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=algorithm_list,width=8cm}}
-\caption[Algoritem za izpis predslik.]{Potek smeri procesiranja pri algoritmu za izpis predslik.}
+\caption[Algoritem za izpis predslik.]{Potek smeri procesiranja pri algoritmu za štetje in izpis predslik.}
 \label{algorithm_list}
 \end{figure}
 
 Algoritem tukaj ni podrobno opisan, je pa preprosta razširitev algoritma uporabljenega
-za 1D CA opisanega v \cite{JerasDobnikar2007}. Za podrobnosti je na voljo izvorna koda v prilogah.
+za 1D CA opisanega v \cite{JerasDobnikar2007}. Za podrobnosti je na voljo izvorna koda \cite{Jeras2016-algirithm}.
 
 \section{Nezmožnost procesiranja z linearno zahtevnostjo}
 
@@ -748,31 +757,32 @@ Algoritem v linearnem času, bi vsako celico obravnaval le enkrat
 ali na splošno bi bilo število obravnav majhna konstanta (4 krat,
 če se izvaja procesiranje skozi mrežo predslik v 4 smereh/prehodih).
 Tak algoritem predpostavlja, da je možno celoten nabor začetnih
-robnih pogojev upoštevati hkrati v enem samem prehodu. Po nekaj
-poizkusih sem ugotovil da temu ni tako. Vsaj nekatere poti iz nabora je
-potrebno upoštevati ločeno.
+robnih pogojev upoštevati hkrati v enem samem prehodu.
+V koraku \textbf{2} na pri procesiranju vrstice (sliki \ref{algorithm_line})
+bi se izločilo le ploskve, ki ne ustrezajo nobenemu od začetnih robnih pogojev.
+Po nekaj poizkusih sem ugotovil, da tak algoritem ne deluje pravilno.
+Vsaj nekatere poti iz nabora je potrebno upoštevati ločeno.
 
-V podanem primeru (slika \ref{algorithm_issue}) se prvi dve vrstici zaključita
+V podanem primeru (slika \ref{algorithm_issue}) se prvi dve vrstici zaključita z
 naborom dveh končnih poti \textbf{0110} in \textbf{1111}. Če bi te dve poti
-uporabili, hkrati kakor začetni robni pogoj za naslednjo vrstico, bi dobili
-enak rezultat kakor, če bi bili del robnega pogoja še poti \textbf{0111} in \textbf{1110}.
-To pa zato, ker algoritem, ki poti ne obravnava ločeno ne more vedeti
+uporabili hkrati, kakor začetni robni pogoj za naslednjo vrstico, bi dobili
+enak rezultat kakor, če bi bili del robnega pogoja tudi poti \textbf{0111} in \textbf{1110}.
+To pa zato, ker algoritem, ki poti ne obravnava ločeno, ne more vedeti,
 kje se je pot začela, da bi jo lahko tudi pravilno zaključil.
 Posledično linearen algoritem lahko vzame začetek ene od poti in ga
 na vozliču skupnem obema potema nadaljuje po drugi poti.
 Iz mreže je razvidno, da te dve poti nista preseka neke zvezne ploskve.
 Skratka hkratno obravnavanje celotnega nabora robnih pogojev ni možno,
 kar pomeni, da je število obravnav neke celice odvisno od števila poti
-in posledično od velikosti problema.
+in posledično od eksponenta števila celic v vrstici.
 
-Zgoraj opisani algoritem izrecno obravnava vsak robni pogoj iz nabora ločeno.
-Je pa videti, da bi bilo možno hkrati obravnavati robove, ki nimajo nobenega skupnega
-vozlišča. Najbrž obstajajo tudi druge optimizacije algoritma, ki lahko zmanjšajo
-procesno kompleksnost.
+Možno je, da obstajajo drugačne optimizacije algoritma, ki lahko zmanjšajo procesno kompleksnost.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=algorithm_issue,width=14cm}}
-\caption[Ovira za procesiranje z linearno zahtevnostjo.]{Ovira za procesiranje z linearno zahtevnostjo.}
+\caption[Ovira za procesiranje z linearno zahtevnostjo.]
+{Ovira za procesiranje z linearno zahtevnostjo.
+Veljavni robni pogoj je odebeljen, neveljavni pa črtkan.}
 \label{algorithm_issue}
 \end{figure}
 
