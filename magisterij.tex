@@ -312,39 +312,40 @@ ki opisuje prostor predslik (mreža predslik).
 
 Predstavljena definicija 2D CA je enostavna in manj formalna
 v primerjavi z definicijo 1D CA v podobnih prispevkih.
-Bolj formalna definicija ni potrebna, saj se opisani problemi za 2D CA,
-še ne povezujejo z drugimi vejami matematike toliko kakor 1D CA.
+Bolj formalna definicija ni potrebna, saj se opisani problemi pri 2D CA,
+še ne povezujejo z drugimi vejami matematike toliko kakor pri 1D CA.
 
-Osnovni element 2D CA je celica kakor del polja celic.
+Osnovni element 2D CA je celica, kakor del polja celic.
 Vsaka celica ima diskretno vrednost \(c\) iz nabora stanj celice \(S\).
 Stanja so običajno kar oštevilčena.
 
 \begin{equation}
 c \in S
 \quad \textrm{in} \quad
-S = \{ 0, 1, 2, {\lvert S \rvert} -1 \}
+S = \{ 0, 1, \dots, {\lvert S \rvert} -1 \}
 \end{equation}
 
 Mreža polja je lahko pravokotna, šestkotna ali celo kvazikristalna, tukaj se
 bomo omejili na pravokotno mrežo. Na splošno je velikost polja lahko neskončna,
-bolj običajna pa so končna polja definira kakor pravokotnik velikosti \(N_x \times N_y\)
-in skupno število celic v končnem polju je \(N=\lvert N_x \times N_y \rvert\).
+bolj običajna pa so končna polja definira kakor pravokotnik velikosti \(N_x \times N_y\).
+Skupno število celic v končnem polju je \(N=N_x \cdot N_y\).
 
-Prihodnje stanje neke celice \(c_{x,y}\) (na položaju \((x,y)\)
+Prihodnje stanje neke celice \(c_{x,y}\) na položaju \((x,y)\)
 je odvisno od trenutnega stanja pripadajoče okolice \(n_{x,y}\) (slika \ref{neighborhood}).
-Podobno se bom tudi pri obliki okolice omejil na pravokotnik velikosti \(M_x \times M_y\).
-Število celic v okolici je \(m=\lvert M_x \times M_y \rvert\).
+Tudi pri obliki okolice se bom omejil na pravokotnik velikosti \(M_x \times M_y\).
+Število celic v okolici je \(m=M_x \cdot M_y\).
 Na voljo je \({\lvert S \rvert}^m\) možnih okolic.
 
 \begin{equation}
 n \in S^m
 \quad \textrm{in} \quad
-S^m = \{ 0, 1, 2, {\lvert S \rvert}^m -1 \}
+S^m = \{ 0, 1, \dots, {\lvert S \rvert}^m -1 \}
 \end{equation}
 
 Prostorski odnos med okolico in celico v prihodnjem stanju avtomata, ki jo ta okolica določa,
 ni podrobno definiran. Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
-nujno pomembno.
+nujno pomembno. Moja implementacija algoritma celice, okolice in samo polje indeksira tako,
+da je začetna ali referenčna celica v spodnjem levem kotu.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood,width=16cm}}
@@ -382,9 +383,9 @@ r \in \{0, 1, \dots |S|^{|S|^m}-1\}
 \end{equation}
 
 Podana konstrukcija mreže predslik in algoritem za izračun predslik omogočata uporabo
-bolj splošne definicije, kjer je za vsako celico definiran lasten nabor predslik \( n^{t-1} \in S^m \),
+bolj splošne definicije. Za vsako celico je lahko definiran lasten nabor predslik \( n^{t-1} \in S^m \),
 ki je neodvisen od stanja celice. Ta posplošitev je uporabljena za konstrukcijo umetnih
-mrež predslik, ki poudarjajo konkretne probleme, ki definirajo kompleksnost algoritma.
+mrež predslik, ki poudarjajo konkretne probleme povezane s kompleksnostjo algoritma.
 
 Za dano polje celic velikosti \(N_x \times N_y\) in z odprtimi robovi,
 je možno izračunati prihodnje stanje polja velikosti \((N_x-(M_x-1)) \times (N_y-(M_y-1))\).
