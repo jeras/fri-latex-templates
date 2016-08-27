@@ -24,6 +24,7 @@
 \usepackage{url}
 \usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black]{hyperref}
 \usepackage[top=2cm, bottom=3cm, inner=3cm, outer=2cm]{geometry}
+\usepackage{fancyvrb}
 %\usepackage[backend=bibtex]{biblatex}
 
 %\addbibresource{magisterij.bib}
@@ -1144,11 +1145,96 @@ preimage i=18:  CA configuration siz [y↓,x→] = [3,3]:
  0 1 1
 \end{verbatim}
 
-\newpage
-
 %********************************************
 
-\appendix
+\chapter{Don Woods opiše svoj algoritem}
+
+Prilagam pisno izmenjavo z avtorjem \footnote{Don Woods /url{http://www.icynic.com/~don/}} prvega algoritma za iskanje predslik GoL.
+
+\begin{Verbatim}[fontsize=\small]
+
+Don Woods <don@icynic.com>	Thu, Jul 28, 2016 at 11:45 PM
+To: iztok.jeras@gmail.com
+> Dear Mr. Woods,
+>
+> I am developing an algorithm for computing preimages of 2D CA. It is based
+> on the latest research for computig preimages of 1D CA.
+> I am using the 2x2 quad neighborhood in the examples instead of the 3x3
+> neighborhood used in Life.
+> https://github.com/jeras/fri-magisterij (work in progress and Slovene
+> language)
+> https://github.com/jeras/preimages-2D (not working yet)
+>
+> As part of my masters thesis I have to compare my algorithm to existing
+> ones.
+> You are known as the first person to prove a pattern to be a Garden of Eden
+> orphan in the Game of Life.
+> Could you send me some references to this proof? I was looking for an
+> article to reference, but a generic description (preferably written by you)
+> or source code would be as good.
+>
+> Regards,
+> Iztok Jeras
+>
+
+Oof, it's been quite a while; let me see what I can remember.
+
+The "proof" was programmatic, i.e. I wrote a program to compute
+predecessors to a given position, and the program claimed there were no
+predecessors to the particular position that someone had theorised was
+a Garden of Eden.  I did not have a formal proof of correctness for the
+program.  (I was a teenager when I wrote it!)  I don't think I still
+have the source code anywhere, I'm afraid.  (I might have a paper
+printout of it somewhere but don't have time to search right now.)
+
+The program worked by considering each cell in turn and looking at all
+possible 3x3 predecessors that would produce the given state.  It then
+looked at the next cell to the right, looking for 3x3 predecessors that
+were consistent with the 6 overlapping cells from the other, etc.  (In
+practice, the 3x3 neighborhoods were indexed so that I could quickly
+find which of the 8 possible righthand extensions worked.)  When it had
+a 3x(N+2) predecessor for the top row of N, it continued at the left of
+the next row, then across that row, etc.  Obviously in those later rows
+there was only one new predecessor cell being introduced for each new
+current cell after the leftmost, so the combinatoric explosion was not
+excessive, particularly since the GoE pattern by design did not have
+many potential predecessors even for subsections.  I also deliberately
+oriented the target pattern with the short dimension going across, so
+that I more quickly reached the point of extending the predecessor one
+cell at a time in later rows.
+
+My program normally included a 1-wide border around the area being
+backtracked, to ensure there were no artifacts introduced, but for the
+GoE proof I restricted it to the non-empty rectangular boundary, which
+I think was 9 by 33?  Thus, as I think was mentioned at the time, what
+I actually demonstrated was a stronger result: there was no predecessor
+that led to a state that included the GoE as a 9x33 subsection.
+
+I hope that helps.  Let me know if you have further questions.
+
+        -- Don Woods
+
+Don Woods <don@icynic.com>	Tue, Aug 16, 2016 at 6:42 PM
+To: iztok.jeras@gmail.com
+> I found the time to read your response just now.
+>
+> Your description of the algorithm confirms what I imagined based on third
+> party descriptions.
+> Your details regarding combinatorial explosion which affects memory
+> consumption and processing time were extra helpful.
+>
+> May I cite this email in my master thesis, since there are no other direct
+> sources I would know of?
+>
+> Regards,
+> Iztok Jeras
+
+Permission granted.  Good luck with your thesis!
+
+        -- Don Woods
+\end{Verbatim}
+
+%********************************************
 
 %\addcontentsline{toc}{chapter}{\protect Dodatki}
 
