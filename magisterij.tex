@@ -211,7 +211,7 @@ o algoritmih za štetje in izpis predslik pri eno dimenzionalnih celičnih avtom
 \item[\(S\)] množica nabora stanj celice
 \item[\(|S|\)] število možnih stanj celice
 \item[\(c\)] stanje posamezne celice (celoštevilska vrednost)
-\item[\(c_{x,y}\)] vrednost celice na položaju \([x,y]\) znotraj 2D polja celic
+\item[\(c_{x,y}\)] vrednost celice na položaju \((x,y)\) znotraj 2D polja celic
 \item[\(c^t\)] vrednost celice v sedanjosti
 \item[\(c^{t+1}\)] vrednost celice v prihodnosti (eden korak)
 \item[\(N_x\)] velikost pravokotnega 2D polja celic v dimenziji X
@@ -221,7 +221,7 @@ o algoritmih za štetje in izpis predslik pri eno dimenzionalnih celičnih avtom
 \item[\(M_y\)] velikost pravokotne 2D okolice celice v dimenziji Y
 \item[\(m\)] število celic v 2D okolici
 \item[\(n\)] stanje okolice posamezne celice (celoštevilska vrednost)
-\item[\(n_{x,y}\)] vrednost okolice celice na položaju \([x,y]\) znotraj 2D polja celic
+\item[\(n_{x,y}\)] vrednost okolice celice na položaju \((x,y)\) znotraj 2D polja celic
 \item[\(n^{t-1}\)] vrednost okolice celice v preteklosti (eden korak)
 \item[\(n^t\)] vrednost okolice celice v sedanjosti
 \item[\(f\)] tranzicijska funkcija, ki definira časovno evolucijo avtomata
@@ -327,9 +327,9 @@ najzanimivejši turingov stroj \cite{Rendell2001} in univerzalni konstruktor \ci
 Delci so dejansko atraktorji v razvoju CA na končni periodični mreži (thorus).
 Pri 1D CA se algoritmi za iskanje predslik uporabljajo za določitev atraktorjevega korita \cite{Wuensche1992}.
 V vsakem CA, ki ni lokalno injektiven se pojavljajo stanja brez predslik imenovana GoE
-(Garden of Eden ali rajski vrt) \cite{Moore1962, Myhill1963}.
+(\textit{Garden of Eden} ali rajski vrt) \cite{Moore1962, Myhill1963}.
 Pomensko so GoE nasprotje delcev, saj se nahajajo kar
-najdlje od atraktorja na robu korita. GoE stanja tudi privlačijo raziskovalce,
+najdlje od atraktorja, na robu korita. GoE stanja tudi privlačijo raziskovalce,
 čeprav v nekoliko manjši meri kakor delci.
 
 Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja GoE stanj.
@@ -375,7 +375,7 @@ Iskanje predslik 2D CA je trenutno nekje med improvizacijo in matematičnim mode
 Opisan algoritem na koncu primerjam z ostalimi doslej znanimi algoritmi.
 Čeprav s stališča procesne zahtevnosti ne prinaša želenega napredka,
 pa to, da temelji na pregledni grafični upodobitvi, daje upanje,
-da bojo razne optimizacije razvidne bodočim raziskovalcem.
+da bodo razne optimizacije razvidne bodočim raziskovalcem.
 
 Celični avtomat GoL je definiran z Moorovo okolico velikosti \(3 \times 3\).
 Tako velika okolica ima z \(9\) celicami \(2^9=512\) možnih stanj,
@@ -395,8 +395,8 @@ Algoritem je implementiran kot računalniški program v jeziku C \cite{Jeras2016
 Knjižnica GMP \footnote{The GNU Multiple Precision Arithmetic Library \url{https://gmplib.org/}}
 je uporabljena za zapis celih števil večjih od 64 bitov.
 Poleg samega algoritma za štetje in izpis predslik sem pripravil tudi
-orodje za simulacijo binarnega CA z okolico quad \cite{Jeras2016-quad}
-in orodje za prikaz poljubne mreže predslik \cite{Jeras2016-network}.
+orodje za simulacijo binarnega CA z okolico quad \cite{Jeras2016-quad}.
+%in orodje za prikaz poljubne mreže predslik \cite{Jeras2016-network}.
 Obe orodji se lahko zažene kar v internetnem brskalniku.
 
 V slikah je uporabljena izometrična projekcija,
@@ -439,7 +439,7 @@ S^m = \{ 0, 1, \dots, {\lvert S \rvert}^m -1 \}
 
 Prostorski odnos med okolico in celico v prihodnjem stanju avtomata, ki jo ta okolica določa,
 ni podrobno definiran. Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
-nujno pomembno. Moja implementacija algoritma celice, okolice in samo polje indeksira tako,
+nujno pomembno. Moja implementacija algoritma celice, okolice in samo polje indeksira, tako
 da je začetna ali referenčna celica v spodnjem levem kotu.
 
 \begin{figure}[htb]
@@ -465,6 +465,7 @@ f^{-1}(c^{t}) = \{ n^{t-1} \in S^m \ \arrowvert \ f(n^{t-1}) = c^{t} \}
 
 Dodaten pogoj za predslike polja celic je, da se morajo okolice sosednjih celic
 ujemati povsod, kjer se prekrivajo.
+Opazovanje prekrivanja okolic je tudi glavni element algoritmov za iskanje predslik.
 
 Tranzicijsko funkcijo je možno definirati s pravilom.
 Pravilo \(r\) je celo število v \(S\)-iškem številskem sestavu,
@@ -479,7 +480,7 @@ r \in \{0, 1, \dots |S|^{|S|^m}-1\}
 
 Podana konstrukcija mreže predslik in algoritem za izračun predslik omogočata uporabo
 bolj splošne definicije. Za vsako celico je lahko definiran lasten nabor predslik \( n^{t-1} \in S^m \),
-ki je neodvisen od stanja celice. Ta posplošitev je uporabljena za konstrukcijo umetnih
+ki je na splošno neodvisen od stanja celice. Ta posplošitev je uporabljena za konstrukcijo umetnih
 mrež predslik, ki poudarjajo konkretne probleme povezane s kompleksnostjo algoritma.
 
 Za dano polje celic velikosti \(N_x \times N_y\) in z odprtimi robovi,
@@ -509,11 +510,13 @@ in njegova skupina uporabljajo za analizo te De Bruijinove grafe neposredno. Sam
 razvil modificiran graf, kjer so vozlišča podvojena, in gredo poti vedno od originala
 proti dvojniku (slika \ref{de_bruijn_diagram}).
 To omogoča veriženje grafov, in razširitev osnovnega De Bruijinovega grafa.
-Medtem ko osnovni De Bruijinov graf opisuje okolico ene celice, verižen graf opisuje verigo celic.
+Medtem, ko osnovni De Bruijinov graf opisuje okolico ene celice, verižen graf opisuje verigo celic.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=de_bruijn_diagram,width=12cm}}
-\caption[De Bruijinov graf, pravilo 110.]{De Bruijinov graf za elementarni 1D CA, pravilo 110.}
+\caption[De Bruijinov graf, pravilo 110.]
+{De Bruijinov graf za elementarni 1D CA, pravilo 110.
+Na levi je McIntosheva upodobitev, na desni pa moja, ki omogoča veriženje.}
 \label{de_bruijn_diagram}
 \end{figure}
 
@@ -535,7 +538,7 @@ Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice
 (sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}).
 
 \begin{equation}
-n = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{y M_x + x} \cdot c_{x,y}
+n = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{M_x y + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
 n \in \{0, 1, \dots, |S|^{M_x M_y}-1\}
@@ -556,10 +559,10 @@ n \in \{0, 1, \dots, |S|^{M_x M_y}-1\}
 Celice se v smeri dimenzije X prekrivajo za ploskev velikosti \((M_x-1) \times M_y\) (sliki \ref{overlap_dimension_moore} in \ref{overlap_dimension_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
-o_{x^-} = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-2 \\ y=M_y-1}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+o_{x^-} = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-2 \\ y=M_y-1}} |S|^{(M_x-1) y + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_{x^+} = \sum_{\substack{x=1 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+o_{x^+} = \sum_{\substack{x=1 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{(M_x-1) y + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
 o_x \in \{0, 1, \dots, |S|^{(M_x-1)M_y}-1\}
@@ -568,10 +571,10 @@ o_x \in \{0, 1, \dots, |S|^{(M_x-1)M_y}-1\}
 Celice se v smeri dimenzije Y prekrivajo za ploskev velikosti \(M_x \times (M_y-1)\) (sliki \ref{overlap_dimension_moore} in \ref{overlap_dimension_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
-o_{y^-} = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-2}} |S|^{y M_x + x} \cdot c_{x,y}
+o_{y^-} = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-2}} |S|^{M_x y + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_{y^+} = \sum_{\substack{x=0 \\ y=1}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{y M_x + x} \cdot c_{x,y}
+o_{y^+} = \sum_{\substack{x=0 \\ y=1}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{M_x y + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
 o_y \in \{0, 1, \dots, |S|^{M_x(M_y-1)}-1\}
@@ -596,16 +599,16 @@ Okolice se prekrivajo v 2 celicah od 4.}
 Celice se v diagonalni smeri prekrivajo za ploskev velikosti \((M_x-1) \times (M_y-1)\) (sliki \ref{overlap_diagonal_moore} in \ref{overlap_diagonal_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
-o_{{x^-}{y^-}} = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-2 \\ y=M_y-2}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+o_{{x^-}{y^-}} = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-2 \\ y=M_y-2}} |S|^{(M_x-1) y + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_{{x^-}{y^+}} = \sum_{\substack{x=0 \\ y=1}}^{\substack{x=M_x-2 \\ y=M_y-1}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+o_{{x^+}{y^-}} = \sum_{\substack{x=1 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-2}} |S|^{(M_x-1) y + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_{{x^+}{y^-}} = \sum_{\substack{x=1 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-2}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+o_{{x^-}{y^+}} = \sum_{\substack{x=0 \\ y=1}}^{\substack{x=M_x-2 \\ y=M_y-1}} |S|^{(M_x-1) y + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
-o_{{x^+}{y^+}} = \sum_{\substack{x=1 \\ y=1}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{y (M_x-1) + x} \cdot c_{x,y}
+o_{{x^+}{y^+}} = \sum_{\substack{x=1 \\ y=1}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{(M_x-1) y + x} \cdot c_{x,y}
 \end{equation}
 \begin{equation}
 o_{xy} \in \{0, 1, \dots, |S|^{(M_x-1)(M_y-1)}-1\}
@@ -627,12 +630,19 @@ Okolice se prekrivajo v eni celici od 4.}
 \label{overlap_diagonal_quad}
 \end{figure}
 
-Nastali graf (slika \ref{network_single}) ima poleg vozlišč in povezav med njimi tudi ploskve.
+Graf predslik je postavljen na kvadrat, ki predstavlja okolico \(n\).
+Nad vsakim vogalom je nabor vozlišč, ki predstavljajo nabor vogalnih prekrivanj
+\(o_{{x^-}{y^-}}\), \(o_{{x^+}{y^-}}\), \(o_{{x^-}{y^+}}\) in \(o_{{x^+}{y^+}}\).
+Vozlišči sosednjih vogalov sta povezani, če sta del iste konfiguracije celic,
+ki predstavlja povezavo. Na primer, pri okolici quad, povezava za prekrivanje okolic \verb|[01]|
+povezuje vozlišči \verb|[0]| in \verb|[1]| (slika \ref{network_single} levo).
+
+Nastali graf (slika \ref{network_single} desno) ima poleg vozlišč in povezav med njimi tudi ploskve.
 Ploskve bi v teoriji grafov opisali kakor zanke v grafu, z dodano omejitvijo,
 da mora vsako vozlišče ali povezava v zanki pripadati drugemu prekrivanju okolic.
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=network_single,width=5cm}}
+\centerline{\psfig{figure=network_single,width=12cm}}
 \caption[Mreža ene celice.]{Mreža ene celice za binarni CA z okolico quad \(M_x=M_y=2\).}
 \label{network_single}
 \end{figure}
@@ -647,8 +657,8 @@ da mora vsako vozlišče ali povezava v zanki pripadati drugemu prekrivanju okol
 
 Diagrame, ki opisujejo preteklost posamezne celice, je možno sestaviti v mrežo,
 ki opisuje polje več celic. Nabor predslik celotnega polja je ekvivalenten naboru
-vseh \textit{zveznih} ploskev, ki prekrivajo celotno polje in, ki jih je možno sestaviti iz
-naborov ploskev diagramov posameznih celic.
+vseh \textit{zveznih} ploskev, ki prekrivajo celotno polje (zahteva po prekrivanju okolic)
+in, ki jih je možno sestaviti iz naborov ploskev diagramov posameznih celic (zahteva po ujemanju s tranzicijsko funkcijo).
 
 Preslikava iz zvezne ploskve v mreži predslik v konfiguracijo polja celic predslike je enolična.
 Najlažje je razumeti preslikavo za okolico velikosti \(3 \times 3\),
@@ -661,7 +671,7 @@ posledično ima nabor vozlišč le dve vrednosti, ki neposredno predstavljajo
 vrednosti celic v predsliki (slika \ref{network_array}).
 Nabor okolic/ploskev pa obsega 16 kombinacij (slika \ref{neighborhood_surfaces}).
 
-Razširitev diagrama ene celice v mrežo lahko dokažemo z indukcijo.
+Pravilnost razširitve diagrama ene celice v mrežo lahko dokažemo z indukcijo.
 Dokazati želimo, da je neka konfiguracija celic predslika dane sedanjosti
 \textit{če in samo če} je ta ekvivalentna zvezni ploskvi v mreži predslik.
 
@@ -670,8 +680,9 @@ Iz definicije velja, da je za eno samo celico v mreži nabor ploskev enak naboru
 \textbf{Naslednji element:}
 Obstoječi mreži predslik dodamo novo celico.
 Ploskev iz nabora dodane celice se zvezno veže s ploskvijo
-iz obstoječega nabora zveznih ploskev natanko v primeru,
+iz obstoječega nabora zveznih ploskev,
 ko se z njo ujema v robu (vozliščema in povezavi med njima).
+Robovi ploskev se ujemajo natanko v primeru, ko se ujemajo prekrivanja okolic.
 Temu je tako, ker so indeksi vozlišč in povezav ekvivalentni vrednosti prekrivanj okolic.
 
 \begin{figure}[htb]
@@ -685,7 +696,7 @@ Poudarjena je ena zvezna ploskev in njen zvezen rob. Konfiguracija pripadajoče 
 
 Pri 1D CA so robni pogoji definirani na dveh koncih,
 ki omejujejo končno število celic na neskončni premici.
-Če je 1D CA definiran kakor poltrak je robni pogoj samo eden.
+Če je 1D CA definiran kakor poltrak, je robni pogoj samo eden.
 Robni pogoj definira katere okolice (vozlišča pri mreži predslik za 1D CA)
 in s kakšnimi utežmi so na voljo ob robu.
 Lahko si jih predstavljamo tudi kakor vpliv, neskončnega poltraka celic,
@@ -693,14 +704,15 @@ ki sega izven roba opazovane konfiguracije.
 
 Pri 2D CA je robni pogoj definiran kakor utež sklenjene poti okoli ploskve opazovane konfiguracije celic.
 V mreži predslik za 2D CA povezave med vozlišči definirajo rob ploskve (slika \ref{network_array}).
-Na splošno ima vsaka zvezna ploskev v mreži svoj rob, robni pogoj določa, kako je ta ploskev obravnavana.
+Vsaka zvezna ploskev v mreži ima zvezen rob. Robni pogoj določa, kako je ta ploskev obravnavana,
+oziroma če je sploh obravnavana.
 Ker uporabna vrednost splošnega robnega pogoja še ni znana,
 in bi splošnost izrazito povečala zahtevnost algoritma za iskanje predslik,
-so tukaj vsi robovi obravnavani enako. Temu bomo rekli odprti rob,
+so tukaj vsi robovi obravnavani enako, z utežjo ena. Temu bomo rekli odprti rob,
 ker ta ne definira nobenih omejitev, katere zvezne ploskve v mreži predslik
 so dovoljene in katere ne.
 
-Obstaja še eden enostaven robni pogoj, ki je definiran za ciklično sklenjena končna CA polja.
+Obstaja še en enostaven robni pogoj, ki je definiran za ciklično sklenjena končna CA polja.
 Ta tip robnega pogoja tukaj ne bo obravnavan, ker še dodatno poveča kompleksnost algoritmov.
 Potrebno bi bilo namreč opraviti celoten postopek iskanja predslik za vsak začetni rob posebej.
 Zvezna ploskev je predslika v cikličnem polju le, če se njen začetni in končni rob ujemata.
@@ -719,20 +731,20 @@ v odvisnosti od števila celic.
 Za 2D CA se je izkazalo, da obstajajo problemi, ki niso rešljivi z linearno kompleksnostjo.
 Prikazani algoritem ima maksimalno eksponentno kompleksnost
 v odvisnosti od posamezne dimenzije \(O(S^{N_x} S^{N_y})\).
-Za sedaj je še odprta možnost za obstoj algoritma s polinomsko kompleksnostjo
-med linearno in eksponentno.
+Za sedaj je še odprta možnost za obstoj algoritma s polinomsko kompleksnostjo,
+ki je nekje med linearno in eksponentno.
 
 Opisani algoritem za štetje predslik razdeli polje celic na vrstice v dimenziji X.
 Delitev po stolpcih v dimenziji Y bi bila ekvivalentna, tako da je to arbitrarna odločitev.
 S stališča procesne zahtevnosti je najbolje izbrati krajšo dimenzijo.
 Na podlagi zunanjega robnega pogoja je najprej poiskan nabor predslik za prvo vrstico.
 Nabor predslik je izračunan kakor uteži za robove na nasprotni strani od začetne.
-seznam robov in njihove uteži so uporabljeni kakor vhodni robni pogoji za naslednjo vrstico.
+Seznam robov in njihove uteži so uporabljeni kakor vhodni robni pogoji za naslednjo vrstico.
 Robne uteži izračunane za zadnjo vrstico predstavljajo število vseh predslik.
 
 Algoritem za izpis predslik je nadaljevaje algoritma za štetje.
 Starta z znanim številom predslik, ki ga je dalo štetje, in izpisuje predslike
-po vrsticah v obratni smeri, kakor je potekalo štetje, od zadnje do prve vrstice.
+po vrsticah v obratni smeri, kakor je potekalo štetje (od zadnje do prve vrstice).
 Pridobljen seznam predslik je sortiran. Smer sortiranja je odvisna od smeri procesiranja.
 Smer procesiranja je možno po potrebi spremeniti.
 
@@ -758,7 +770,7 @@ Začetni robni pogoj je ekvivalenten nizu prekrivanja okolic \(o_{y^-}\).
 Začetni robni pogoj se aplicira tako, da se izloči iz obravnave vse ploskve,
 ki nimajo skupnega roba z robno potjo (slika \ref{algorithm_line}
 prehod iz mreže \textbf{1} v mrežo \textbf{2}). Za tem korakom, so vse ploskve definirane
-v dveh od štirih vozlišč, do nezveznosti lahko prihaja le še na robu nasprotnem
+v dveh od štirih vozlišč. Do nezveznosti lahko prihaja le še na robu nasprotnem
 začetnemu robu.
 
 Problem se reducira iz tri dimenzionalne mreže in procesiranja ploskev v
@@ -772,7 +784,7 @@ Končni robni pogoj je ekvivalenten nizu prekrivanja okolic \(o_{y^+}\).
 \begin{figure}[htb]
 \centerline{\psfig{figure=algorithm_line,width=14cm}}
 \caption[Algoritem procesiranja vrstice.]{Mreža vrstice velikosti \(N_x=3\) za binarni CA z okolico quad.
-Nabor okolic/ploskev za posamezno celico je arbitraren, izbran tako, da poudari korake algoritma.}
+Nabor okolic/ploskev za posamezno celico je arbitraren. Izbran je tako, da poudari korake algoritma.}
 \label{algorithm_line}
 \end{figure}
 
@@ -801,13 +813,14 @@ Robovi s katerimi se ne konča nobena od predslik dobijo utež \(w=0\).
 Za tem, ko so procesirane vse vrstice, je znan končni rob nabora vseh zveznih ploskev na celotni mreži predslik.
 Vsota uteži vseh končnih robov daje število predslik celotne mreže.
 
-Z uporabo Boolove algebre \(w \in {0, 1}\) namesto operacij množenja in seštevanja,
+Z uporabo Boolove algebre namesto operacij množenja in seštevanja,
 je možno poenostaviti iskanje predslik samo na njihov obstoj za opazovani robni pogoj.
+Uteži postanejo binarne vrednosti \(w \in \{0, 1\}\).
 
 \section{Izpis predslik}
 
 Ni nujno, da se vsak vrstični začetni pogoj preslika v nabor končnih pogojev.
-Možno je da nobena pot na končnem robu ne zadošča začetnemu pogoju in mreži predslik.
+Možno je, da nobena pot na končnem robu ne zadošča začetnemu pogoju in mreži predslik.
 Torej po prejšnjih korakih še ni točno določeno, katere ploskve se združujejo v zvezno
 celoto in katere ne. Možne so ploskve, ki prekrivajo polje samo do neke vrstice in ne naprej.
 
@@ -816,15 +829,15 @@ začne pri zadnji vrstici in konča pri prvi vrstici (slika \ref{algorithm_list}
 Z vsakim korakom se izloča še preostale slepe poti iz mreže predslik.
 Za vsako vrstico je potrebno ponovno rešiti 1D problem,
 le da sta začetni in končni rob zamenjana.
-Začetni rob je zaporedje prekrivanja okolic \(o_{y^+}\))
-in končni rob je zaporedje prekrivanja okolic \(o_{y^-}\)).
+Začetni rob je zaporedje prekrivanja okolic \(o_{y^+}\)
+in končni rob je zaporedje prekrivanja okolic \(o_{y^-}\).
 
 Hkrati je možno še izpisovati predslike. Že na začetku procesiranja v obratni smeri,
 je znano število vseh predslik, kar omogoča rezervacijo pomnilnika in inicializacijo seznama predslik.
 Končne robne poti in njihove uteži, se uporabijo za popis tekoče vrstice celic v predslikah.
-Indeks poti (določeno zaporedje prekrivajočih okolic) da vrednost celic v predsliki,
-uteži izračunane v smeri štetja pa dajo število predslik,
-ki jih je potrebno popisati z dano vrednostjo celic.
+Indeks robne poti (določeno zaporedje prekrivajočih okolic) da vrednost celic v vrstici predslike.
+Uteži izračunane v smeri štetja pa dajo število predslik,
+ki jih je potrebno popisati z dano vrednostjo za vrstico celic.
 
 Z vsakim korakom v obratni smeri se popiše nova vrstica za vsako od preštetih predslik.
 Ko pride algoritem, spet do začetne vrstice, so vse predslike popisane.
@@ -853,7 +866,7 @@ ali na splošno bi bilo število obravnav majhna konstanta (4 krat,
 če se izvaja procesiranje skozi mrežo predslik v 4 smereh/prehodih).
 Tak algoritem predpostavlja, da je možno celoten nabor začetnih
 robnih pogojev upoštevati hkrati v enem samem prehodu.
-V koraku \textbf{2} na pri procesiranju vrstice (sliki \ref{algorithm_line})
+V koraku \textbf{2} pri procesiranju vrstice (sliki \ref{algorithm_line})
 bi se izločilo le ploskve, ki ne ustrezajo nobenemu od začetnih robnih pogojev.
 Po nekaj poizkusih sem ugotovil, da tak algoritem ne deluje pravilno.
 Vsaj nekatere poti iz nabora je potrebno upoštevati ločeno.
@@ -971,11 +984,12 @@ Algoritmi se tudi poslužujejo določene hevristike pri iskanju.
 
 Opisani algoritmi za iskanje GoE stanj, na primer Woods,
 sicer omogočajo iskanje vseh predslik, ampak to ni njihov glavni namen.
-Optimizirani le za GoE stanja, kjer je predslik malo tudi za del GoE konfiguracije.
+Optimizirani so le za GoE stanja, kjer je predslik malo tudi za samo del GoE konfiguracije.
 Predvsem niso optimizirani za splošen primer, kjer je lahko predslik veliko,
 posledično so potratni s porabo pomnilnika.
 Morda bi bilo možno optimizirati porabo pomnilnika,
 tako da bi algoritem hranil le tekoče razlike med predslikami, namesto da jih hrani v celoti.
+Nekaj podobnega počne moj algoritem, ko šteje le robove, in ne hrani celotnih predslik.
 
 Našel sem le eno aplikacijo, ki je namenjena štetju in izpisu vseh predslik.
 Bickford \cite{Bickford2012} prav tako kakor ostali procesira konfiguracijo
@@ -1048,19 +1062,19 @@ in verjetno tudi znižal čas procesiranja.
 
 Morda bi bilo možno vnaprej določiti zgornjo mejo števila ne ničelnih robov.
 To bi omogočalo zgodnjo oceno, če je izračun za dan problem izvedljiv.
-Na primer, če bi v vrstičnem procesiranju obravnavali vse začetne robove hkrati
+Na primer, če bi v vrstičnem procesiranju obravnavali vse začetne robove hkrati,
 namesto vsakega posebej, bi dobili prevelik nabor končnih robov.
 Tak nabor bi vedno vseboval vse pravilne končne robove, in še nekaj napačnih.
-Ampak skupno število bilo lahko občutno manjše od polnega nabora.
+Ampak skupno število bi bilo lahko občutno manjše od polnega nabora.
 To število bi lahko uporabili za oceno porabe pomnilnika in časa.
 Na ta način bi bilo možno reševati probleme, ki so na meji tega,
 kar zmore sodobna strojna oprema.
 
 Samo implementacijo algoritma je tudi možno optimizirati.
-Univerzalnost algoritma, predvsem univerzalnost velikosti okolice
+Univerzalnost algoritma, predvsem univerzalnost velikosti okolice,
 prispeva dosti režijskih stroškov. Če bi bil algoritem specializiran
 samo za quad ali GoL, bi se lahko izognil precej operacijam.
-Podobno velja za nabor stanj. Za binarne CA je možno optimizirati
+Podobno velja za nabor stanj celice. Za binarne CA je možno optimizirati
 operacije, ki pretvarjajo 2D nize celic v cela števila in obratno.
 Binarne podatke je možno kompaktno pakirati v pomnilnik.
 Mogoče je tudi uporabiti logične operacije nad celo besedo celic,
@@ -1093,8 +1107,8 @@ V naslednjem primeru je prikazano štetje in iskanje predslik
 za binarni CA (celica ima lahko \(2\) stanji) z okolico velikosti \(2 \times 2\)
 in pravilom številka \verb|0x725A|.
 
-Konfiguracija je majhna velikosti \(2 \times 2\) shranjena v datoteki \verb|test_2x2.cas|.
-Uporabil bi večjo konfiguracijo a na žalost ne poznam pravila,
+Majhna konfiguracija velikosti \(2 \times 2\) je shranjena v datoteki \verb|test_2x2.cas|.
+Uporabil bi večjo konfiguracijo, a na žalost ne poznam pravila,
 ki bi za večjo konfiguracijo dal majhno število predslik.
 
 Uporabljen je program \cite{Jeras2016-algirithm} z verzijo \verb|v1|.
