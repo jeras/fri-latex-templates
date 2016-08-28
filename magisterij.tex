@@ -105,7 +105,7 @@ ali na Inštitutu za intelektualno lastnino, Streliška 1, 1000 Ljubljana.
 {\small \noindent
 Izvorna koda programske opreme razvite za potrebe magisterskega dela je ponujena pod licenco \textit{Unlicense} \footnote{http://unlicense.org/}.
 To pomeni, da se lahko prosto uporablja, distribuira in/ali predeluje, brez kakšnih koli obveznosti.
-Avtor se odpoveduje vsem pravicam in tako omogoča uporabnikom izvorne kode, da se izognejo preverjanu pravnih obveznosti.
+Avtor se odpoveduje vsem pravicam in tako omogoča uporabnikom izvorne kode, da se izognejo preverjanju pravnih obveznosti.
 }
 
 
@@ -171,19 +171,17 @@ V Ljubljani, dne 30. avgust 2016 \hfill Podpis avtorja:
 % stran 7 med uvodnimi listi
 
 \chapter*{Zahvala}
-
 \thispagestyle{empty}
-
 Zahvaljujem se prof. dr. Andreju Dobnikarju za pomoč pri pisanju člankov
 o algoritmih za štetje in izpis predslik pri eno dimenzionalnih celičnih avtomatih.
-
 \newpage
 
 %********************************************
 % stran 8 med uvodnimi listi je prazna pri dvostranskem tiskanju
 \ \thispagestyle{empty}
-
 \newpage
+
+%********************************************
 
 \renewcommand\thepage{} 
 \tableofcontents 
@@ -206,8 +204,8 @@ o algoritmih za štetje in izpis predslik pri eno dimenzionalnih celičnih avtom
 \item[CA] celični avtomat
 \item[GoL] Conway's Game of Life (Conwayeva igra življenja)
 \item[GoE] Garden of Eden (stanje brez predslik)
-\item[trid] okolica CA sestevljena iz treh celic
-\item[quad] okolica CA sestevljena iz štirih celic \(M_x=M_y=2\)
+\item[trid] okolica CA sestavljena iz treh celic na heksagonalni mreži
+\item[quad] okolica CA sestavljena iz štirih celic na kvadratni mreži
 
 \item[\(C\)] poljubna konstanta
 \item[\(S\)] množica nabora stanj celice
@@ -216,11 +214,11 @@ o algoritmih za štetje in izpis predslik pri eno dimenzionalnih celičnih avtom
 \item[\(c_{x,y}\)] vrednost celice na položaju \([x,y]\) znotraj 2D polja celic
 \item[\(c^t\)] vrednost celice v sedanjosti
 \item[\(c^{t+1}\)] vrednost celice v prihodnosti (eden korak)
-\item[\(N_x\)] velikost 2D polja celic v dimenziji X
-\item[\(N_y\)] velikost 2D polja celic v dimenziji Y
+\item[\(N_x\)] velikost pravokotnega 2D polja celic v dimenziji X
+\item[\(N_y\)] velikost pravokotnega 2D polja celic v dimenziji Y
 \item[\(N\)] število celic v 2D polju
-\item[\(M_x\)] velikost 2D okolice celice v dimenziji X
-\item[\(M_y\)] velikost 2D okolice celice v dimenziji Y
+\item[\(M_x\)] velikost pravokotne 2D okolice celice v dimenziji X
+\item[\(M_y\)] velikost pravokotne 2D okolice celice v dimenziji Y
 \item[\(m\)] število celic v 2D okolici
 \item[\(n\)] stanje okolice posamezne celice (celoštevilska vrednost)
 \item[\(n_{x,y}\)] vrednost okolice celice na položaju \([x,y]\) znotraj 2D polja celic
@@ -261,7 +259,11 @@ ki omogoča uporabo teorije grafov pri izračunih in dokazih.
 \vspace{0.5cm}
 \noindent
 celični avtomati, predslike, procesna zahtevnost, reverzibilnost, rajski vrt, Conwayeva igra življenja, trid, quad
+\newpage
 
+% prazna stran
+\ \thispagestyle{empty}
+\newpage
 
 \chapter*{Abstract}
 
@@ -280,8 +282,12 @@ which enables using graph theory for computation and proofs.
 
 \vspace{0.5cm}
 \noindent
-cellular automata, preimages, ataviser, computational complexity, reversibility, Garden of Eden, Conway's Game of Life, trid, quad
+cellular automata, preimages, predecessors, ataviser, computational complexity, reversibility, Garden of Eden, Conway's Game of Life, trid, quad
+\newpage
 
+% prazna stran
+\ \thispagestyle{empty}
+\newpage
 
 %********************************************
 
