@@ -499,23 +499,23 @@ Za ciklične robove pa sta velikosti enaki.
 \chapter{Konstrukcija mreže predslik}
 
 Mreža predslik je grafični konstrukt, ki omogoča upodobitev posameznih pojmov
-iz definicije CA, kakor ločene grafične elemente. Odnosi med
-temi elementi definirajo pravila na katerih se gradijo algoritmi za iskanje
+iz definicije CA, kakor ločenih grafičnih elementov. Odnosi med
+temi elementi definirajo pravila, na katerih se gradijo algoritmi za iskanje
 predslik.
 
 \section{De Bruijnov diagram}
 
 Osnovni element grafične upodobitve je De Bruijnov diagram. V osnovi ta obravnava
-ciklične premike končnih zaporedij simbolov, ter njihovo prekrivanje. Vozlišča v
+ciklične premike končnih zaporedij simbolov ter njihovo prekrivanje. Vozlišča v
 diagramu so vsa možna končna zaporedja, povezave med njimi pa definirajo, kako se
 ta zaporedja prekrivajo med seboj.
 
 Pri 1D CA se problem neposredno preslika na De Bruijnov graf. McIntosh
-in njegova skupina uporabljajo za analizo te De Bruijnove grafe neposredno. Sam sem pa
+in njegova skupina uporabljajo za analizo De Bruijnove grafe neposredno. Sam pa sem
 razvil modificiran graf, kjer so vozlišča podvojena, in gredo poti vedno od originala
 proti dvojniku (slika \ref{de_bruijn_diagram}).
-To omogoča veriženje grafov, in razširitev osnovnega De Bruijnovega grafa.
-Medtem, ko osnovni De Bruijnov graf opisuje okolico ene celice, verižen graf opisuje verigo celic.
+To omogoča veriženje grafov in razširitev osnovnega De Bruijnovega grafa.
+Medtem ko osnovni De Bruijnov graf opisuje okolico ene celice, verižen graf opisuje verigo celic.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=de_bruijn_diagram,width=12cm}}
@@ -525,22 +525,20 @@ Na levi je McIntosheva upodobitev, na desni pa moja, ki omogoča veriženje.}
 \label{de_bruijn_diagram}
 \end{figure}
 
-Za potrebe opisa 2D celičnih avtomatov, je bila elementom
-De Bruijnovega grafa dodana nova dimenzija. Povezave med vozliči se spremenijo
-v ploskve, in vozlišča se spremenijo v robove ploskev.
-Elementi celičnega avtomata, ki se preslikajo v graf so:
+Za potrebe opisa 2D celičnih avtomatov je bila elementom
+De Bruijnovega grafa dodana nova dimenzija. Povezave med vozlišči se spremenijo
+v ploskve, vozlišča pa se spremenijo v robove ploskev.
+Elementi celičnega avtomata, ki se preslikajo v graf, so:
 \begin{itemize}[noitemsep,nolistsep]
 \item nabor vseh možnih \textbf{okolic} celice postane nabor vseh \textbf{ploskev} (slika \ref{neighborhood_surfaces})
 \item nabor \textbf{prekrivanj okolic v smeri 2D dimenzij} (slika \ref{overlap_dimension_quad}) postane nabor \textbf{povezav}
 \item nabor \textbf{prekrivanj okolic v diagonalni smeri} (slika \ref{overlap_diagonal_quad}) postane nabor \textbf{vozlišč}
 \end{itemize}
 
-Elemente celičnega avtomata, kakor okolice in prekrivanja okolic je potrebno indeksirati,
+Elemente celičnega avtomata, kot so okolice in prekrivanja okolic, je potrebno indeksirati,
 tako da se lahko vsakemu elementu pripiše unikatna števna vrednost.
-Vsaki okolici je pripisana zaporedna vrednost, ki je konstruirana kakor \(m\) mestno število
-v \(S\)-iškem številskem sistemu (za podane primere dvojiški).
-Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice
-(sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}).
+Vsaki okolici je pripisana zaporedna vrednost, ki je konstruirana kakor \(m\)-mestno število
+v \(S\)-iškem številskem sistemu (za podane primere dvojiškem):
 
 \begin{equation}
 n = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{M_x y + x} \cdot c_{x,y}
@@ -548,6 +546,9 @@ n = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{M_x y + x}
 \begin{equation}
 n \in \{0, 1, \dots, |S|^{M_x M_y}-1\}
 \end{equation}
+
+Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice
+(sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}).
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood_index_moore,width=12cm}}
@@ -639,7 +640,7 @@ Graf predslik je postavljen na kvadrat, ki predstavlja okolico \(n\).
 Nad vsakim vogalom je nabor vozlišč, ki predstavljajo nabor vogalnih prekrivanj
 \(o_{{x^-}{y^-}}\), \(o_{{x^+}{y^-}}\), \(o_{{x^-}{y^+}}\) in \(o_{{x^+}{y^+}}\).
 Vozlišči sosednjih vogalov sta povezani, če sta del iste konfiguracije celic,
-ki predstavlja povezavo. Na primer, pri okolici quad, povezava za prekrivanje okolic \verb|[01]|
+ki predstavlja povezavo. Na primer, pri okolici quad povezava za prekrivanje okolic \verb|[01]|
 povezuje vozlišči \verb|[0]| in \verb|[1]| (slika \ref{network_single} levo).
 
 Nastali graf (slika \ref{network_single} desno) ima poleg vozlišč in povezav med njimi tudi ploskve.
@@ -663,21 +664,21 @@ da mora vsako vozlišče ali povezava v zanki pripadati drugemu prekrivanju okol
 Diagrame, ki opisujejo preteklost posamezne celice, je možno sestaviti v mrežo,
 ki opisuje polje več celic. Nabor predslik celotnega polja je ekvivalenten naboru
 vseh \textit{zveznih} ploskev, ki prekrivajo celotno polje (zahteva po prekrivanju okolic)
-in, ki jih je možno sestaviti iz naborov ploskev diagramov posameznih celic (zahteva po ujemanju s tranzicijsko funkcijo).
+in ki jih je možno sestaviti iz naborov ploskev diagramov posameznih celic (zahteva po ujemanju s tranzicijsko funkcijo).
 
 Preslikava iz zvezne ploskve v mreži predslik v konfiguracijo polja celic predslike je enolična.
-Najlažje je razumeti preslikavo za okolico velikosti \(3 \times 3\),
-od vsakega odseka ploskve za posamezno celico se vzame centralno celico,
-na koncu pa se doda še za eno celico širok rob okoli celotne ploskve.
+Najlažje je razumeti preslikavo za okolico velikosti \(3 \times 3\).
+Od vsakega odseka ploskve za posamezno celico vzamemo centralno celico,
+na koncu pa dodamo še za eno celico širok rob okoli celotne ploskve.
 
-Podani primeri uporabljajo binarni CA s quad okolico.
-Za ta CA je velikost diagonalnega prekrivanja okolic ena sama celica (slika \ref{overlap_diagonal_quad}),
+Podani primeri uporabljajo binarni CA z okolico quad.
+Za ta CA je velikost diagonalnega prekrivanja okolic ena sama celica (slika \ref{overlap_diagonal_quad});
 posledično ima nabor vozlišč le dve vrednosti, ki neposredno predstavljajo
 vrednosti celic v predsliki (slika \ref{network_array}).
 Nabor okolic/ploskev pa obsega 16 kombinacij (slika \ref{neighborhood_surfaces}).
 
 Pravilnost razširitve diagrama ene celice v mrežo lahko dokažemo z indukcijo.
-Dokazati želimo, da je neka konfiguracija celic predslika dane sedanjosti
+Dokazati želimo, da je neka konfiguracija celic predslika dane sedanjosti,
 \textit{če in samo če} je ta ekvivalentna zvezni ploskvi v mreži predslik.
 
 \textbf{Prvi element:}
@@ -702,22 +703,22 @@ Poudarjena je ena zvezna ploskev in njen zvezen rob. Konfiguracija pripadajoče 
 Pri 1D CA so robni pogoji definirani na dveh koncih,
 ki omejujejo končno število celic na neskončni premici.
 Če je 1D CA definiran kakor poltrak, je robni pogoj samo eden.
-Robni pogoj definira katere okolice (vozlišča pri mreži predslik za 1D CA)
+Robni pogoj definira, katere okolice (vozlišča pri mreži predslik za 1D CA)
 in s kakšnimi utežmi so na voljo ob robu.
-Lahko si jih predstavljamo tudi kakor vpliv, neskončnega poltraka celic,
+Lahko si jih predstavljamo tudi kakor vpliv neskončnega poltraka celic,
 ki sega izven roba opazovane konfiguracije.
 
 Pri 2D CA je robni pogoj definiran kakor utež sklenjene poti okoli ploskve opazovane konfiguracije celic.
 V mreži predslik za 2D CA povezave med vozlišči definirajo rob ploskve (slika \ref{network_array}).
 Vsaka zvezna ploskev v mreži ima zvezen rob. Robni pogoj določa, kako je ta ploskev obravnavana,
-oziroma če je sploh obravnavana.
+oziroma, ali je sploh obravnavana.
 Ker uporabna vrednost splošnega robnega pogoja še ni znana,
 in bi splošnost izrazito povečala zahtevnost algoritma za iskanje predslik,
 so tukaj vsi robovi obravnavani enako, z utežjo ena. Temu bomo rekli odprti rob,
 ker ta ne definira nobenih omejitev, katere zvezne ploskve v mreži predslik
 so dovoljene in katere ne.
 
-Obstaja še en enostaven robni pogoj, ki je definiran za ciklično sklenjena končna CA polja.
+Obstaja še en enostaven robni pogoj, ki je definiran za ciklično sklenjena končna polja CA.
 Ta tip robnega pogoja tukaj ne bo obravnavan, ker še dodatno poveča kompleksnost algoritmov.
 Potrebno bi bilo namreč opraviti celoten postopek iskanja predslik za vsak začetni rob posebej.
 Zvezna ploskev je predslika v cikličnem polju le, če se njen začetni in končni rob ujemata.
@@ -728,7 +729,7 @@ Pojma začetnega in končnega roba sta opisana v poglavju o algoritmu.
 Pri 1D CA ima algoritem za štetje predslik linearno \(O(N)\) procesno in pomnilniško zahtevnost.
 Posplošeno to pomeni, da se vsaka celica pojavi v izračunu samo enkrat.
 Dejansko ima vsak algoritem tudi logaritmično komponento,
-saj število bitov potrebnih za zapis števcev raste logaritmično s številom celic.
+saj število bitov, potrebnih za zapis števcev, raste logaritmično s številom celic.
 Algoritem za izpis predslik ima neizogibno eksponentno kompleksnost \(O(C^N)\),
 saj maksimalno in povprečno število predslik raste eksponentno
 v odvisnosti od števila celic.
@@ -742,20 +743,20 @@ ki je nekje med linearno in eksponentno.
 Opisani algoritem za štetje predslik razdeli polje celic na vrstice v dimenziji X.
 Delitev po stolpcih v dimenziji Y bi bila ekvivalentna, tako da je to arbitrarna odločitev.
 S stališča procesne zahtevnosti je najbolje izbrati krajšo dimenzijo.
-Na podlagi zunanjega robnega pogoja je najprej poiskan nabor predslik za prvo vrstico.
-Nabor predslik je izračunan kakor uteži za robove na nasprotni strani od začetne.
-Seznam robov in njihove uteži so uporabljeni kakor vhodni robni pogoji za naslednjo vrstico.
-Robne uteži izračunane za zadnjo vrstico predstavljajo število vseh predslik.
+Na podlagi zunanjega robnega pogoja algoritem najprej poišče nabor predslik za prvo vrstico.
+Nabor predslik izračuna kakor uteži za robove na nasprotni strani od začetne.
+Seznam robov in njihove uteži uporabi kakor vhodni robni pogoji za naslednjo vrstico.
+Robne uteži, izračunane za zadnjo vrstico, predstavljajo število vseh predslik.
 
 Algoritem za izpis predslik je nadaljevaje algoritma za štetje.
-Starta z znanim številom predslik, ki ga je dalo štetje, in izpisuje predslike
+Začne z znanim številom predslik, ki ga je dalo štetje, in izpisuje predslike
 po vrsticah v obratni smeri, kakor je potekalo štetje (od zadnje do prve vrstice).
 Pridobljen seznam predslik je sortiran. Smer sortiranja je odvisna od smeri procesiranja.
 Smer procesiranja je možno po potrebi spremeniti.
 
 \section{Procesiranje v eni dimenziji}
 
-Procesiranje se začne z eno dimenzionalnim nizom celic (vrstico).
+Procesiranje se začne z 1D nizom celic (vrstico).
 Vsaki celici v nizu pripada lastna mreža predslik, eno dimenzionalnemu nizu celic
 posledično pripada povezan niz mrež predslik (slika \ref{algorithm_line} mreža \textbf{1}).
 Vsak segment mreže v nizu ima svoj nabor veljavnih okolic,
@@ -767,22 +768,22 @@ ki se ne povezujejo z okolicami svojih sosednjih celic.
 Ker se vsaka vrstica povezuje s predhodno in naslednjo vrstico, je potrebno
 upoštevati tudi zveznost ploskev na prehodu med vrsticami.
 Ta povezava med vrsticami je prerez opazovane ploskve na meji med vrsticama.
-Vsaka ploskev je obravnavana posebej in prerez je izražen kakor robni pogoj.
+Vsako ploskev se obravnavana posebej in prerez se izrazi kakor robni pogoj.
 Začetni robni pogoj za vsako vrstico je nabor poti med vozlišči na začetku vrstice.
-Vsaka pot je obravnavana posebej (slika \ref{algorithm_line} mreža \textbf{2}, odebeljena pot).
+Vsaka pot je obravnavana posebej (slika \ref{algorithm_line}, mreža \textbf{2}, odebeljena pot).
 Začetni robni pogoj je ekvivalenten nizu prekrivanja okolic \(o_{y^-}\).
 
 Začetni robni pogoj se aplicira tako, da se izloči iz obravnave vse ploskve,
-ki nimajo skupnega roba z robno potjo (slika \ref{algorithm_line}
-prehod iz mreže \textbf{1} v mrežo \textbf{2}). Za tem korakom, so vse ploskve definirane
-v dveh od štirih vozlišč. Do nezveznosti lahko prihaja le še na robu nasprotnem
+ki nimajo skupnega roba z robno potjo (slika \ref{algorithm_line},
+prehod iz mreže \textbf{1} v mrežo \textbf{2}). Po tem koraku, so vse ploskve definirane
+v dveh od štirih vozlišč. Do nezveznosti lahko prihaja le še na robu, nasprotnem
 začetnemu robu.
 
-Problem se reducira iz tri dimenzionalne mreže in procesiranja ploskev v
-dvo dimenzionalno mrežo, kjer se procesirajo poti med vozlišči (slika \ref{algorithm_line}
-prehod iz mreže \textbf{2} v mrežo \textbf{3}). To je problem, ekvivalenten iskanju predslik
-(zvenih poti v grafu) za 1D CA, za kar se uporabi algoritem opisan v \cite{JerasDobnikar2007}.
-Rezultat so poti na prerezu med ploskvami (slika \ref{algorithm_line} mreža \textbf{4},
+Problem se reducira iz 3D mreže in procesiranja ploskev v
+2D mrežo, kjer se procesirajo poti med vozlišči (slika \ref{algorithm_line},
+prehod iz mreže \textbf{2} v mrežo \textbf{3}). To je problem ekvivalenten iskanju predslik
+(zvenih poti v grafu) za 1D CA, za kar se uporabi algoritem, opisan v \cite{JerasDobnikar2007}.
+Rezultat so poti na prerezu med ploskvami (slika \ref{algorithm_line}, mreža \textbf{4},
 končni robni pogoj je odebeljen).
 Končni robni pogoj je ekvivalenten nizu prekrivanja okolic \(o_{y^+}\).
 
@@ -793,32 +794,32 @@ Nabor okolic/ploskev za posamezno celico je arbitraren. Izbran je tako, da pouda
 \label{algorithm_line}
 \end{figure}
 
-Po procesiranju nabora vseh začetnih robnih pogojev, nastane nabor vseh končnih robnih pogojev.
+Po procesiranju nabora vseh začetnih robnih pogojev nastane nabor vseh končnih robnih pogojev.
 Ta nabor se v naslednjem koraku uporabi kakor začetni robni pogoj za naslednjo vrstico.
 
 Nabor vseh možnih poti na meji vrstice raste eksponentno z dolžino vrstice.
 Število vseh poti se izračuna iz števila celic, ki se prekrivajo med okolicama dveh vrstic.
-Za deljenje po vrsticah v dimenziji X je ta nabor \( |S|^{(M_y-1)(M_x-1+N_x)} \).
+Za deljenje po vrsticah v dimenziji X je ta nabor velikosti \( |S|^{(M_y-1)(M_x-1+N_x)} \).
 Posledično kompleksnost algoritma raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
 
 \section{Procesiranje v drugi dimenziji}
 
 V drugi dimenziji se procesira zaporedje vrstic od prve do zadnje (slika \ref{algorithm_list}).
-Vsaka vrstica se začne in konča z robnim pogojem,
-ti robni pogoji so prerezi ploskev v celotni mreži predslik.
+Vsaka vrstica se začne in konča z robnim pogojem.
+Ti robni pogoji so prerezi ploskev v celotni mreži predslik.
 Vsako vrstico je potrebno v drugi dimenziji procesirati le enkrat, kar pomeni,
 da je procesna zahtevnost linearno odvisna od števila vrstic \(O(N_y)\).
 
 Vsakemu robnemu pogoju je pripisana utež. Začetni robovi za prvo vrstico imajo pripisano utež \(w=1\).
 Na splošno se lahko več začetnih robov preslika v isti končni rob ene vrstice.
-Utež pripisana končnemu robu dane vrstice, je vsota uteži vseh začetnih robnih pogojev, ki se preslikajo vanj.
+Utež, pripisana končnemu robu dane vrstice, je vsota uteži vseh začetnih robnih pogojev, ki se preslikajo vanj.
 Utež tako predstavlja število vseh predslik za dano in prejšnje vrstice, ki se končajo z opazovanim robom.
-Robovi s katerimi se ne konča nobena od predslik dobijo utež \(w=0\).
+Robovi, s katerimi se ne konča nobena od predslik, dobijo utež \(w=0\).
 
 Za tem, ko so procesirane vse vrstice, je znan končni rob nabora vseh zveznih ploskev na celotni mreži predslik.
 Vsota uteži vseh končnih robov daje število predslik celotne mreže.
 
-Z uporabo Boolove algebre namesto operacij množenja in seštevanja,
+Z uporabo Boolove algebre namesto operacij množenja in seštevanja
 je možno poenostaviti iskanje predslik samo na njihov obstoj za opazovani robni pogoj.
 Uteži postanejo binarne vrednosti \(w \in \{0, 1\}\).
 
@@ -829,24 +830,24 @@ Možno je, da nobena pot na končnem robu ne zadošča začetnemu pogoju in mre�
 Torej po prejšnjih korakih še ni točno določeno, katere ploskve se združujejo v zvezno
 celoto in katere ne. Možne so ploskve, ki prekrivajo polje samo do neke vrstice in ne naprej.
 
-Procesiranje po drugi dimenziji poteka v obratni smeri kakor pri štetju,
+Procesiranje po drugi dimenziji poteka v obratni smeri kakor pri štetj;
 začne pri zadnji vrstici in konča pri prvi vrstici (slika \ref{algorithm_list}).
 Z vsakim korakom se izloča še preostale slepe poti iz mreže predslik.
 Za vsako vrstico je potrebno ponovno rešiti 1D problem,
 le da sta začetni in končni rob zamenjana.
 Začetni rob je zaporedje prekrivanja okolic \(o_{y^+}\)
-in končni rob je zaporedje prekrivanja okolic \(o_{y^-}\).
+in končni rob zaporedje prekrivanja okolic \(o_{y^-}\).
 
-Hkrati je možno še izpisovati predslike. Že na začetku procesiranja v obratni smeri,
+Hkrati je možno še izpisovati predslike. Že na začetku procesiranja v obratni smeri
 je znano število vseh predslik, kar omogoča rezervacijo pomnilnika in inicializacijo seznama predslik.
-Končne robne poti in njihove uteži, se uporabijo za popis tekoče vrstice celic v predslikah.
+Končne robne poti in njihove uteži se uporabijo za popis tekoče vrstice celic v predslikah.
 Indeks robne poti (določeno zaporedje prekrivajočih okolic) da vrednost celic v vrstici predslike.
-Uteži izračunane v smeri štetja pa dajo število predslik,
+Uteži, izračunane v smeri štetja, pa dajo število predslik,
 ki jih je potrebno popisati z dano vrednostjo za vrstico celic.
 
 Z vsakim korakom v obratni smeri se popiše nova vrstica za vsako od preštetih predslik.
-Ko pride algoritem, spet do začetne vrstice, so vse predslike popisane.
-Hkrati so iz mreže predslik izločene vse slepe poti, ostanejo le še ploskve,
+Ko pride algoritem spet do začetne vrstice, so vse predslike popisane.
+Hkrati so iz mreže predslik izločene vse slepe poti; ostanejo le še ploskve,
 ki tvorijo zvezne ploskve na celotnem polju celic.
 
 \begin{figure}[htb]
@@ -856,36 +857,36 @@ ki tvorijo zvezne ploskve na celotnem polju celic.
 \end{figure}
 
 Algoritem tukaj ni podrobno opisan, je pa preprosta razširitev algoritma uporabljenega
-za 1D CA opisanega v \cite{JerasDobnikar2007}. Za podrobnosti je na voljo izvorna koda \cite{Jeras2016-algirithm}.
+za 1D CA, opisanega v \cite{JerasDobnikar2007}. Za podrobnosti je na voljo izvorna koda \cite{Jeras2016-algirithm}.
 
 \section{Nezmožnost procesiranja z linearno zahtevnostjo}
 
-Podan je primer, ki kaže zakaj procesiranje z linearno zahtevnostjo ni mogoče.
+Podan je primer, ki kaže, zakaj procesiranje z linearno zahtevnostjo ni mogoče.
 
 Cilj raziskovalnega dela za to raziskovalno nalogo je bil poiskati
 učinkovit algoritem za iskanje predslik 2D CA. Na podlagi izkušenj z 1D CA
 sem optimistično pričakoval, da bo možno problem rešiti v linearnem času.
 
-Algoritem v linearnem času, bi vsako celico obravnaval le enkrat
-ali na splošno bi bilo število obravnav majhna konstanta (4 krat,
+Algoritem v linearnem času bi vsako celico obravnaval le enkrat;
+na splošno bi bilo število obravnav majhna konstanta (4-krat,
 če se izvaja procesiranje skozi mrežo predslik v 4 smereh/prehodih).
 Tak algoritem predpostavlja, da je možno celoten nabor začetnih
 robnih pogojev upoštevati hkrati v enem samem prehodu.
-V koraku \textbf{2} pri procesiranju vrstice (sliki \ref{algorithm_line})
+V koraku \textbf{2} pri procesiranju vrstice (slika \ref{algorithm_line})
 bi se izločilo le ploskve, ki ne ustrezajo nobenemu od začetnih robnih pogojev.
 Po nekaj poizkusih sem ugotovil, da tak algoritem ne deluje pravilno.
 Vsaj nekatere poti iz nabora je potrebno upoštevati ločeno.
 
 V podanem primeru (slika \ref{algorithm_issue}) se prvi dve vrstici zaključita z
-naborom dveh končnih poti \textbf{0110} in \textbf{1111}. Če bi te dve poti
+naborom dveh končnih poti \textbf{0110} in \textbf{1111}. Če bi ti dve poti
 uporabili hkrati, kakor začetni robni pogoj za naslednjo vrstico, bi dobili
-enak rezultat kakor, če bi bili del robnega pogoja tudi poti \textbf{0111} in \textbf{1110}.
+enak rezultat, kakor če bi bili del robnega pogoja tudi poti \textbf{0111} in \textbf{1110}.
 To pa zato, ker algoritem, ki poti ne obravnava ločeno, ne more vedeti,
 kje se je pot začela, da bi jo lahko tudi pravilno zaključil.
 Posledično linearen algoritem lahko vzame začetek ene od poti in ga
-na vozliču skupnem obema potema nadaljuje po drugi poti.
-Iz mreže je razvidno, da te dve poti nista preseka neke zvezne ploskve.
-Skratka hkratno obravnavanje celotnega nabora robnih pogojev ni možno,
+na vozlišču, skupnem obema potema, nadaljuje po drugi poti.
+Iz mreže je razvidno, da ti dve poti nista preseka neke zvezne ploskve.
+Skratka, hkratno obravnavanje celotnega nabora robnih pogojev ni možno,
 kar pomeni, da je število obravnav neke celice odvisno od števila poti
 in posledično od eksponenta števila celic v vrstici.
 
