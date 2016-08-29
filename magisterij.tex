@@ -54,7 +54,7 @@
                      FAKULTETA ZA RAČUNALNIŠTVO IN INFORMATIKO\\}
 \vspace{3cm} {\large Iztok Jeras}\\
 \vspace{2cm} {\large \textbf{Predslike 2D celičnih avtomatov}}\\
-\vspace{2cm} {MAGISTERSKO DELO\\ NA UNIVERZITETNEM ŠTUDIJU}\\
+\vspace{2cm} {MAGISTRSKO DELO\\ NA UNIVERZITETNEM ŠTUDIJU}\\
 \vfill       {\Large Ljubljana, 2016}
 \end{center}
 \newpage
@@ -70,7 +70,7 @@
                      FAKULTETA ZA RAČUNALNIŠTVO IN INFORMATIKO\\}
 \vspace{3cm} {\large Iztok Jeras}\\
 \vspace{2cm} {\large \textbf{Predslike 2D celičnih avtomatov}}\\
-\vspace{2cm} {MAGISTERSKO DELO\\ NA UNIVERZITETNEM ŠTUDIJU}\\
+\vspace{2cm} {MAGISTRSKO DELO\\ NA UNIVERZITETNEM ŠTUDIJU}\\
 \vspace{2cm} {\Large Mentor: prof. dr. Branko Šter}
 \vfill       {\Large Ljubljana, 2016}
 \end{center}
@@ -103,7 +103,7 @@ ali na Inštitutu za intelektualno lastnino, Streliška 1, 1000 Ljubljana.
 
 \vspace*{1.5cm}
 {\small \noindent
-Izvorna koda programske opreme razvite za potrebe magisterskega dela je ponujena pod licenco \textit{Unlicense} \footnote{http://unlicense.org/}.
+Izvorna koda programske opreme, razvite za potrebe magistrskega dela, je ponujena pod licenco \textit{Unlicense} \footnote{http://unlicense.org/}.
 To pomeni, da se lahko prosto uporablja, distribuira in/ali predeluje, brez kakšnih koli obveznosti.
 Avtor se odpoveduje vsem pravicam in tako omogoča uporabnikom izvorne kode, da se izognejo preverjanju pravnih obveznosti.
 }
@@ -173,7 +173,7 @@ V Ljubljani, dne 30. avgust 2016 \hfill Podpis avtorja:
 \chapter*{Zahvala}
 \thispagestyle{empty}
 Zahvaljujem se prof. dr. Andreju Dobnikarju za pomoč pri pisanju člankov
-o algoritmih za štetje in izpis predslik pri eno dimenzionalnih celičnih avtomatih.
+o algoritmih za štetje in izpis predslik pri enodimenzionalnih celičnih avtomatih.
 \newpage
 
 %********************************************
@@ -198,22 +198,22 @@ o algoritmih za štetje in izpis predslik pri eno dimenzionalnih celičnih avtom
 % simboli
 
 \begin{abbreviations}
-\item[1D] eno dimenzionalen
-\item[2D] dvo dimenzionalen
-\item[3D] tro dimenzionalen
-\item[CA] celični avtomat
+\item[1D] enodimenzionalen
+\item[2D] dvodimenzionalen
+\item[3D] tridimenzionalen
+\item[CA] cellular automata (celični avtomat)
 \item[GoL] Conway's Game of Life (Conwayeva igra življenja)
-\item[GoE] Garden of Eden (stanje brez predslik)
-\item[trid] okolica CA sestavljena iz treh celic na heksagonalni mreži
-\item[quad] okolica CA sestavljena iz štirih celic na kvadratni mreži
+\item[GoE] Garden of Eden (rajski vrt)
+\item[trid] okolica CA, sestavljena iz treh celic na heksagonalni mreži
+\item[quad] okolica CA, sestavljena iz štirih celic na kvadratni mreži
 
 \item[\(C\)] poljubna konstanta
-\item[\(S\)] množica nabora stanj celice
+\item[\(S\)] nabor stanj celice
 \item[\(|S|\)] število možnih stanj celice
 \item[\(c\)] stanje posamezne celice (celoštevilska vrednost)
-\item[\(c_{x,y}\)] vrednost celice na položaju \((x,y)\) znotraj 2D polja celic
+\item[\(c_{x,y}\)] vrednost celice na koordinatah \((x,y)\) znotraj 2D polja celic
 \item[\(c^t\)] vrednost celice v sedanjosti
-\item[\(c^{t+1}\)] vrednost celice v prihodnosti (eden korak)
+\item[\(c^{t+1}\)] vrednost celice v prihodnosti (en korak)
 \item[\(N_x\)] velikost pravokotnega 2D polja celic v dimenziji X
 \item[\(N_y\)] velikost pravokotnega 2D polja celic v dimenziji Y
 \item[\(N\)] število celic v 2D polju
@@ -221,8 +221,8 @@ o algoritmih za štetje in izpis predslik pri eno dimenzionalnih celičnih avtom
 \item[\(M_y\)] velikost pravokotne 2D okolice celice v dimenziji Y
 \item[\(m\)] število celic v 2D okolici
 \item[\(n\)] stanje okolice posamezne celice (celoštevilska vrednost)
-\item[\(n_{x,y}\)] vrednost okolice celice na položaju \((x,y)\) znotraj 2D polja celic
-\item[\(n^{t-1}\)] vrednost okolice celice v preteklosti (eden korak)
+\item[\(n_{x,y}\)] vrednost okolice celice na koordinatah \((x,y)\) znotraj 2D polja celic
+\item[\(n^{t-1}\)] vrednost okolice celice v preteklosti (en korak)
 \item[\(n^t\)] vrednost okolice celice v sedanjosti
 \item[\(f\)] tranzicijska funkcija, ki definira časovno evolucijo avtomata
 \item[\(f^{-1}\)] obratna tranzicijska funkcija
@@ -247,9 +247,9 @@ o algoritmih za štetje in izpis predslik pri eno dimenzionalnih celičnih avtom
 
 Medtem, ko je računanje predslik 1D celičnih avtomatov dobro raziskan in
 podrobno dokumentiran problem, je to področje pri 2D celičnih avtomatih manj
-raziskano. To magistrsko delo poizkuša aplicirati metode razvite za 1D avtomate
+raziskano. To magistrsko delo poizkuša aplicirati metode, razvite za 1D avtomate,
 na 2D problem. Prikazan je algoritem, ki omogoča štetje in izpis predslik.
-Razvit je bil s pomočjo grafičnega modela, mreže predslik, 
+Razvit je bil s pomočjo grafičnega modela, mreže predslik,
 ki omogoča uporabo teorije grafov pri izračunih in dokazih.
 
 \vspace{1.3cm}
@@ -258,7 +258,7 @@ ki omogoča uporabo teorije grafov pri izračunih in dokazih.
 
 \vspace{0.5cm}
 \noindent
-celični avtomati, predslike, procesna zahtevnost, reverzibilnost, rajski vrt, Conwayeva igra življenja, trid, quad
+celični avtomati, predslike, predhodniki, procesna zahtevnost, reverzibilnost, rajski vrt, Conwayeva igra življenja, trid, quad
 \newpage
 
 % prazna stran
@@ -273,7 +273,7 @@ While computing preimages of 1D cellular automata is a well researched and
 documented problem, for 2D cellular automata there is less research available.
 This masters thesis attempts to apply methods developed for 1D automata to the
 2D problem. An algorithm is shown, which can count and list preimages.
-It was developed with the help of a graphical representation, the preimage network,
+It has been developed with the help of a graphical representation, the preimage network,
 which enables using graph theory for computation and proofs.
 
 \vspace{1.3cm}
@@ -293,10 +293,10 @@ cellular automata, preimages, predecessors, ataviser, computational complexity, 
 
 \chapter{Uvod}
 
-\section{CA kakor model vesolja}
+\section{Celični avtomati kakor model vesolja}
 
 Ker lahko vsak univerzalen sistem modelira vsak drug univerzalen sistem, lahko predpostavimo,
-da lahko z univerzalnimi CA modeliramo vesolje. Samo modeliranje vesolja
+da lahko z univerzalnimi celičnimi avtomati (CA) modeliramo vesolje. Samo modeliranje vesolja
 je še izven našega dosega, poizkuša pa se vsaj približati teorijo CA in teoretično fiziko.
 S strani informacijske teorije in termodinamike je predvsem zanimiv model gravitacije
 kakor entropijske sile (Entropic gravity \cite{Verlinde2010}), ki predpostavlja, da je
@@ -308,33 +308,33 @@ Oba sta pomembna informacijska pojava v našem vesolju.
 
 Informacijsko dinamiko CA se najpogosteje opisuje samo kakor reverzibilno ali ireverzibilno,
 obstaja tudi nekaj člankov, ki opazujejo entropijo sistema.
-Pogosto je tudi opazovanje dinamike delcev pri GoL in elementarnem pravilu 110.
+Pogosto je tudi opazovanje dinamike delcev pri GoL (Game of Life ali slovensko igra življenja) in elementarnem pravilu 110.
 Ne obstaja pa še splošna teorija dinamike informacij v CA.
-V svojem članku \cite{JerasDobnikar2007} in prispevkih na konferencah \cite{DBLP:conf/iccS/JerasD06, DBLP:conf/automata/Jeras08, Jeras2008-pyca},
+V svojem članku \cite{JerasDobnikar2007} in prispevkih na konferencah \cite{DBLP:conf/iccS/JerasD06, DBLP:conf/automata/Jeras08, Jeras2008-pyca}
 sem grafično upodobil predslike trenutnega stanja za 1D problem.
 Iz upodobitve je videti, da se ponekod izgubi več informacije kakor drugod,
 kar kaže na možnost izpeljave kvalitativne in kvantitativne teorije dinamike informacij.
 Na žalost se ta možnost še ni udejanila. Podobno je možno grafično upodobiti predslike 2D CA,
-ter iz grafov sklepati o izgubi informacij v 2D CA.
+ter iz grafov sklepati o izgubi informacije v 2D CA.
 
 \section{Problem predslik 2D CA}
 
-Najbolje teoretično raziskan 2D CA je GoL (Game of Life ali slovensko igra življenja).
+Najbolje teoretično raziskan 2D CA je GoL.
 Ogromno truda je bilo vloženega v raziskovanje delcev in njihove dinamike. S pomočjo
-osnovnih gradnikov, je mogoče skonstruirati kompleksnejše sisteme, med katerimi so
-najzanimivejši turingov stroj \cite{Rendell2001} in univerzalni konstruktor \cite{Greene2013}.
+osnovnih gradnikov je mogoče skonstruirati kompleksnejše sisteme, med katerimi so
+najzanimivejši Turingov stroj \cite{Rendell2001} in univerzalni konstruktor \cite{Greene2013}.
 
-Delci so dejansko atraktorji v razvoju CA na končni periodični mreži (thorus).
+Delci so dejansko atraktorji v razvoju CA na končni periodični mreži (torus).
 Pri 1D CA se algoritmi za iskanje predslik uporabljajo za določitev atraktorjevega korita \cite{Wuensche1992}.
-V vsakem CA, ki ni lokalno injektiven se pojavljajo stanja brez predslik imenovana GoE
+V vsakem CA, ki ni lokalno injektiven, se pojavljajo stanja brez predslik, imenovana GoE
 (\textit{Garden of Eden} ali rajski vrt) \cite{Moore1962, Myhill1963}.
 Pomensko so GoE nasprotje delcev, saj se nahajajo kar
-najdlje od atraktorja, na robu korita. GoE stanja tudi privlačijo raziskovalce,
+najdlje od atraktorja, na robu korita. Stanja GoE tudi privlačijo raziskovalce,
 čeprav v nekoliko manjši meri kakor delci.
 
-Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja GoE stanj.
-S stališča algoritma za štetje predslik je GoE stanje tako, ki nima nobene predslike.
-Algoritem za štetje predslik je možno pretvoriti v manj zahteven algoritem za preverjanje ali je stanje GoE,
+Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja stanj GoE.
+S stališča algoritma za štetje predslik je GoE stanje tako stanje, ki nima nobene predslike.
+Algoritem za štetje predslik je možno pretvoriti v manj zahteven algoritem za preverjanje ali je dano stanje stanje GoE,
 tako da se operacije nad celimi števili pretvori v logične operacije nad Boolovimi stanji.
 
 \section{Algoritmi za iskanje predslik}
@@ -342,22 +342,22 @@ tako da se operacije nad celimi števili pretvori v logične operacije nad Boolo
 Raziskave algoritmov sem se lotil s predpostavko, da je možno opraviti štetje z zahtevnostjo,
 ki je linearno odvisna od velikosti problema \( O(N) \)  (\(N\) je število opazovanih celic).
 Čeprav je to možno pri 1D problemu, se izkaže, da 2D problem ni tako preprost.
-Predstavljeni so primeri iz katerih je razvidno,
+Predstavljeni so primeri, iz katerih je razvidno,
 da algoritem z linearno zahtevnostjo ne more pravilno opisati vseh situacij.
 Zahtevnost opisanega algoritma sicer raste eksponentno z velikostjo ene
 od dimenzij CA polja \( O(C^{N_x}) \), je pa možno, da obstaja algoritem z nižjo kompleksnostjo.
 
 Pomembno vlogo pri razvoju opisanega algoritma ima mreža predslik.
 To je grafična upodobitev problema, katere cilj je lažje razumevanje problema in rešitve.
-Osnova za oblikovanje mreže predslik so De Bruijn-ovi diagrami.
+Osnova za oblikovanje mreže predslik so De Bruijnovi diagrami.
 Paulina Léon in Genaro Martínez \cite{PaulinaGenaro2016}
-poizkušata aplicirati De Bruijn-ove diagrame na 2D CA,
-doslej je bilo to orodje uporabljeno le na 1D problemih.
-Točneje, opazujeta dva CA:'Game of Life' in 'Diffusion rule',
+poizkušata aplicirati De Bruijnove diagrame na 2D CA.
+Doslej je bilo to orodje uporabljeno le na 1D problemih.
+Točneje, opazujeta dva CA: 'Game of Life' in 'Diffusion rule',
 s poudarkom na opazovanju stabilnih delcev.
-Sam uporabljam De Bruijn-ovi diagrame nekoliko drugače,
+Sam uporabljam De Bruijnove diagrame nekoliko drugače,
 in jih tudi drugače grafično upodabljam.
-Posamezen De Bruijn-ov diagram postane mreža predslik ene celice.
+Posamezen De Bruijnov diagram postane mreža predslik ene celice.
 Mreže posameznih celic se nato povezujejo,
 tako da na koncu opisujejo celotno polje celic.
 
@@ -381,7 +381,7 @@ Celični avtomat GoL je definiran z Moorovo okolico velikosti \(3 \times 3\).
 Tako velika okolica ima z \(9\) celicami \(2^9=512\) možnih stanj,
 zaradi česar so ilustracije mreže predslik velike in nepregledne.
 Splošno je znana manjša von Neumannova okolica velikosti \(3 \times 3\) v obliki križa iz \(5\) celic.
-Z \(2^5=32\) stanji bi bile ilustracije bolj pregledne, ampak obstajajo tudi okolice z manj celicami.
+Z \(2^5=32\) stanji bi bile ilustracije bolj pregledne, pa obstajajo tudi okolice z manj celicami.
 Toffoli \cite{Toffoli2008} je leta 2008 spodbudil raziskovalce k iskanju univerzalnosti za CA
 z okolicama trid (tri celice na heksagonalnem polju) in quad (štiri celice na kvadratnem polju).
 Powley \cite{Powley2008} hitro dokaže obstoj univerzalnega avtomata z okolico trid,
@@ -389,11 +389,11 @@ tako da ustvari avtomat, ki lahko s pomočjo določenega začetnega stanja
 simulira poljubni 1D elementarni celični avtomat, na primer pravilo 110.
 Sam sem obe okolici poznal že prej. Njuna najboljša lastnost je majhen nabor stanj okolice,
 \(2^4=16\) za quad in \(2^3=8\) za trid. Za primere je bil uporabljen quad,
-saj so diagrami na kvadratni mreži bolj enostavni in pregledni, kakor diagrami na heksagonalni mreži.
+saj so diagrami na kvadratni mreži bolj enostavni in pregledni kakor diagrami na heksagonalni mreži.
 
 Algoritem je implementiran kot računalniški program v jeziku C \cite{Jeras2016-algirithm}.
 Knjižnica GMP \footnote{The GNU Multiple Precision Arithmetic Library \url{https://gmplib.org/}}
-je uporabljena za zapis celih števil večjih od 64 bitov.
+je uporabljena za zapis celih števil, večjih od 64 bitov.
 Poleg samega algoritma za štetje in izpis predslik sem pripravil tudi
 orodje za simulacijo binarnega CA z okolico quad \cite{Jeras2016-quad}.
 %in orodje za prikaz poljubne mreže predslik \cite{Jeras2016-network}.
@@ -485,7 +485,7 @@ mrež predslik, ki poudarjajo konkretne probleme povezane s kompleksnostjo algor
 
 Za dano polje celic velikosti \(N_x \times N_y\) in z odprtimi robovi,
 je možno izračunati prihodnje stanje polja velikosti \((N_x-(M_x-1)) \times (N_y-(M_y-1))\).
-V primeru, če so robovi polja ciklično zaprti (polje v obliki thorusa),
+V primeru, če so robovi polja ciklično zaprti (polje v obliki torusa),
 je pa polje prihodnjega stanja enako veliko kakor polje sedanjega.
 Podobno velja za računanje predslik, za sedanje polje velikosti \(N_x \times N_y\)
 je za odprte robove velikost polja predslik \((N_x+(M_x-1)) \times (N_y+(M_y-1))\).
@@ -500,28 +500,28 @@ predslik.
 
 \section{De Bruijnov diagram}
 
-Osnovni element grafične upodobitve je De Bruijinov diagram. V osnovi ta obravnava
+Osnovni element grafične upodobitve je De Bruijnov diagram. V osnovi ta obravnava
 ciklične premike končnih zaporedij simbolov, ter njihovo prekrivanje. Vozlišča v
 diagramu so vsa možna končna zaporedja, povezave med njimi pa definirajo, kako se
 ta zaporedja prekrivajo med seboj.
 
-Pri 1D CA se problem neposredno preslika na De Bruijinov graf. McIntosh
-in njegova skupina uporabljajo za analizo te De Bruijinove grafe neposredno. Sam sem pa
+Pri 1D CA se problem neposredno preslika na De Bruijnov graf. McIntosh
+in njegova skupina uporabljajo za analizo te De Bruijnove grafe neposredno. Sam sem pa
 razvil modificiran graf, kjer so vozlišča podvojena, in gredo poti vedno od originala
 proti dvojniku (slika \ref{de_bruijn_diagram}).
-To omogoča veriženje grafov, in razširitev osnovnega De Bruijinovega grafa.
-Medtem, ko osnovni De Bruijinov graf opisuje okolico ene celice, verižen graf opisuje verigo celic.
+To omogoča veriženje grafov, in razširitev osnovnega De Bruijnovega grafa.
+Medtem, ko osnovni De Bruijnov graf opisuje okolico ene celice, verižen graf opisuje verigo celic.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=de_bruijn_diagram,width=12cm}}
-\caption[De Bruijinov graf, pravilo 110.]
-{De Bruijinov graf za elementarni 1D CA, pravilo 110.
+\caption[De Bruijnov graf, pravilo 110.]
+{De Bruijnov graf za elementarni 1D CA, pravilo 110.
 Na levi je McIntosheva upodobitev, na desni pa moja, ki omogoča veriženje.}
 \label{de_bruijn_diagram}
 \end{figure}
 
 Za potrebe opisa 2D celičnih avtomatov, je bila elementom
-De Bruijinovega grafa dodana nova dimenzija. Povezave med vozliči se spremenijo
+De Bruijnovega grafa dodana nova dimenzija. Povezave med vozliči se spremenijo
 v ploskve, in vozlišča se spremenijo v robove ploskev.
 Elementi celičnega avtomata, ki se preslikajo v graf so:
 \begin{itemize}[noitemsep,nolistsep]
@@ -1089,9 +1089,9 @@ tako da na tem področju ni dosti očitnih optimizacij.
 
 \appendix
 
-\chapter{De Bruijinov diagram za GoL}
+\chapter{De Bruijnov diagram za GoL}
 
-Slika \ref{network_single_moore} prikazuje del De Bruijinovega diagrama za GoL.
+Slika \ref{network_single_moore} prikazuje del De Bruijnovega diagrama za GoL.
 Graf s 16 vozlišči in 64 povezavami je očitno preveč kompleksen, da bi bil primeren za razlago algoritma.
 Število vseh možnih okolic (ploskev v diagramu) pa je celo 512.
 
