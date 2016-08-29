@@ -903,7 +903,7 @@ Veljavni robni pogoj je odebeljen, neveljavni pa črtkan.}
 \chapter{Primerjava z znanimi algoritmi}
 
 Obstoječi algoritmi za predslike 2D CA se osredotočajo izključno na GoL.
-Največ algoritmov je namenjenih iskanju GoE stanj, skratka preverjajo le
+Največ algoritmov je namenjenih iskanju stanj GoE, skratka, preverjajo le
 obstoj predslik in jih ne štejejo ali izpisujejo. Tukaj opisani algoritem
 je zamišljen bolj univerzalno za poljuben 2D CA. Vendar univerzalnost v
 praksi ni ravno pomembna, saj izven raziskovalcev GoL ni dosti zanimanja
@@ -911,33 +911,33 @@ za teoretične probleme, kakor je iskanje predslik.
 
 \section{Iskanje GoE za GoL}
 
-Conway je leta 1970 predstavil GoL. Že leta 1971 sta Roger Banks in Steve Ward
-predstavila prvo GoE stanje velikosti \(9 \times 33\) celic.
+Conway je leta 1970 predstavil CA po imenu GoL. Že leta 1971 sta Roger Banks in Steve Ward
+predstavila prvo stanje GoE velikosti \(9 \times 33\) celic.
 Odkritje je bilo objavljeno v \cite{Lifeline3}. Kasneje je Don Woods
 \cite{Lifeline3, Lifeline4} s pomočjo računalnika dokazal, da je stanje res GoE.
 
 Woodsov algoritem, tako kakor moj, deluje na vrsticah.
-Starta z eno vogalno celico, katere nabor predslik je kar nabor okolic,
-ki se preslikajo v stanje celice. V naslednjem koraku se opazuje sosednjo celico v vrstici.
-Za vse kombinacije okolic dodane celice in obstoječi nabor predslik se preveri,
-če se ujemajo, kjer se okolice prekrivajo. Če se ujemajo, se doda sestavljeno predsliko v nabor,
+Začne z eno vogalno celico, katere nabor predslik je kar nabor okolic,
+ki se preslikajo v stanje celice. V naslednjem koraku opazuje sosednjo celico v vrstici.
+Za vse kombinacije okolic dodane celice in obstoječi nabor predslik preveri,
+če se ujemajo, kjer se okolice prekrivajo. Če se ujemajo, doda sestavljeno predsliko v nabor,
 sicer predslika izpade iz nabora. Ko pride algoritem do konca vrstice, nadaljuje v naslednji vrstici,
 le da je sedaj prekrivanje med naborom predslik in okolico dodane celice drugačno (več sosednjih celic namesto ene).
 Tako algoritem nadaljuje do konca celotne konfiguracije.
 Če je končni nabor predslik prazen, je opazovana konfiguracija GoE.
 Nabor predslik in s tem poraba pomnilnika in procesnega časa ostajajo
 relativno majhni v primerjavi z naborom vseh stanj.
-Temu je tako, ker imajo v praksi tudi deli GoE konfiguracije malo predslik.
+Temu je tako, ker imajo v praksi tudi deli konfiguracije GoE malo predslik.
 Algoritem bi bil za konfiguracije z dosti predslikami veliko bolj pomnilniško in časovno potraten.
 
-Nicolay Beluchenko je poiskal večje število GoE stanj velikosti \(11 \times 11\).
+Nicolay Beluchenko je poiskal večje število stanj GoE velikosti \(11 \times 11\).
 Sicer ne poznam vseh njegovih pristopov, ampak vsaj v enem primeru je uporabljal
-podoben algoritem kakor Woods. Startal je z osrednjo celico in dodajal nove celice
+podoben algoritem kakor Woods. Začel je z osrednjo celico in dodajal nove celice
 v spirali okoli osrednje. Za vrednost dodane celice je uporabil tisto, ki je dala manjši nabor predslik.
 Algoritem zaključi, ko z novo dodano celico ni več možno tvoriti predslik.
 
 Leta 1974 je Duparc \cite{Duparc1972, Duparc1974} razvil drugačen algoritem,
-ter z njim poiskal GoE stanja velikosti \(6 \times 122\) in \(6 \times 117\).
+ter z njim poiskal stanja GoE velikosti \(6 \times 122\) in \(6 \times 117\).
 Algoritem uporablja teorijo končnih avtomatov in regularnih jezikov, ki je v
 osnovi namenjena 1D sistemom.
 Duparc je celice iz vrstice 2D polja združil v simbole regularnega jezika,
@@ -946,27 +946,27 @@ Duparcov algoritem ne obravnava vseh stanj vrstice enakovredno,
 temveč se osredotoča na vrstice, ki zmanjšujejo nabor predslik.
 Obravnavanje vseh stanj vrstic bi namreč preseglo pomnilniške sposobnosti
 takratne in sedanje strojne opreme že za kratke vrstice.
-Dokaže le, da za vrstice dolžine 1 ne obstaja stolpec, ki bi bil GoE stanje.
+Dokaže le, da za vrstice dolžine 1 ne obstaja stolpec, ki bi bil stanje GoE.
 Originalni članek je v francoščini, tako da lahko algoritem opišem le na podlagi tega, kako ga opisujejo drugi.
 
 V zadnjih letih podoben algoritem uporablja Steven Eker (CSL, SRI International, California, USA).
-Dokazal je, da za pravokotne konfiguracije višine 2 in 3 ne obstajajo GoE stanja,
-dokaz za konfiguracije višine 4 z danim algoritmom še vedno presega sposobnosti sodobne strojne opreme.
-Število stanj avtomata, ki opisuje jezik GoE namreč raste eksponentno z višino.
-Elker je poiskal GoE stanja velikosti \(9 \times 11\), \(8 \times 12\) in \(5 \times 83\).
+Dokazal je, da za pravokotne konfiguracije višine 2 in 3 ne obstajajo stanja GoE.
+Dokaz za konfiguracije višine 4 z danim algoritmom še vedno presega sposobnosti sodobne strojne opreme.
+Število stanj avtomata, ki opisuje jezik GoE, namreč raste eksponentno z višino.
+Elker je poiskal stanja GoE velikosti \(9 \times 11\), \(8 \times 12\) in \(5 \times 83\).
 Na žalost raziskovalcu delodajalec prepoveduje objavo rezultatov in podrobnosti, dokler ni opravljen interni pregled.
 Tako imamo za sedaj na voljo le zgoraj navedene podatke.
 
 Drugačen algoritem uporablja Marijn Heule \cite{Hartman2013}.
-S sodelavci je zapisal vsa prekrivanja za določeno stanje kakor binarne enačbe.
+S sodelavci je zapisal vsa prekrivanja za določeno stanje v obliki binarnih enačb.
 Te je nato predal orodju za reševanje SAT problemov.
-Če rešitev ne obstaja, pomeni da je stanje GoE.
+Če rešitev ne obstaja, pomeni, da je stanje GoE.
 Uporabljena je dodatna predpostavka, da bo rešitev zrcalno simetrična v obeh dimenzijah,
 kar občutno zmanjša velikost problema.
-Algoritem je še dodatno optimiziran za iskanje GoE stanj in
+Algoritem je še dodatno optimiziran za iskanje stanj GoE in
 omogoča pregled večjega števila podobnih stanj.
 Ob spremembi vrednosti ene same celice omogoča uporabo delnih rezultatov prejšnjega izračuna.
-SAT metode ne poznam dobro, teko da ne morem primerjati procesne zahtevnosti.
+SAT metode ne poznam dobro, tako da ne morem primerjati procesne zahtevnosti.
 
 \section{Iskanje predslik GoL na splošno}
 
@@ -977,20 +977,20 @@ je pa vzpodbudil druge k iskanju takega algoritma.
 Spletna stran \url{kaggle.com} je pripravila tekmovanje \cite{kaggle2013},
 kjer so morali kandidati reševati problem iskanja predslik. Podali so
 nabor stanj, za katere je treba poiskati predslike, in nabor učnih sekvenc.
-Pričakovali so rešitev, ki temelji na strojnem učenju ali optimiziranju,
+Pričakovali so rešitev, ki temelji na strojnem učenju ali optimizaciji,
 torej fokus ni bil na eksaktni rešitvi.
 
-Pri iskanju implementacij algoritma, sam našel Atabot \cite{Borah2013},
-Celični kronometer \cite{Duxbury2013} in SAT baziran program \cite{Pigorsch2015}.
+Pri iskanju implementacij algoritma, sem našel Atabot \cite{Borah2013},
+Celični kronometer \cite{Duxbury2013} in program baziran na SAT metodi \cite{Pigorsch2015}.
 Cilj teh algoritmov sicer je iskanje predslik, ampak iskanje ni sistematično
 in cilj ni nabor vseh možnih predslik.
 Algoritmi se tudi poslužujejo določene hevristike pri iskanju.
 
 \section{Polni algoritmi za štetje in izpis predslik}
 
-Opisani algoritmi za iskanje GoE stanj, na primer Woods,
+Opisani algoritmi za iskanje stanj GoE, na primer Woods,
 sicer omogočajo iskanje vseh predslik, ampak to ni njihov glavni namen.
-Optimizirani so le za GoE stanja, kjer je predslik malo tudi za samo del GoE konfiguracije.
+Optimizirani so le za stanja GoE, kjer je predslik malo tudi za samo del GoE konfiguracije.
 Predvsem niso optimizirani za splošen primer, kjer je lahko predslik veliko,
 posledično so potratni s porabo pomnilnika.
 Morda bi bilo možno optimizirati porabo pomnilnika,
@@ -1005,25 +1005,25 @@ kvadratnih podsklopov konfiguracij. Na žalost poda primerjavo med različnimi a
 le kakor procesni čas za posamezno implementacijo, ne pa tudi bolj splošne
 ocene maksimalne in povprečne procesne/pomnilniške zahtevnosti.
 
-Našel sem še aplikacijo napisano v jeziku APL \cite{ionreq2013}.
+Našel sem še aplikacijo, napisano v jeziku APL \cite{ionreq2013}.
 Dokumentacija te aplikacije ni dovolj jasna, da bi bilo očitno, kaj točno počne.
 Iz primera pa sklepam, da je sposobna poiskati vse predslike.
 
 \chapter{Sklepne ugotovitve}
 
-Probleme povezane z iskanjem predslik lahko delimo v nivoje gleda na zahtevnost:
+Probleme, povezane z iskanjem predslik, lahko delimo v nivoje glede na zahtevnost:
 \begin{enumerate}[noitemsep,nolistsep]
 \item določitev, ali obstajajo predslike za dano trenutno stanje sistema
 \item štetje predslik za dano trenutno stanje sistema
 \item naštevanje konfiguracij predslik
 \item vprašanje reverzibilnosti sistema
-\item jezik vseh GoE stanj
+\item jezik vseh stanj GoE
 \end{enumerate}
 
 V magistrskem delu opišem algoritem, ki rešuje prve tri probleme.
 Preostala problema sta si sorodna.
 Problem reverzibilnosti je na splošno dokazano nerešljiv \cite{Kari1989}.
-Problem jezika GoE stanj je za 1D preprosto rešljiv, za 2D pa je
+Problem jezika stanj GoE je za 1D preprosto rešljiv, za 2D pa je
 verjetno podobno kakor vprašanje reverzibilnosti nerešljiv.
 
 \section{Analiza 2D CA s pomočjo končnih avtomatov}
@@ -1037,9 +1037,9 @@ Poln nabor vsebuje vse možne robove, prazen nabor pa ne vsebuje nobenega roba.
 Vsako zaporedje vrstic (simbolov), ki v avtomatu pelje iz polnega v prazno stanje, je GoE konfiguracija.
 Zanke v takem avtomatu pa so sorodne delcem.
 
-Opisan pristop postane nepraktičen že za kratke vrstice.
+Opisani pristop postane nepraktičen že za kratke vrstice.
 Število vseh možnih robov raste eksponentno z dolžino vrstice \(N_x\).
-To število \(|S|^{(M_y-1)(M_x-1+N_x)}\) je enako vsem načinom,
+To število, \(|S|^{(M_y-1)(M_x-1+N_x)}\), je enako številu vseh načinov,
 na katere se lahko okolici dveh vrstic prekrivata.
 Stanja avtomata pa so vsi možni nabori robov.
 Nabor lahko opišemo kakor binarni niz, kjer vsak bit pomeni
@@ -1047,11 +1047,11 @@ prisotnost ali odsotnost enega od robov.
 Vseh stanj končnega avtomata je tako \(2^{ |S|^{(M_y-1)(M_x-1+N_x)} }\).
 Število stanj avtomata postane neobvladljivo že za kratke vrstice.
 
-Najkrajša GoE beseda znotraj regularnega jezika GoE stanj, je tista,
+Najkrajša GoE beseda znotraj regularnega jezika stanj GoE je tista,
 ki po najkrajši poti in brez zank pripelje iz polnega v prazen nabor.
-Pri 1D CA se je izkazalo, da je dolžina najkrajše GoE besede povezana s kompleksnostjo
+Pri 1D CA se je izkazalo, da je dolžina najkrajše besede GoE povezana s kompleksnostjo
 prostorsko-časovnih vzorcev, ki se pojavljajo pri danem pravilu.
-Podobno so verjetno tudi pri 2D CA GoE konfiguracije večje pri pravilih,
+Podobno so verjetno tudi pri 2D CA konfiguracije GoE večje pri pravilih,
 ki omogočajo kompleksno dinamiko delcev. Verjetno bi bilo možno to izkoristiti
 za iskanje zanimivih pravil v okolici quad.
 
@@ -1062,11 +1062,11 @@ ne raste tako hitro z velikostjo problema.
 Za sedaj vidim samo rešitev, ki se osredotoča na povprečno zahtevnost, namesto na maksimalno zahtevnost.
 Na primer, sedaj algoritem rezervira pomnilnik za uteži vseh možnih robov,
 dovolj pa bi bilo, če bi bil rezerviran pomnilnik samo za robove z utežjo večjo od nič.
-Sploh pri iskanju GoE stanj, je robov malo v primerjavi z vsemi možnimi.
-Tak pristop bi dal dosti manjšo porabo pomnilnika,
+Sploh pri iskanju stanj GoE je robov malo v primerjavi z vsemi možnimi.
+Tak pristop bi dal dosti manjšo porabo pomnilnika
 in verjetno tudi znižal čas procesiranja.
 
-Morda bi bilo možno vnaprej določiti zgornjo mejo števila ne ničelnih robov.
+Morda bi bilo možno vnaprej določiti zgornjo mejo števila ne-ničelnih robov.
 To bi omogočalo zgodnjo oceno, če je izračun za dan problem izvedljiv.
 Na primer, če bi v vrstičnem procesiranju obravnavali vse začetne robove hkrati,
 namesto vsakega posebej, bi dobili prevelik nabor končnih robov.
