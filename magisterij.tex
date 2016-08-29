@@ -328,12 +328,12 @@ Delci so dejansko atraktorji v razvoju CA na končni periodični mreži (torus).
 Pri 1D CA se algoritmi za iskanje predslik uporabljajo za določitev atraktorjevega korita \cite{Wuensche1992}.
 V vsakem CA, ki ni lokalno injektiven, se pojavljajo stanja brez predslik, imenovana GoE
 (\textit{Garden of Eden} ali rajski vrt) \cite{Moore1962, Myhill1963}.
-Pomensko so GoE nasprotje delcev, saj se nahajajo kar
+Pomensko so stanja GoE nasprotje delcev, saj se nahajajo kar
 najdlje od atraktorja, na robu korita. Stanja GoE tudi privlačijo raziskovalce,
 čeprav v nekoliko manjši meri kakor delci.
 
 Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja stanj GoE.
-S stališča algoritma za štetje predslik je GoE stanje tako stanje, ki nima nobene predslike.
+S stališča algoritma za štetje predslik je stanje GoE tako stanje, ki nima nobene predslike.
 Algoritem za štetje predslik je možno pretvoriti v manj zahteven algoritem za preverjanje ali je dano stanje stanje GoE,
 tako da se operacije nad celimi števili pretvori v logične operacije nad Boolovimi stanji.
 
@@ -909,7 +909,7 @@ je zamišljen bolj univerzalno za poljuben 2D CA. Vendar univerzalnost v
 praksi ni ravno pomembna, saj izven raziskovalcev GoL ni dosti zanimanja
 za teoretične probleme, kakor je iskanje predslik.
 
-\section{Iskanje GoE za GoL}
+\section{Iskanje stanj GoE za GoL}
 
 Conway je leta 1970 predstavil CA po imenu GoL. Že leta 1971 sta Roger Banks in Steve Ward
 predstavila prvo stanje GoE velikosti \(9 \times 33\) celic.
@@ -990,7 +990,7 @@ Algoritmi se tudi poslužujejo določene hevristike pri iskanju.
 
 Opisani algoritmi za iskanje stanj GoE, na primer Woods,
 sicer omogočajo iskanje vseh predslik, ampak to ni njihov glavni namen.
-Optimizirani so le za stanja GoE, kjer je predslik malo tudi za samo del GoE konfiguracije.
+Optimizirani so le za stanja GoE, kjer je predslik malo tudi za samo del konfiguracije GoE.
 Predvsem niso optimizirani za splošen primer, kjer je lahko predslik veliko,
 posledično so potratni s porabo pomnilnika.
 Morda bi bilo možno optimizirati porabo pomnilnika,
@@ -1034,7 +1034,7 @@ Na primer, če obravnavamo vrstice kakor simbole jezika, lahko sestavimo končni
 Simboli (stanja vrstic) definirajo prehode med stanji končnega avtomata. Stanja avtomata pa
 so vsi možni nabori robov vrstice. Pomembna je le prisotnost roba, ne pa tudi utež.
 Poln nabor vsebuje vse možne robove, prazen nabor pa ne vsebuje nobenega roba.
-Vsako zaporedje vrstic (simbolov), ki v avtomatu pelje iz polnega v prazno stanje, je GoE konfiguracija.
+Vsako zaporedje vrstic (simbolov), ki v avtomatu pelje iz polnega v prazno stanje, je konfiguracija GoE.
 Zanke v takem avtomatu pa so sorodne delcem.
 
 Opisani pristop postane nepraktičen že za kratke vrstice.
@@ -1047,7 +1047,7 @@ prisotnost ali odsotnost enega od robov.
 Vseh stanj končnega avtomata je tako \(2^{ |S|^{(M_y-1)(M_x-1+N_x)} }\).
 Število stanj avtomata postane neobvladljivo že za kratke vrstice.
 
-Najkrajša GoE beseda znotraj regularnega jezika stanj GoE je tista,
+Najkrajša beseda GoE znotraj regularnega jezika stanj GoE je tista,
 ki po najkrajši poti in brez zank pripelje iz polnega v prazen nabor.
 Pri 1D CA se je izkazalo, da je dolžina najkrajše besede GoE povezana s kompleksnostjo
 prostorsko-časovnih vzorcev, ki se pojavljajo pri danem pravilu.
