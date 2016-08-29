@@ -407,10 +407,10 @@ ki opisuje prostor predslik (mreža predslik).
 
 Predstavljena definicija 2D CA je enostavna in manj formalna
 v primerjavi z definicijo 1D CA v podobnih prispevkih.
-Bolj formalna definicija ni potrebna, saj se opisani problemi pri 2D CA,
+Bolj formalna definicija ni potrebna, saj se opisani problemi pri 2D CA
 še ne povezujejo z drugimi vejami matematike toliko kakor pri 1D CA.
 
-Osnovni element 2D CA je celica, kakor del polja celic.
+Osnovni element 2D CA je celica, ki je del polja celic.
 Vsaka celica ima diskretno vrednost \(c\) iz nabora stanj celice \(S\).
 Stanja so običajno kar oštevilčena.
 
@@ -420,12 +420,12 @@ c \in S
 S = \{ 0, 1, \dots, {\lvert S \rvert} -1 \}
 \end{equation}
 
-Mreža polja je lahko pravokotna, šestkotna ali celo kvazikristalna, tukaj se
+Mreža polja je lahko pravokotna, šestkotna ali celo kvazikristalna. Tukaj se
 bomo omejili na pravokotno mrežo. Na splošno je velikost polja lahko neskončna,
-bolj običajna pa so končna polja definira kakor pravokotnik velikosti \(N_x \times N_y\).
+bolj običajna pa so končna polja, definirana kakor pravokotnik velikosti \(N_x \times N_y\).
 Skupno število celic v končnem polju je \(N=N_x \cdot N_y\).
 
-Prihodnje stanje neke celice \(c_{x,y}\) na položaju \((x,y)\)
+Prihodnje stanje neke celice \(c_{x,y}\) na s koordinatami \((x,y)\)
 je odvisno od trenutnega stanja pripadajoče okolice \(n_{x,y}\) (slika \ref{neighborhood}).
 Tudi pri obliki okolice se bom omejil na pravokotnik velikosti \(M_x \times M_y\).
 Število celic v okolici je \(m=M_x \cdot M_y\).
@@ -439,7 +439,7 @@ S^m = \{ 0, 1, \dots, {\lvert S \rvert}^m -1 \}
 
 Prostorski odnos med okolico in celico v prihodnjem stanju avtomata, ki jo ta okolica določa,
 ni podrobno definiran. Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
-nujno pomembno. Moja implementacija algoritma celice, okolice in samo polje indeksira, tako
+nujno pomembno. Moja implementacija algoritma celice, okolice in samo polje indeksira tako,
 da je začetna ali referenčna celica v spodnjem levem kotu.
 
 \begin{figure}[htb]
@@ -448,8 +448,8 @@ da je začetna ali referenčna celica v spodnjem levem kotu.
 \label{neighborhood}
 \end{figure}
 
-Preslikava sedanje okolice \(n_{x,y}^{t}\) v prihodnjo istoležno celico \(c_{x,y}^{t+1}\) je definiran
-s tranzicijsko funkcijo \(f\), ki vsaki vrednosti okolice pripiše vrednost celice.
+Preslikava sedanje okolice \(n_{x,y}^{t}\) v prihodnjo istoležno celico \(c_{x,y}^{t+1}\) je definirana
+s tranzicijsko funkcijo \(f\), ki vsaki vrednosti okolice pripiše vrednost celice:
 
 \begin{equation}
 c_{x,y}^{t+1} = f(n_{x,y}^{t})
@@ -457,7 +457,7 @@ c_{x,y}^{t+1} = f(n_{x,y}^{t})
 
 Za potrebe iskanja predslik je zanimiva obratna funkcija \(f^{-1}\), ki ob
 podanem stanju trenutne celice \(c_{x,y}^{t}\) vrne množico okolic,
-ki se preslikajo v to vrednost.
+ki se preslikajo v to vrednost:
 
 \begin{equation}
 f^{-1}(c^{t}) = \{ n^{t-1} \in S^m \ \arrowvert \ f(n^{t-1}) = c^{t} \}
@@ -469,8 +469,8 @@ Opazovanje prekrivanja okolic je tudi glavni element algoritmov za iskanje preds
 
 Tranzicijsko funkcijo je možno definirati s pravilom.
 Pravilo \(r\) je celo število v \(S\)-iškem številskem sestavu,
-kjer so cifre zaporedje vrednosti celic za vsako od \(|S|^m\) možnih okolic.
-Vseh pravil je na voljo \(|S|^{|S|^m}\).
+kjer so cifre zaporedje vrednosti celic za vsako od \(|S|^m\) možnih okolic:
+
 \begin{equation}
 r = \sum_{n=0}^{n=|S|^m-1} |S|^n \cdot f(n)
 \end{equation}
@@ -478,17 +478,22 @@ r = \sum_{n=0}^{n=|S|^m-1} |S|^n \cdot f(n)
 r \in \{0, 1, \dots |S|^{|S|^m}-1\}
 \end{equation}
 
+Vseh pravil je na voljo \(|S|^{|S|^m}\).
+Pri 1D elementarnih CA (\(m=3\)) je vseh pravil le 256, tako da so bila že vsa opazovana in opisana.
+Za 2D CA z okolico quad (\(m=4\)) je pravil 65536, kar je nekje na meji, kar lahko raziskovalci podrobno pregledajo.
+Za 2D CA z Moorovo okolico (\(m=9\)) je vseh pravil dosti preveč, da bi lahko pregledali posamično.
+
 Podana konstrukcija mreže predslik in algoritem za izračun predslik omogočata uporabo
 bolj splošne definicije. Za vsako celico je lahko definiran lasten nabor predslik \( n^{t-1} \in S^m \),
 ki je na splošno neodvisen od stanja celice. Ta posplošitev je uporabljena za konstrukcijo umetnih
-mrež predslik, ki poudarjajo konkretne probleme povezane s kompleksnostjo algoritma.
+mrež predslik, ki poudarjajo konkretne probleme, povezane s kompleksnostjo algoritma.
 
 Za dano polje celic velikosti \(N_x \times N_y\) in z odprtimi robovi,
 je možno izračunati prihodnje stanje polja velikosti \((N_x-(M_x-1)) \times (N_y-(M_y-1))\).
-V primeru, če so robovi polja ciklično zaprti (polje v obliki torusa),
-je pa polje prihodnjega stanja enako veliko kakor polje sedanjega.
-Podobno velja za računanje predslik, za sedanje polje velikosti \(N_x \times N_y\)
-je za odprte robove velikost polja predslik \((N_x+(M_x-1)) \times (N_y+(M_y-1))\).
+V primeru, da so robovi polja ciklično zaprti (polje v obliki torusa),
+pa je polje prihodnjega stanja enako veliko kakor polje sedanjega.
+Podobno velja za računanje predslik. Za sedanje polje velikosti \(N_x \times N_y\)
+je za odprte robove velikost polja predslik enaka \((N_x+(M_x-1)) \times (N_y+(M_y-1))\).
 Za ciklične robove pa sta velikosti enaki.
 
 \chapter{Konstrukcija mreže predslik}
