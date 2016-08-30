@@ -245,11 +245,11 @@ o algoritmih za štetje in izpis predslik pri enodimenzionalnih celičnih avtoma
 
 \addcontentsline{toc}{chapter}{Povzetek}
 
-Medtem, ko je računanje predslik 1D celičnih avtomatov dobro raziskan in
+Medtem ko je računanje predslik 1D celičnih avtomatov dobro raziskan in
 podrobno dokumentiran problem, je to področje pri 2D celičnih avtomatih manj raziskano.
 Za 1D problem poznamo algoritme za štetje in izpis predslik s
 procesno zahtevnostjo linearno odvisno od velikosti problema.
-Možno je tudi določiti ali je 1D celični avtomat reverzibilen in
+Možno je tudi določiti, ali je 1D celični avtomat reverzibilen in
 kakšen je regularen jezik vseh stanj brez predslik.
 Pri 2D problemu sicer poznamo nekaj algoritmov za iskanje predslik,
 vendar so slabo teoretično raziskani.
@@ -263,13 +263,13 @@ Predslike so namesto poti v grafu ploskve na mreži.
 Robni pogoj se spremeni iz uteži za vozlišča, ki zaključujejo pot v 1D problemu,
 v uteži za sklenjeno pot okoli ploskve predslike v 2D problemu.
 
-Pri razvoju algoritma, se je izkazalo, da štetja predslik 2D celičnega avtomata
+Pri razvoju algoritma se je izkazalo, da štetja predslik 2D celičnega avtomata
 ni mogoče izvesti v linearni odvisnosti od velikosti problema.
 Zahtevnost podanega algoritma narašča eksponentno z velikostjo problema v eni dimenziji.
 Podani algoritem se ne razlikuje dosti od obstoječih.
-Celični avtomat razdeli na vrstice in išče predlike za posamezno vrstico od prve do zadnje.
+Celični avtomat razdeli na vrstice in išče predslike za posamezno vrstico od prve do zadnje.
 Vrstične rezultate nato združi v rešitev za celoten 2D problem.
-Podobno kakor algoritem za 1D probleme, je analiza razdeljena v dva prehoda.
+Podobno kakor pri algoritmu za 1D probleme, je analiza razdeljena v dva prehoda.
 V prvem prehodu po vrsticah algoritem prešteje predslike,
 v drugem opcijskem prehodu pa predslike izpiše.
 Drugi prehod poteka v obratni smeri kakor prvi prehod,
@@ -284,7 +284,7 @@ v uporabi progresivnega kodiranja vmesnih rezultatov, kar lahko zmanjša porabo 
 
 \vspace{0.5cm}
 \noindent
-celični avtomati, predslike, predhodniki, procesna zahtevnost, reverzibilnost, rajski vrt, Conwayeva igra življenja, trid, quad
+celični avtomati, predslike, predhodniki, računska zahtevnost, reverzibilnost, rajski vrt, Conwayeva igra življenja, trid, quad
 \newpage
 
 % prazna stran
@@ -298,38 +298,38 @@ celični avtomati, predslike, predhodniki, procesna zahtevnost, reverzibilnost, 
 While computing preimages of 1D cellular automata is a well researched and documented problem,
 for 2D cellular automata there is less research available.
 For the 1D problem we know algorithms for counting and listing preimages
-where processing complexity is a linear function of the size of the problem.
-It is possible to determine if a 1D cellular automaton is reversible,
+where computational complexity is a linear function of the size of the problem.
+It is possible to determine whether a 1D cellular automaton is reversible,
 and what is the Garden of Eden sequence regular language.
 For the 2D problem we know a few algorithms,
 but they are poorly theoretically researched.
-We also know the reversibility problem is
-in general unsolvable for 2D cellular automata.
+We also know that the reversibility problem is
+in general undecidable for 2D cellular automata.
 
 The preimage network, first developed for 1D cellular automata,
-proved to be an useful tool for explaining algorithms and for proving them correct.
+was proved to be a useful tool for explaining algorithms and for constructing proofs.
 Here I explain how to construct the preimage network for 2D cellular automata.
 While for the 1D problem this network is a normal graph,
 for 2D it was extended into the third dimension.
-Preimages are transformed from paths in the graph in 1D, into surfaces on the network in 2D.
-Edge conditions are transformed from weights for vertices ending a path in the 1D problem,
+Preimages are transformed from paths in the graph in 1D into surfaces on the network in 2D.
+Edge conditions are transformed from weights for vertices ending a path in the 1D problem
 into weights for the closed path around a preimage surface in the 2D problem.
 
-While developing the algorithm it proved impossible
+While developing the algorithm, it proved impossible
 to count preimages of 2D cellular automata
 with processing requirements growing linearly with problem size.
-Instead processing requirements grow exponentially
-with the size in of one of the dimensions.
-The described algorithm does not differ much from existing ones.
+Instead, processing requirements grow exponentially
+with the size in one of the dimensions.
+The described algorithm does not differ much from the existing ones.
 The cellular automaton is split into rows,
 the preimage list is first determined for each row from the first to the last.
-Row results are then combined into a result for the whole 2D problem.
+The row results are then combined into the result for the whole 2D problem.
 In a similar fashion to the 1D approach,
 the algorithm splits into two passes.
 In the first pass preimages are counted,
 in the second optional pass preimages are listed.
 The second pass is performed in the opposite direction,
-while raws are also observed from the opposite side.
+while rows are also observed from the opposite side.
 
 I see the main advantage of the described algorithm
 in using existing solutions for row processing.
@@ -424,7 +424,7 @@ tako da na koncu opisujejo celotno polje celic.
 
 Doslej sem že razvil napredne algoritme za izračun predslik 1D CA \cite{JerasDobnikar2007}.
 Skozi zgodovino so taki algoritmi napredovali, tako da je padala njihova
-procesna zahtevnost in opisna/implementacijska zahtevnost.
+računska zahtevnost in opisna/implementacijska zahtevnost.
 \begin{enumerate}[noitemsep,nolistsep]
  \item 'brute force' algoritmi \( O(C^N) \)
  \item improvizirani algoritmi
@@ -869,7 +869,7 @@ V drugi dimenziji se procesira zaporedje vrstic od prve do zadnje (slika \ref{al
 Vsaka vrstica se začne in konča z robnim pogojem.
 Ti robni pogoji so prerezi ploskev v celotni mreži predslik.
 Vsako vrstico je potrebno v drugi dimenziji procesirati le enkrat, kar pomeni,
-da je procesna zahtevnost linearno odvisna od števila vrstic \(O(N_y)\).
+da je računska zahtevnost linearno odvisna od števila vrstic \(O(N_y)\).
 
 Vsakemu robnemu pogoju je pripisana utež. Začetni robovi za prvo vrstico imajo pripisano utež \(w=1\).
 Na splošno se lahko več začetnih robov preslika v isti končni rob ene vrstice.
