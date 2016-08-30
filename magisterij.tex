@@ -246,11 +246,35 @@ o algoritmih za štetje in izpis predslik pri enodimenzionalnih celičnih avtoma
 \addcontentsline{toc}{chapter}{Povzetek}
 
 Medtem, ko je računanje predslik 1D celičnih avtomatov dobro raziskan in
-podrobno dokumentiran problem, je to področje pri 2D celičnih avtomatih manj
-raziskano. To magistrsko delo poizkuša aplicirati metode, razvite za 1D avtomate,
-na 2D problem. Prikazan je algoritem, ki omogoča štetje in izpis predslik.
-Razvit je bil s pomočjo grafičnega modela, mreže predslik,
-ki omogoča uporabo teorije grafov pri izračunih in dokazih.
+podrobno dokumentiran problem, je to področje pri 2D celičnih avtomatih manj raziskano.
+Za 1D problem poznamo algoritme za štetje in izpis predslik s
+procesno zahtevnostjo linearno odvisno od velikosti problema.
+Možno je tudi določiti ali je celični avtomat reverzibilen in
+kakšen je regularen jezik vseh stanj brez predslik.
+Pri 2D problemu sicer poznamo nekaj algoritmov za iskanje predslik,
+vendar so slabo teoretično raziskani.
+Vemo tudi, da je problem reverzibilnosti 2D celičnih avtomatov na splošno neodločljiv.
+
+Mreža predslik, ki sem jo razvil za potrebe analize predslik 1D celičnih avtomatov,
+se je izkazala za praktično orodje pri razlagi algoritmov in pri dokazovanju njihove pravilnosti.
+V magistrskem delu opišem, kako se mrežo predslik tvori za 2D celične avtomate.
+Če je bila ta mreža za 1D problem navaden graf, je za 2D problem razširjena v tretjo dimenzijo.
+Predslike so namesto poti v grafu ploskve na mreži.
+Robni pogoj se spremeni iz vozlišč, ki zaključujejo pot,
+v sklenjeno pot okoli ploskve predslike.
+
+Pri razvoju algoritma, se je izkazalo, da štetja predslik 2D celičnega avtomata
+ni mogoče izvesti v linearni odvisnosti od velikosti problema.
+Zahtevnost podanega algoritma narašča eksponentno z velikostjo problema v eni dimenziji.
+Podani algoritem se ne razlikuje dosti od obstoječih.
+Celični avtomat razdeli na vrstice, poišče predslike zanje
+ter vrstične rezultate združi v rešitev za celoten 2D problem.
+Podobno kakor algoritem za 1D probleme, je analiza razdeljena v dva prehoda.
+V prvem prehodu po vrsticah algoritem prešteje predslike,
+v drugem opcijskem prehodu v obratni smeri pa jih izpiše.
+
+Glavni napredek algoritma vidim v uporabi znanih učinkovitih rešitev za 1D problem pri analizi vrstic ter
+v uporabi progresivnega kodiranja vmesnih rezultatov, kar lahko zmanjša porabo pomnilnika.
 
 \vspace{1.3cm}
 \noindent
@@ -269,12 +293,45 @@ celični avtomati, predslike, predhodniki, procesna zahtevnost, reverzibilnost, 
 
 \addcontentsline{toc}{chapter}{Abstract}
 
-While computing preimages of 1D cellular automata is a well researched and
-documented problem, for 2D cellular automata there is less research available.
-This masters thesis attempts to apply methods developed for 1D automata to the
-2D problem. An algorithm is shown, which can count and list preimages.
-It has been developed with the help of a graphical representation, the preimage network,
-which enables using graph theory for computation and proofs.
+While computing preimages of 1D cellular automata is a well researched and documented problem,
+for 2D cellular automata there is less research available.
+For the 1D problem we know algorithms for counting and listing preimages
+where processing complexity is a linear function of the size of the problem.
+It is possible to determine if an automaton is reversible,
+and what is the Garden of Eden regular language.
+For the 2D problem we know a few algorithms,
+but they are poorly theoretically researched.
+We also know the reversibility problem is
+in general unsolvable for 2D cellular automata.
+
+The preimage network, first developed for 1D cellular automata,
+proved to be an useful tool for explaining algorithms and for proving them correct.
+In my master thesis I explain how to construct the preimage network for 2D cellular automata.
+While for the 1D problem this network is a normal graph,
+for 2D it was extended into the third dimension.
+Preimages are transformed from paths in the graph into surfaces on the network.
+Edge conditions are transformed from vertices's ending a path
+into a closed path around a preimage surface.
+
+While developing the algorithm it proved impossible
+to count preimages of 2D cellular automata
+with processing requirements growing linearly with problem size.
+Processing requirements grow exponentially
+with the size in of one of the dimensions.
+The described algorithm does not differ much from existing ones.
+The cellular automaton is split into rows,
+the preimage list for each row is determined separately,
+and then combines row results into a result for the whole 2D problem.
+In a similar fashion to the 1D approach,
+the algorithm splits into two passes.
+In the first pass preimages are counted,
+in the second optional pass in the opposite direction preimages are listed.
+
+I see the main advantage of the described algorithm
+in using existing solutions for raw processing.
+Solutions proved to be effective in solving the 1D problem.
+Using progressive encoding of intermediate solutions
+also enables reducing memory consumption.
 
 \vspace{1.3cm}
 \noindent
