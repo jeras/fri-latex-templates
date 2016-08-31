@@ -25,6 +25,7 @@
 \usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black]{hyperref}
 \usepackage[top=2cm, bottom=3cm, inner=3cm, outer=2cm]{geometry}
 \usepackage{fancyvrb}
+\usepackage{pdfpages}
 %\usepackage[backend=bibtex]{biblatex}
 
 %\addbibresource{magisterij.bib}
@@ -122,10 +123,11 @@ Slike in grafi so narisani s pomočjo programa za vektorske ilustracije Inkscape
 %********************************************
 
 % stran 3 med uvodnimi listi
-\thispagestyle{empty}
-Namesto te strani {\bf vstavite} original izdane teme magistrskega dela s podpisom mentorja in dekana ter žigom fakultete, ki ga magistrant
-dvigne v študent\-skem referatu,  preden odda izdelek v vezavo!
-\newpage
+\includepdf{original_izdane_teme_magistrskega_dela.pdf}
+%\thispagestyle{empty}
+%Namesto te strani {\bf vstavite} original izdane teme magistrskega dela s podpisom mentorja in dekana ter žigom fakultete, ki ga magistrant
+%dvigne v študent\-skem referatu,  preden odda izdelek v vezavo!
+%\newpage
 
 %********************************************
 % stran 4 med uvodnimi listi je prazna 
