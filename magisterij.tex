@@ -12,6 +12,7 @@
 \documentclass[12pt,a4paper,openany,twoside]{book}
 
 %Uporabljeni paketi
+%\usepackage[a-1b]{pdfx}
 \usepackage[utf8]{inputenc}
 \usepackage{cmap}
 \usepackage{type1ec}
@@ -25,7 +26,8 @@
 \usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black]{hyperref}
 \usepackage[top=2cm, bottom=3cm, inner=3cm, outer=2cm]{geometry}
 \usepackage{fancyvrb}
-\usepackage{pdfpages}
+\usepackage{incgraph}
+%\usepackage{pdfpages}
 %\usepackage[backend=bibtex]{biblatex}
 
 %\addbibresource{magisterij.bib}
@@ -37,7 +39,7 @@
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{5mm plus2mm minus2mm}
 
-\input{cc}
+%\input{cc}
 
 %********************************************
 % kratice, simboli
@@ -96,9 +98,8 @@ licenco, ki je enaka tej.
 Uporabljena je mednarodna licenca, čeprav obstaja verzija prilagojena za slovenski pravni red, to pa zato, ker slovenska verzija ni vzdrževana.
 Podrobnosti licence so dostopne na spletni strani \url{http://creativecommons.org}
 ali na Inštitutu za intelektualno lastnino, Streliška 1, 1000 Ljubljana.
-
-\begin{center}% 0.66 / 0.89 = 0.741573033707865
-  \CcImageCc{0.741573033707865}\hspace*{1ex}\CcGroupBySa{1}{1ex}
+\begin{center}
+\includegraphics[width=5cm]{by-sa.png}
 \end{center}
 }
 
@@ -108,8 +109,6 @@ Izvorna koda programske opreme, razvite za potrebe magistrskega dela, je ponujen
 To pomeni, da se lahko prosto uporablja, distribuira in/ali predeluje, brez kakšnih koli obveznosti.
 Avtor se odpoveduje vsem pravicam in tako omogoča uporabnikom izvorne kode, da se izognejo preverjanju pravnih obveznosti.
 }
-
-
 
 \begin{center} 
 \ \\ \vfill
@@ -123,7 +122,8 @@ Slike in grafi so narisani s pomočjo programa za vektorske ilustracije Inkscape
 %********************************************
 
 % stran 3 med uvodnimi listi
-\includepdf{original_izdane_teme_magistrskega_dela.pdf}
+\incgraph[documentpaper][width=\paperwidth,height=\paperheight]{original_izdane_teme_magistrskega_dela.jpg}
+%\includepdf{original_izdane_teme_magistrskega_dela.pdf}
 %\thispagestyle{empty}
 %Namesto te strani {\bf vstavite} original izdane teme magistrskega dela s podpisom mentorja in dekana ter žigom fakultete, ki ga magistrant
 %dvigne v študent\-skem referatu,  preden odda izdelek v vezavo!
