@@ -356,7 +356,9 @@ cellular automata, preimages, predecessors, ataviser, computational complexity, 
 
 \chapter{Uvod}
 
-\section{Celični avtomati kot model vesolja}
+\section{Motivacija}
+
+\subsection{Celični avtomati kot model vesolja}
 
 Ker lahko vsak univerzalen sistem modelira vsak drug univerzalen sistem, lahko predpostavimo,
 da lahko z univerzalnimi celičnimi avtomati (CA) modeliramo vesolje. Samo modeliranje vesolja
@@ -367,7 +369,7 @@ kakor entropijske sile (Entropic gravity \cite{Verlinde2010}), ki predpostavlja,
 opazovanje abstraktnega kopiranja informacij (replikacija) in evolucije \cite{Salzberg2004}.
 Oba sta pomembna informacijska pojava v našem vesolju.
 
-\section{Informacijska dinamika}
+\subsection{Informacijska dinamika}
 
 Informacijsko dinamiko CA se najpogosteje opisuje samo kakor reverzibilno ali ireverzibilno,
 obstaja tudi nekaj člankov, ki opazujejo entropijo sistema.
@@ -378,8 +380,9 @@ Za reverzibilne CA je torej računanje predslik (preteklosti)
 trivialno in ne potrebuje tukaj opisanega algoritma.
 Za ireverzibilne CA tako reverzno pravilo ne obstaja.
 Trenutno stanje ima lahko nobeno, eno, ali več predslik.
+Opisani algoritem je namenjen štetju in izpisu predslik za dano sedanje stanje CA.
 Za take avtomate pravimo, da s časom izgubljajo informacijo,
-ker ne koremo enolično določiti preteklega stanja.
+ker ne moremo enolično določiti preteklega stanja.
 
 Pogosto je tudi opazovanje dinamike delcev pri GoL (Game of Life ali slovensko igra življenja) (slika \ref{gospers_glider_gun})
 \footnote{Gospers glider gun. Wikipedia. Dostop Avgust 2016, na naslovu \url{https://commons.wikimedia.org/wiki/File:Gospers_glider_gun.gif}}
@@ -392,6 +395,9 @@ S tem se informacija potrebna za opis sistema povečuje.
 Slika \ref{ca110-interaction2} prikazuje dve različni interakciji med dvema delcema.
 V levem primeru se delca srečata, si nekaj časa delita skupen prostor in nato nadaljujejta pot vsak zase.
 V desnem primeru se delca srečata in po trku nastane nov delec.
+Veliko poklicnih in amaterskih raziskovalcev proučuje delce v GoL in njihovo dinamiko.
+S pomočjo osnovnih gradnikov je mogoče skonstruirati kompleksnejše sisteme, med katerimi so
+najzanimivejši Turingov stroj \cite{Rendell2001} in univerzalni konstruktor \cite{Greene2013}.
 
 \begin{figure}[htb]
 \centerline{\includegraphics[width=8cm]{gospers_glider_gun}}
@@ -411,7 +417,7 @@ Celične Avtomate sta si zamislila matematika John von Neumann in Stanislaw Ulam
 da bi lahko oblikovala teorijo univerzalnega konstruktorja
 \footnote{\url{https://en.wikipedia.org/wiki/Von_Neumann_universal_constructor}},
 ki je sposoben iz zapisa na traku narediti kopijo samega sebe.
-Christopher Langton je vzel del univerzalnega kostruktorja in ga poenostavil v preprosto zanko
+Christopher Langton je vzel del univerzalnega konstruktorja in ga poenostavil v preprosto zanko
 \footnote{\url{https://en.wikipedia.org/wiki/Langton\%27s_loops}},
 ki kopira samo sebe na podlagi informacije zapisane v notranjosti telesa (slika \ref{langtons_loop}).
 
@@ -448,93 +454,115 @@ ter iz grafov sklepati o izgubi informacije v 2D CA.
 \centerline{\psfig{figure=network_rule110_quiescent,width=16cm}}
 \caption[Mreža predslik 1D CA.]
 {Mreža predslik 1D CA pravilo 110 za tiho ozadje s cikličnim zaporedjem 00010011011111.
-Vsaka od dveh povdarjenih poti med levim in desnim predstavlja predskiko.
-V enem delu sta si predliki enaki, drugod se razlikujeta.
-Laično lahko sklepamo, da se tam kjer se predliki razlikujeta izgubi 1 bit informacije.}
+Vsaka od dveh poudarjenih poti med levim in desnim predstavlja predsliko.
+V enem delu sta si predsliki enaki, drugod se razlikujeta.
+Laično lahko sklepamo, da se tam kjer se predsliki razlikujeta izgubi 1 bit informacije.}
 \label{network_rule110_quiescent}
 \end{figure}
 
-\section{Problem predslik 2D CA}
+\subsection{Atraktorjevo korito}
 
-Najbolje teoretično raziskan 2D CA je GoL.
-Ogromno truda je bilo vloženega v raziskovanje delcev in njihove dinamike. S pomočjo
-osnovnih gradnikov je mogoče skonstruirati kompleksnejše sisteme, med katerimi so
-najzanimivejši Turingov stroj \cite{Rendell2001} in univerzalni konstruktor \cite{Greene2013}.
+Pomembno orodje za analizo časovno in prostorsko diskretnih dinamičnih sistemov je atraktorjevo korito (slika \ref{atractor_basin}).
+Andrew Wuensche že leta proučuje atraktorjeva korita naključnih binarnih mrež in celičnih avtomatov \cite{Wuensche1992}.
+Atraktorjevo korito je graf, kjer so vozlišča stanja cikličnega končnega CA,
+usmerjene poti pa povezujejo vsako stanje z njegovim časovnim naslednikom.
 
-Delci so dejansko atraktorji v razvoju CA na končni periodični mreži (torus).
-Pri 1D CA se algoritmi za iskanje predslik uporabljajo za določitev atraktorjevega korita \cite{Wuensche1992}.
 V vsakem CA, ki ni lokalno injektiven, se pojavljajo stanja brez predslik, imenovana GoE
 (\textit{Garden of Eden} ali rajski vrt) \cite{Moore1962, Myhill1963}.
-Pomensko so stanja GoE nasprotje delcev, saj se nahajajo kar
-najdlje od atraktorja, na robu korita. Stanja GoE tudi privlačijo raziskovalce,
-čeprav v nekoliko manjši meri kakor delci.
+Stanja GoE so listi v grafu korita.
 
-Največ raziskav s področja predslik GoL je bilo opravljenih ravno s ciljem iskanja stanj GoE.
-S stališča algoritma za štetje predslik je stanje GoE tako stanje, ki nima nobene predslike.
-Algoritem za štetje predslik je možno pretvoriti v manj zahteven algoritem za preverjanje ali je dano stanje stanje GoE,
-tako da se operacije nad celimi števili pretvori v logične operacije nad Boolovimi stanji.
+Sam atraktor je cikel v grafu korita, vsebuje lahko eno ali več stanj.
+Atraktor je časovno periodično stanje v katerem se končna časovna evolucija vsakega končnega diskretnega dinamičnega sistema.
+Atraktor predstavlja tudi stabilne objekte v neskončnem CA.
+Za GoL obstajajo katalogi takih objektov, kjer so urejeni po velikosti, periodi in hitrosti premikanja.
+Kakor primer bi navedel mrtvo ozadje (perioda 1) in drsalca (perioda 4).
 
-\section{Algoritmi za iskanje predslik}
+\begin{figure}[htb]
+\centerline{\psfig{figure=attractor_basin,width=16cm}}
+\caption[Atraktorjevo korito.]
+{Atraktorjevo korito vsebuje osrednji cikel atraktorja in drevesa, ki rastejo iz cikla in se končujejo z listi (stanja GoE).}
+\label{attractor_basin}
+\end{figure}
 
-Raziskave algoritmov sem se lotil s predpostavko, da je možno opraviti štetje z zahtevnostjo,
-ki je linearno odvisna od velikosti problema \( O(N) \)  (\(N\) je število opazovanih celic).
-Čeprav je to možno pri 1D problemu, se izkaže, da 2D problem ni tako preprost.
+\section{Algoritmi za štetje in izpis predslik 2D CA}
+
+Doslej sem že razvil napredne algoritme za štetje in izpis predslik 1D CA \cite{JerasDobnikar2007}.
+Skozi zgodovino so taki algoritmi napredovali, tako da je padala njihova
+računska zahtevnost in opisna/implementacijska zahtevnost:
+\begin{enumerate}[noitemsep,nolistsep]
+ \item 'brute force' algoritmi \cite{WikiBruteForce} \( O(C^N) \)
+ \item DFS algoritmi \cite{WikiDFS} \cite{WikiBacktracking}
+ \item kombinirani algoritmi, kjer štetje in izpis predslik nista strogo ločena
+ \item optimalni algoritmi, kjer sta izpis in štetje strogo ločena
+\end{enumerate}
+
+\url{https://en.wikipedia.org/wiki/Depth-first_search}
+\url{https://en.wikipedia.org/wiki/Brute-force_search}
+\url{https://en.wikipedia.org/wiki/Backtracking}
+
+Bistvo optimalnih algoritmov je, da je proces štetja predslik optimalen.
+Za 1D CA je zahtevnost štetja linearno odvisna od velikosti problema \(O(N)\) (\(N\) je število opazovanih celic). 
+Proces izpisa predslik ima v povprečju skozi vsa stanja vedno eksponentno rastočo komponento,
+saj tudi število vseh stanj sistema raste eksponentno z velikostjo problema.
+Optimalni algoritmi tudi omogočajo izpis predslik brez slepih poti,
+kar je posledica podrobne analize problema ob štetju.
+Zahtevnost izpisa je posledično časovno in pomnilniško linearno odvisna od števila predslik,
+tako za 1D kakor za 2D CA.
+
+Raziskave algoritmov za štetje predslik 2D CA sem se lotil s predpostavko,
+da je tako kakor za 1D CA tudi tu možno opraviti štetje predslik z linearno zahtevnostjo.
+Izkaže se, da 2D problem ni tako preprost.
 Predstavljeni so primeri, iz katerih je razvidno,
 da algoritem z linearno zahtevnostjo ne more pravilno opisati vseh situacij.
 Zahtevnost opisanega algoritma sicer raste eksponentno z velikostjo ene
-od dimenzij polja CA \( O(C^{N_x}) \), je pa možno, da obstaja algoritem z nižjo kompleksnostjo.
+od dimenzij polja CA \( O(C^{N_x}) \), in linearno z velikostjo druge dimenzije
+(\(C\) je konstanta odvisna od števila stanj celice in velikosti okolice, ne pa tudi od velikosti polja).
+Ker pa nisem dokazal optimalnost opisanega algoritma za štetje predslik 2D CA,
+dopuščam možnost, da obstaja algoritem z nižjo kompleksnostjo.
 
 Pomembno vlogo pri razvoju opisanega algoritma ima mreža predslik.
 To je grafična upodobitev problema, katere cilj je lažje razumevanje problema in rešitve.
 Osnova za oblikovanje mreže predslik so De Bruijnovi diagrami.
-Paulina Léon in Genaro Martínez \cite{PaulinaGenaro2016}
-poizkušata aplicirati De Bruijnove diagrame na 2D CA.
-Doslej je bilo to orodje uporabljeno le na 1D problemih.
-Točneje, opazujeta dva CA: 'Game of Life' in 'Diffusion rule',
-s poudarkom na opazovanju stabilnih delcev.
-Sam uporabljam De Bruijnove diagrame nekoliko drugače,
-in jih tudi drugače grafično upodabljam.
-Posamezen De Bruijnov diagram postane mreža predslik ene celice.
+Posamezen De Bruijnov diagram je mreža predslik ene celice.
 Mreže posameznih celic se nato povezujejo,
 tako da na koncu opisujejo celotno polje celic.
 
-Doslej sem že razvil napredne algoritme za izračun predslik 1D CA \cite{JerasDobnikar2007}.
-Skozi zgodovino so taki algoritmi napredovali, tako da je padala njihova
-računska zahtevnost in opisna/implementacijska zahtevnost.
-\begin{enumerate}[noitemsep,nolistsep]
- \item 'brute force' algoritmi \( O(C^N) \)
- \item improvizirani algoritmi
- \item zasnove matematičnega modela
- \item optimalni algoritmi \( O(N) \)
-\end{enumerate}
-Iskanje predslik 2D CA je trenutno nekje med improvizacijo in matematičnim modelom.
+McIntoch in njegovi učenci so bili pobudniki uporabe De Bruijnovi diagramov za analizo 1D CA.
+Uporabljali so jih za štetje in izpis predslik ter za analizo delcev in njihovih interakcij.
+Paulina Léon in Genaro Martínez (McIntoshev učenec) \cite{PaulinaGenaro2016}
+sta začetnika apliciranja De Bruijnove diagramov na 2D CA,
+vendar jih ne uporabljata za štetje in izpis predslik.
 
-Opisan algoritem na koncu primerjam z ostalimi doslej znanimi algoritmi.
-Čeprav s stališča procesne zahtevnosti ne prinaša želenega napredka,
-pa to, da temelji na pregledni grafični upodobitvi, daje upanje,
-da bodo razne optimizacije razvidne bodočim raziskovalcem.
+Največ raziskav s področja predslik 2D CA je bilo opravljenih ravno s ciljem iskanja stanj GoE v avtomatu GoL.
+S stališča algoritma za štetje predslik je stanje GoE tako stanje, katerega število predslik je nič.
+Algoritem za štetje predslik je možno pretvoriti v manj zahteven algoritem za preverjanje ali je dano stanje stanje GoE,
+tako da se operacije nad celimi števili pretvori v logične operacije nad Boolovimi stanji.
 
-Celični avtomat GoL je definiran z Moorovo okolico velikosti \(3 \times 3\).
-Tako velika okolica ima z \(9\) celicami \(2^9=512\) možnih stanj,
-zaradi česar so ilustracije mreže predslik velike in nepregledne.
-Splošno je znana manjša von Neumannova okolica velikosti \(3 \times 3\) v obliki križa iz \(5\) celic.
-Z \(2^5=32\) stanji bi bile ilustracije bolj pregledne, pa obstajajo tudi okolice z manj celicami.
-Toffoli \cite{Toffoli2008} je leta 2008 spodbudil raziskovalce k iskanju univerzalnosti za CA
-z okolicama trid (tri celice na heksagonalnem polju) in quad (štiri celice na kvadratnem polju).
-Powley \cite{Powley2008} hitro dokaže obstoj univerzalnega avtomata z okolico trid,
-tako da ustvari avtomat, ki lahko s pomočjo določenega začetnega stanja
-simulira poljubni 1D elementarni celični avtomat, na primer pravilo 110.
-Sam sem obe okolici poznal že prej. Njuna najboljša lastnost je majhen nabor stanj okolice,
-\(2^4=16\) za quad in \(2^3=8\) za trid. Za primere je bil uporabljen quad,
-saj so diagrami na kvadratni mreži bolj enostavni in pregledni kakor diagrami na heksagonalni mreži.
+Opisan algoritem na koncu primerjam z ostalimi doslej znanimi algoritmi,
+ki večinoma temeljijo na DFS principu.
+
+\subsection{Implementacija algoritma}
 
 Algoritem je implementiran kot računalniški program v jeziku C \cite{Jeras2016-algirithm}.
 Knjižnica GMP \footnote{The GNU Multiple Precision Arithmetic Library \url{https://gmplib.org/}}
 je uporabljena za zapis celih števil, večjih od 64 bitov.
 Poleg samega algoritma za štetje in izpis predslik sem pripravil tudi
-orodje za simulacijo binarnega CA z okolico quad \cite{Jeras2016-quad}.
+orodje za simulacijo binarnega CA z okolico quad \cite{Jeras2016-quad},
+ki temelji na simulatorju za GoE \cite{webgl-gol}.
+Simulator se lahko zažene kar v internetnem brskalniku.
 %in orodje za prikaz poljubne mreže predslik \cite{Jeras2016-network}.
-Obe orodji se lahko zažene kar v internetnem brskalniku.
+
+\subsection{Primeri in ilustracije}
+
+Večina primerov in ilustracij opisuje binarni 2D CA z majhno okolico quad
+(štiri celice na kvadratnem polju, Toffoli 2008 \cite{Toffoli2008}).
+Večina primerov in sploh ilustracije za GoL bi bili zaradi
+\(2^(3 \cdot 3)=512\) možnih stanj okolice preveč kompleksni in nepregledni.
+V nasprotju ima binarna okolica quad le \(2^(2 \cdot 2)=16\) možnih stanj.
+
+Želel sem sicer uporabiti kako določeno pravilo za okolico quad,
+tako ki bi omogočalo zanimivo dinamiko delcev, vendar na tem področju še ni kaj dosti raziskav.
+Obstaja le dokaz univerzalnosti za binarni avtomat z okolico trid (Powley 2008 \cite{Powley2008})
 
 V slikah je uporabljena izometrična projekcija,
 saj je za potrebe analize osnovnemu 2D polju dodana tretja dimenzija,
