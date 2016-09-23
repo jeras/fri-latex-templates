@@ -155,7 +155,7 @@ sem avtor magistrskega dela z naslovom:
 
 S svojim podpisom zagotavljam, da:
 \begin{itemize}
-\item sem magistrsko delo izdelal samostojno pod vodstvom mentorja \textbf{prof. dr. Branka Štera} in somentorstvom \textbf{prof. dr. Andreja Dobnikarja},
+\item sem magistrsko delo izdelal samostojno pod vodstvom mentorja \textbf{prof. dr. Branka Štera},
 \item so elektronska oblika magistrskega dela, naslova (slov., angl.), povzetka (slov., angl.) ter ključne besede (slov., angl.) identični s tiskano obliko magistrskega dela
 \item in soglašam z javno objavo elektronske oblike magistrskega dela v zbirki »Dela FRI«.
 \end{itemize}
@@ -271,7 +271,7 @@ Zahtevnost podanega algoritma narašča eksponentno z velikostjo problema v eni 
 Podani algoritem se ne razlikuje dosti od obstoječih.
 Celični avtomat razdeli na vrstice in išče predslike za posamezno vrstico od prve do zadnje.
 Vrstične rezultate nato združi v rešitev za celoten 2D problem.
-Podobno kakor pri algoritmu za 1D probleme, je analiza razdeljena v dva prehoda.
+Podobno kot pri algoritmu za 1D probleme, je analiza razdeljena v dva prehoda.
 V prvem prehodu po vrsticah algoritem prešteje predslike,
 v drugem opcijskem prehodu pa predslike izpiše.
 Drugi prehod poteka v obratni smeri kakor prvi prehod,
@@ -356,7 +356,7 @@ cellular automata, preimages, predecessors, ataviser, computational complexity, 
 
 \chapter{Uvod}
 
-\section{Celični avtomati kakor model vesolja}
+\section{Celični avtomati kot model vesolja}
 
 Ker lahko vsak univerzalen sistem modelira vsak drug univerzalen sistem, lahko predpostavimo,
 da lahko z univerzalnimi celičnimi avtomati (CA) modeliramo vesolje. Samo modeliranje vesolja
@@ -371,14 +371,88 @@ Oba sta pomembna informacijska pojava v našem vesolju.
 
 Informacijsko dinamiko CA se najpogosteje opisuje samo kakor reverzibilno ali ireverzibilno,
 obstaja tudi nekaj člankov, ki opazujejo entropijo sistema.
-Pogosto je tudi opazovanje dinamike delcev pri GoL (Game of Life ali slovensko igra življenja) in elementarnem pravilu 110.
-Ne obstaja pa še splošna teorija dinamike informacij v CA.
+Pri reverzibilnem avtomatu se vsa informacija ohranja, vsako stanje ima natanko eno prihodnost in eno preteklost.
+Za reverzibilen celični avtomat lahko tudi definiramo pravilo oziroma funkcijo,
+s katero preprosto procesiramo avtomat v preteklost namesto prihodnost.
+Za reverzibilne CA je torej računanje predslik (preteklosti)
+trivialno in ne potrebuje tukaj opisanega algoritma.
+Za ireverzibilne CA tako reverzno pravilo ne obstaja.
+Trenutno stanje ima lahko nobeno, eno, ali več predslik.
+Za take avtomate pravimo, da s časom izgubljajo informacijo,
+ker ne koremo enolično določiti preteklega stanja.
+
+Pogosto je tudi opazovanje dinamike delcev pri GoL (Game of Life ali slovensko igra življenja) (slika \ref{gospers_glider_gun})
+\footnote{Gospers glider gun. Wikipedia. Dostop Avgust 2016, na naslovu \url{https://commons.wikimedia.org/wiki/File:Gospers_glider_gun.gif}}
+in elementarnem pravilu 110 (slika \ref{ca110-interaction2})
+\footnote{CA 110 interaction 2. Wikipedia. Dostop Avgust 2016, na naslovu \url{https://en.wikipedia.org/wiki/File:Ca110-interaction2.png}}.
+Pištole, trki delcev in podobni konstrukti obstajajo tako v GoL kakor pri elementarnem pravilu 110
+in na splošno pri vsakem univerzalnem celičnem avtomatu.
+Pištole (slika \ref{ca110-interaction2}) oddajajo delce, izvor in oddani delci skupaj rastejo v neskončnost.
+S tem se informacija potrebna za opis sistema povečuje.
+Slika \ref{ca110-interaction2} prikazuje dve različni interakciji med dvema delcema.
+V levem primeru se delca srečata, si nekaj časa delita skupen prostor in nato nadaljujejta pot vsak zase.
+V desnem primeru se delca srečata in po trku nastane nov delec.
+
+\begin{figure}[htb]
+\centerline{\includegraphics[width=8cm]{gospers_glider_gun}}
+\caption[Gosperjeva pištola.]
+{Gosperjeva pištola z nekaj izstreljenimi drsalci.}
+\label{gospers_glider_gun}
+\end{figure}
+
+\begin{figure}[htb]
+\centerline{\includegraphics[width=16cm]{ca110-interaction2}}
+\caption[Trk delcev v pravilu 110.]
+{Trk para delcev v pravilu 110. Razlika v začetnem stanju med slikama je v razdalji (fazi) med delcema.}
+\label{ca110-interaction2}
+\end{figure}
+
+Celične Avtomate sta si zamislila matematika John von Neumann in Stanislaw Ulam,
+da bi lahko oblikovala teorijo univerzalnega konstruktorja
+\footnote{\url{https://en.wikipedia.org/wiki/Von_Neumann_universal_constructor}},
+ki je sposoben iz zapisa na traku narediti kopijo samega sebe.
+Christopher Langton je vzel del univerzalnega kostruktorja in ga poenostavil v preprosto zanko
+\footnote{\url{https://en.wikipedia.org/wiki/Langton\%27s_loops}},
+ki kopira samo sebe na podlagi informacije zapisane v notranjosti telesa (slika \ref{langtons_loop}).
+
+\begin{figure}[htb]
+\centering
+\begin{BVerbatim}
+  2 2 2 2 2 2 2 2 
+2 1 7 0 1 4 0 1 4 2
+2 0 2 2 2 2 2 2 0 2
+2 7 2         2 1 2
+2 1 2         2 1 2
+2 0 2         2 1 2
+2 7 2         2 1 2
+2 1 2 2 2 2 2 2 1 2 2 2 2 2
+2 0 7 1 0 7 1 0 7 1 1 1 1 1
+  2 2 2 2 2 2 2 2 2 2 2 2 2
+\end{BVerbatim}
+\caption[Langtonova zanka.]
+{Langtonova zanka. Številke so stanja posamezne celice. Spodaj desno iz zanke raste nova zanka.}
+\label{langtons_loop}
+\end{figure}
+
+Zgoraj našteti primeri nekako opisujejo informacijsko dinamiko v CA.
+Ne obstaja pa še splošna teorija dinamike informacij v CA,
+ki bi dinamiko opisala kvantitativno in prostorsko.
 V svojem članku \cite{JerasDobnikar2007} in prispevkih na konferencah \cite{DBLP:conf/iccS/JerasD06, DBLP:conf/automata/Jeras08, Jeras2008-pyca}
 sem grafično upodobil predslike trenutnega stanja za 1D problem.
-Iz upodobitve je videti, da se ponekod izgubi več informacije kakor drugod,
-kar kaže na možnost izpeljave kvalitativne in kvantitativne teorije dinamike informacij.
+Iz upodobitve (slika \ref{network_rule110_quiescent}) je videti, da se ponekod izgubi več informacije kakor drugod,
+kar kaže na možnost izpeljave splošne teorije dinamike informacij.
 Na žalost se ta možnost še ni udejanila. Podobno je možno grafično upodobiti predslike 2D CA,
 ter iz grafov sklepati o izgubi informacije v 2D CA.
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=network_rule110_quiescent,width=16cm}}
+\caption[Mreža predslik 1D CA.]
+{Mreža predslik 1D CA pravilo 110 za tiho ozadje s cikličnim zaporedjem 00010011011111.
+Vsaka od dveh povdarjenih poti med levim in desnim predstavlja predskiko.
+V enem delu sta si predliki enaki, drugod se razlikujeta.
+Laično lahko sklepamo, da se tam kjer se predliki razlikujeta izgubi 1 bit informacije.}
+\label{network_rule110_quiescent}
+\end{figure}
 
 \section{Problem predslik 2D CA}
 
