@@ -671,32 +671,49 @@ Za ciklične robove pa sta velikosti enaki.
 
 \chapter{Konstrukcija mreže predslik}
 
-Mreža predslik je grafični konstrukt, ki omogoča upodobitev posameznih pojmov
-iz definicije CA, kakor ločenih grafičnih elementov. Odnosi med
-temi elementi definirajo pravila, na katerih se gradijo algoritmi za iskanje
-predslik.
+Mreža predslik je grafični konstrukt, ki omogoča upodobitev
+okolice, prekrivanja okolic in tranzicijske funkcije
+kakor ločene grafične elemente (vozlišča, poti in ploskve).
+Odnosi med temi elementi definirajo pravila,
+na katerih se gradijo algoritmi za iskanje predslik.
 
 \section{De Bruijnov diagram}
 
-Osnovni element grafične upodobitve je De Bruijnov diagram. V osnovi ta obravnava
-ciklične premike končnih zaporedij simbolov ter njihovo prekrivanje. Vozlišča v
-diagramu so vsa možna končna zaporedja, povezave med njimi pa definirajo, kako se
-ta zaporedja prekrivajo med seboj.
-
-Pri 1D CA se problem neposredno preslika na De Bruijnov graf. McIntosh
-in njegova skupina uporabljajo za analizo De Bruijnove grafe neposredno. Sam pa sem
-razvil modificiran graf, kjer so vozlišča podvojena, in gredo poti vedno od originala
-proti dvojniku (slika \ref{de_bruijn_diagram}).
-To omogoča veriženje grafov in razširitev osnovnega De Bruijnovega grafa.
-Medtem ko osnovni De Bruijnov graf opisuje okolico ene celice, verižen graf opisuje verigo celic.
+Osnovni element grafične upodobitve je nekoliko svobodna interpretacija De Bruijnovega diagrama \cite{WikiDeBruijn}.
+V osnovi ta obravnava ciklične premike končnih zaporedij simbolov ter njihovo prekrivanje.
+Harold V. McIntosh \cite{McIntosh1991} in njegova skupina \cite{Soto2008}
+so priredili De Bruijnove grafe za potrebe analize 1D CA (slika \ref{de_bruijn_diagram} levo).
+Vozlišča predstavljajo nabor možnih prekrivanj med okolicami,
+poti med njimi pa okolice, ki se v vrednosti celic ujemajo s temi prekrivanji.
+Tranzicijska funkcija pripiše vsaki okolici stanje celice,
+posledično so poti med vozlišči označene z vrednostmi iz tranzicijske tabele.
+De Bruijnove Grafe nato razdelimo na podgrafe za vsako stanje celice.
+Podgraf vsebujejo le tiste poti, katerih pripadajoče okolice se preslikajo v eno od stanj celice.
+De Bruijnov podgraf predstavlja nabor vseh preteklosti celice z danim stanjem.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=de_bruijn_diagram,width=12cm}}
 \caption[De Bruijnov graf, pravilo 110.]
 {De Bruijnov graf za elementarni 1D CA, pravilo 110.
-Na levi je McIntosheva upodobitev, na desni pa moja, ki omogoča veriženje.}
+Na levi je McIntosheva upodobitev, na desni pa moja, ki omogoča veriženje.
+S prekinjeno črto so predstavljene kopije vozlišč.}
 \label{de_bruijn_diagram}
 \end{figure}
+
+\section{Mreža predslik 1D CA}
+
+Sam sem razvil \cite{JerasDobnikar2007} modificirano upodobitev De Bruijnovega grafa,
+kjer so originalna vozlišča podvojena,
+in gredo poti vedno od originala proti dvojniku (slika \ref{de_bruijn_diagram} desno).
+Taka upodobidev omogoča veriženje grafov.
+Originalna vozlišča grafa za naslednjo celico se
+ujemajo s kopijami vozlišč za naslednjo celico (slika \ref{network_rule110_quiescent}).
+Medtem ko osnovni De Bruijnov graf opisuje okolico le ene same celice,
+verižen graf opisuje verigo celic.
+Verižen graf sem poimenoval mreža predslik,
+saj predstavlja nabor vseh preteklosti celotne konfiguracije.
+
+\section{Mreža predslik 2D CA}
 
 Za potrebe opisa 2D celičnih avtomatov je bila elementom
 De Bruijnovega grafa dodana nova dimenzija. Povezave med vozlišči se spremenijo
@@ -1171,7 +1188,7 @@ tako da bi algoritem hranil le tekoče razlike med predslikami, namesto da jih h
 Nekaj podobnega počne moj algoritem, ko šteje le robove, in ne hrani celotnih predslik.
 
 Našel sem le eno aplikacijo, ki je namenjena štetju in izpisu vseh predslik.
-Bickford \cite{Bickford2012} prav tako kakor ostali procesira konfiguracijo
+Neil Bickford \cite{Bickford2012} prav tako kakor ostali procesira konfiguracijo
 po vrsticah, znotraj vrstice pa lahko uporablja različne algoritme (Woods, Duparc).
 Bickford opiše tudi algoritem, ki namesto procesiranja po vrsticah združuje predslike
 kvadratnih podsklopov konfiguracij. Na žalost poda primerjavo med različnimi algoritmi
@@ -1273,6 +1290,15 @@ tako da dokazovanje s teorijo grafov ni tako preprosto.
 Verjetno pa je možno pretvoriti dani graf v dualno obliko s transformacijo zvezda-trikot.
 Če obstaja dualna oblika grafa, kjer ni ploskev, temveč samo vozlišča in povezave,
 bi jo lahko uporabili za izpeljavo in dokazovanje dejanske računske kompleksnosti problema.
+
+Nekajkrat sem preveril rezultate, ki jih daje implementacija algoritma.
+Za dano vhodno stanje sem vsako predsliko s tranzicijsko funkcijo
+pretvoril nazaj v sedanjost in rezultat primerjal z vhodnim stanjem.
+Ker je moj algoritem vračal za dva velikostna razreda več predslik,
+kakor referenčna aplikacija RetroGUI \cite{Bickford2012},
+sem tudi preveril, če so vse naštete predslike enolične.
+Za nekaj manjših primerov, sem tudi poiskal predslike z brute force metodo.
+Na ta način nisem našel nobene napake v algoritmu.
 
 %********************************************
 
@@ -1444,7 +1470,7 @@ preimage i=18:  CA configuration siz [y↓,x→] = [3,3]:
 
 %********************************************
 
-\chapter{Don Woods opiše svoj algoritem}
+\chapter{Opis algoritma Dona Woodsa}
 
 Prilagam pisno izmenjavo z avtorjem \footnote{Don Woods /url{http://www.icynic.com/~don/}} prvega algoritma za iskanje predslik GoL.
 
