@@ -1202,19 +1202,24 @@ V članku \cite{JerasDobnikar2007} je podrobneje opisan ta problem za 1D CA.
 
 \chapter{Algoritem za štetje in izpis predslik}
 
-Pri 1D CA ima algoritem za štetje predslik linearno \(O(N)\) procesno in pomnilniško zahtevnost.
+Pri 1D CA (glej \cite{JerasDobnikar2007}) ima algoritem za štetje predslik
+linearno \(O(N)\) procesno in pomnilniško zahtevnost.
 Posplošeno to pomeni, da se vsaka celica pojavi v izračunu samo enkrat.
-Dejansko ima vsak algoritem tudi logaritmično komponento,
-saj število bitov, potrebnih za zapis števcev, raste logaritmično s številom celic.
-Algoritem za izpis predslik ima neizogibno eksponentno kompleksnost \(O(C^N)\),
+Vsak algoritem za štetje ima tudi logaritmično komponento,
+saj število bitov, potrebnih za zapis števcev, raste logaritmično s preštetim številom.
+
+Za 2D CA se je izkazalo, da obstajajo problemi, ki niso rešljivi z linearno kompleksnostjo.
+Prikazani algoritem za štetje ima maksimalno eksponentno kompleksnost
+v odvisnosti od ene dimenzije in linearno kompleksnost v odvisnosti od druge dimenzije,
+torej \(O(C^{N_x} N_y)\) ali \(O(N_x C^{N_y})\) (\(C=|S|^M\) je konstantna velikost nabora okolic).
+Za sedaj je še neznano, če obstoja algoritem s polinomsko kompleksnostjo.
+
+Algoritem za izpis predslik ima ne glede na število dimenzij
+neizogibno eksponentno kompleksnost \(O(C^N)\) (\(C\) je konstanta odvisna od optimizacij),
 saj maksimalno in povprečno število predslik raste eksponentno
 v odvisnosti od števila celic.
 
-Za 2D CA se je izkazalo, da obstajajo problemi, ki niso rešljivi z linearno kompleksnostjo.
-Prikazani algoritem ima maksimalno eksponentno kompleksnost
-v odvisnosti od posamezne dimenzije \(O(S^{N_x} S^{N_y})\).
-Za sedaj je še odprta možnost za obstoj algoritma s polinomsko kompleksnostjo,
-ki je nekje med linearno in eksponentno.
+\section{Štetje predslik}
 
 Opisani algoritem za štetje predslik razdeli polje celic na vrstice v dimenziji X.
 Delitev po stolpcih v dimenziji Y bi bila ekvivalentna, tako da je to arbitrarna odločitev.
@@ -1230,7 +1235,7 @@ po vrsticah v obratni smeri, kakor je potekalo štetje (od zadnje do prve vrstic
 Pridobljen seznam predslik je sortiran. Smer sortiranja je odvisna od smeri procesiranja.
 Smer procesiranja je možno po potrebi spremeniti.
 
-\section{Procesiranje v eni dimenziji}
+\subsection{Procesiranje v eni dimenziji}
 
 Procesiranje se začne z 1D nizom celic (vrstico).
 Vsaki celici v nizu pripada lastna mreža predslik, eno dimenzionalnemu nizu celic
@@ -1278,7 +1283,7 @@ Nabor vseh možnih poti na meji vrstice raste eksponentno z dolžino vrstice.
 Za deljenje po vrsticah v dimenziji X je ta nabor velikosti \( |S|^{(M_y-1)(M_x-1+N_x)} \).
 Posledično kompleksnost algoritma raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
 
-\section{Procesiranje v drugi dimenziji}
+\subsection{Procesiranje v drugi dimenziji}
 
 V drugi dimenziji se procesira zaporedje vrstic od prve do zadnje (slika \ref{algorithm_list}).
 Vsaka vrstica se začne in konča z robnim pogojem.
