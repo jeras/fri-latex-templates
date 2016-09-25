@@ -1066,15 +1066,16 @@ S prekinjeno črto so predstavljene kopije vozlišč.}
 \section{Mreža predslik 1D CA}
 
 Sam sem razvil \cite{JerasDobnikar2007} modificirano upodobitev De Bruijnovega grafa,
-kjer so originalna vozlišča podvojena,
-in gredo poti vedno od originala proti dvojniku (slika \ref{de_bruijn_diagram} desno).
+kjer so originalna vozlišča (prekrivanja \(o\)) podvojena,
+in gredo poti (okolice \(n\)) vedno od originala \(o_{\rightarrow}\)
+proti dvojniku \(o_{\leftarrow}\) (slika \ref{de_bruijn_diagram} desno).
 Taka upodobitev omogoča nizanje grafov.
-Originalna vozlišča grafa za naslednjo celico se
-ujemajo s kopijami vozlišč za naslednjo celico (slika \ref{network_rule110_quiescent}).
+Dvojniki vozlišč za trenutno celico \(o_{\leftarrow}(x)\) se ujemajo z
+originalnimi vozlišči \(o_{\rightarrow}(x+1)\) za naslednjo celico (slika \ref{network_rule110_quiescent}).
 Medtem ko osnovni De Bruijnov graf opisuje okolico le ene same celice,
-nizan graf opisuje niz celic.
+nizan graf opisuje okolice niza celic.
 Nizan graf sem poimenoval mreža predslik,
-saj predstavlja nabor vseh preteklosti celotne konfiguracije.
+saj predstavlja nabor vseh predslik celotne konfiguracije.
 
 \section{Mreža predslik 2D CA}
 
@@ -1083,27 +1084,39 @@ De Bruijnovega grafa dodana nova dimenzija. Povezave med vozlišči se spremenij
 v ploskve, vozlišča pa se spremenijo v robove ploskev.
 Elementi celičnega avtomata, ki se preslikajo v graf, so:
 \begin{itemize}[noitemsep,nolistsep]
-\item nabor vseh možnih \textbf{okolic} celice postane nabor vseh \textbf{ploskev} (slika \ref{neighborhood_surfaces})
-\item nabor \textbf{prekrivanj okolic v smeri 2D dimenzij} (slika \ref{overlap_dimension_quad}) postane nabor \textbf{povezav}
-\item nabor \textbf{prekrivanj okolic v diagonalni smeri} (slika \ref{overlap_diagonal_quad}) postane nabor \textbf{vozlišč}
+\item nabor \textbf{okolic} (\(n\)) postane nabor \textbf{ploskev} (slika \ref{neighborhood_surfaces})
+\item nabor \textbf{prekrivanj v smeri dimenzij X in Y} (\(o_{\leftrightarrow}\) in \(o_{\updownarrow}\)) (slika \ref{overlap_dimension_quad}) postane nabor \textbf{povezav}
+\item nabor \textbf{prekrivanj v diagonalni smeri} (\(o_{\times}\)) (slika \ref{overlap_diagonal_quad}) postane nabor \textbf{vozlišč}
 \end{itemize}
-
-Graf predslik je postavljen na kvadrat, ki predstavlja okolico \(n\).
-Nad vsakim vogalom je nabor vozlišč, ki predstavljajo nabor vogalnih prekrivanj
-\(o_{{x^-}{y^-}}\), \(o_{{x^+}{y^-}}\), \(o_{{x^-}{y^+}}\) in \(o_{{x^+}{y^+}}\).
-Vozlišči sosednjih vogalov sta povezani, če sta del iste konfiguracije celic,
-ki predstavlja povezavo. Na primer, pri okolici quad povezava za prekrivanje okolic \verb|[01]|
-povezuje vozlišči \verb|[0]| in \verb|[1]| (slika \ref{network_single} levo).
-
-Nastali graf (slika \ref{network_single} desno) ima poleg vozlišč in povezav med njimi tudi ploskve.
-Ploskve bi v teoriji grafov opisali kakor zanke v grafu, z dodano omejitvijo,
-da mora vsako vozlišče ali povezava v zanki pripadati drugemu prekrivanju okolic.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=network_single,width=12cm}}
 \caption[Mreža ene celice.]{Mreža ene celice za binarni CA z okolico quad \(M_x=M_y=2\).}
 \label{network_single}
 \end{figure}
+
+Graf predslik je postavljen na kvadrat, ki predstavlja okolico \(n\).
+Nad vsakim vogalom je nabor vozlišč, ki predstavljajo nabor diagonalnih prekrivanj
+\(o_{\swarrow}\), \(o_{\searrow}\), \(o_{\nwarrow}\) in \(o_{\nearrow}\).
+
+Vozlišči sosednjih vogalov v dimenziji X (\(o_{\swarrow}\) in \(o_{\searrow}\)) sta povezani,
+če sta del iste konfiguracije celic, ki predstavlja povezavo v smeri X (\(o_{\leftarrow}\)).
+Vozlišči sosednjih vogalov v dimenziji Y (\(o_{\swarrow}\) in \(o_{\nwarrow}\)) sta povezani,
+če sta del iste konfiguracije celic, ki predstavlja povezavo v smeri Y (\(o_{\downarrow}\)).
+
+Nastali graf (slika \ref{network_single} desno) ima poleg vozlišč in povezav med njimi tudi ploskve.
+Vogali \(o_{\swarrow}\), \(o_{\searrow}\), \(o_{\nwarrow}\) in \(o_{\nearrow}\)
+pripadajo določeni ploskvi \(n\), če so del iste konfiguracije celic.
+Podobno velja za robove \(o_{\leftarrow}\), \(o_{\rightarrow}\), \(o_{\downarrow}\) in \(o_{\uparrow}\)
+pripadajo določeni ploskvi \(n\), če so del iste konfiguracije celic.
+
+Za primer je uporabljena binarna okolica quad.
+Ploskev \(n=\bigl[\begin{smallmatrix} 0&1 \\ 1&0 \end{smallmatrix}\bigr]\)
+ima vogale \(o_{\swarrow}=1\), \(o_{\searrow}=0\), \(o_{\nwarrow}=0\) in \(o_{\nearrow}=1\) ter robove
+\(o_{\leftarrow}=\bigl[\begin{smallmatrix} 0 \\ 1 \end{smallmatrix}\bigr]\),
+\(o_{\rightarrow}=\bigl[\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\bigr]\),
+\(o_{\downarrow}=\bigl[\begin{smallmatrix} 0 & 1 \end{smallmatrix}\bigr]\) in
+\(o_{\uparrow}=\bigl[\begin{smallmatrix} 1 & 0 \end{smallmatrix}\bigr]\).
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood_surfaces,width=16cm}}
