@@ -1063,24 +1063,34 @@ S prekinjeno črto so predstavljene kopije vozlišč.}
 \label{de_bruijn_diagram}
 \end{figure}
 
-\section{Mreža predslik 1D CA}
+\section{Graf in mreža predslik ter robni pogoj 1D CA}
 
-Sam sem razvil \cite{JerasDobnikar2007} modificirano upodobitev De Bruijnovega grafa,
+Razvil sem \cite{JerasDobnikar2007} modificirano upodobitev De Bruijnovega grafa,
 kjer so originalna vozlišča (prekrivanja \(o\)) podvojena,
 in gredo poti (okolice \(n\)) vedno od originala \(o_{\rightarrow}\)
 proti dvojniku \(o_{\leftarrow}\) (slika \ref{de_bruijn_diagram} desno).
-Taka upodobitev omogoča nizanje grafov.
+Tako upodobitev sem poimenoval \textbf{graf predslik}.
+
+Graf predslik omogoča \textbf{nizanje} grafov v \textbf{mrežo predslik}.
 Dvojniki vozlišč za trenutno celico \(o_{\leftarrow}(x)\) se ujemajo z
-originalnimi vozlišči \(o_{\rightarrow}(x+1)\) za naslednjo celico (slika \ref{network_rule110_quiescent}).
+originalnimi vozlišči za naslednjo celico \(o_{\rightarrow}(x+1)\) (slika \ref{network_rule110_quiescent}).
 Medtem ko osnovni De Bruijnov graf opisuje okolico le ene same celice,
 nizan graf opisuje okolice niza celic.
 Nizan graf sem poimenoval mreža predslik,
 saj predstavlja nabor vseh predslik celotne konfiguracije.
 
-\section{Mreža predslik 2D CA}
+Pri 1D CA so robni pogoji definirani na levem in desnem koncu,
+ki omejujeta končno število celic znotraj neskončnega niza (premica).
+Robni pogoj definira, katera prekrivanja \(o_{\leftrightarrow}\)
+in s kakšnimi utežmi so dovoljena ob robu.
+Lahko si jih predstavljamo tudi kakor vpliv pol neskončnega niza celic (poltraka),
+ki sega izven roba opazovane konfiguracije.
+Podrobneje so robni pogoji 1D CA definirani v \cite{JerasDobnikar2007}.
+
+\section{Graf predslik 2D CA}
 
 Za potrebe opisa 2D celičnih avtomatov je bila elementom
-De Bruijnovega grafa dodana nova dimenzija. Povezave med vozlišči se spremenijo
+grafa predslik dodana nova dimenzija. Povezave med vozlišči se spremenijo
 v ploskve, vozlišča pa se spremenijo v robove ploskev.
 Elementi celičnega avtomata, ki se preslikajo v graf, so:
 \begin{itemize}[noitemsep,nolistsep]
@@ -1124,37 +1134,42 @@ ima vogale \(o_{\swarrow}=1\), \(o_{\searrow}=0\), \(o_{\nwarrow}=0\) in \(o_{\n
 \label{neighborhood_surfaces}
 \end{figure}
 
-\section{Mreža}
+\section{Mreža predslik 2D CA}
 
-Diagrame, ki opisujejo preteklost posamezne celice, je možno sestaviti v mrežo,
-ki opisuje polje več celic. Nabor predslik celotnega polja je ekvivalenten naboru
-vseh \textit{zveznih} ploskev, ki prekrivajo celotno polje (zahteva po prekrivanju okolic)
-in ki jih je možno sestaviti iz naborov ploskev diagramov posameznih celic (zahteva po ujemanju s tranzicijsko funkcijo).
+Podobno kakor je pri 1D CA možno grafe predslik nizati v mrežo predslik,
+je pri 2D CA grafe predslik možno \textbf{tlakovati} v \textbf{mrežo predslik},
+ki opisuje polje več celic.
+Nabor predslik celotnega polja je ekvivalenten naboru vseh \textit{zveznih} ploskev,
+ki prekrivajo celotno polje (zahteva po prekrivanju okolic)
+in ki jih je možno sestaviti iz naborov ploskev diagramov posameznih celic
+(zahteva po ujemanju z lokalno tranzicijsko funkcijo).
 
-Preslikava iz zvezne ploskve v mreži predslik v konfiguracijo polja celic predslike je enolična.
-Najlažje je razumeti preslikavo za okolico velikosti \(3 \times 3\).
-Od vsakega odseka ploskve za posamezno celico vzamemo centralno celico,
-na koncu pa dodamo še za eno celico širok rob okoli celotne ploskve.
+Preslikava iz zvezne ploskve v mreži predslik v konfiguracijo polja celic predslike \(B^{t-1}\) je enolična.
+Iz ploskve vsake okolice \(n(x,y)\) vzamemo izhodiščno celico
+\(c_{\swarrow}(x,y)\) (celica spodaj levo znotraj okolice).
+Nato dodamo vrstico celic višine \(M_y-1\) iz zgornjega prekrivanja na vrhu \(o_{\uparrow}(x,y=N_y-1)\),
+ter stolpec celic širine \(M_x-1\) iz desnega prekrivanja na skrajni desni \(o_{\rightarrow}(x=N_x-1,y)\).
 
 Podani primeri uporabljajo binarni CA z okolico quad.
 Za ta CA je velikost diagonalnega prekrivanja okolic ena sama celica (slika \ref{overlap_diagonal_quad});
 posledično ima nabor vozlišč le dve vrednosti, ki neposredno predstavljajo
 vrednosti celic v predsliki (slika \ref{network_array}).
-Nabor okolic/ploskev pa obsega 16 kombinacij (slika \ref{neighborhood_surfaces}).
 
 Pravilnost razširitve diagrama ene celice v mrežo lahko dokažemo z indukcijo.
 Dokazati želimo, da je neka konfiguracija celic predslika dane sedanjosti,
 \textit{če in samo če} je ta ekvivalentna zvezni ploskvi v mreži predslik.
 
 \textbf{Prvi element:}
-Iz definicije velja, da je za eno samo celico v mreži nabor ploskev enak naboru vseh predslik.
+Iz definicije \textit{okolice/ploskve} velja,
+da je za eno samo celico v mreži nabor ploskev enak naboru vseh predslik.
 \textbf{Naslednji element:}
 Obstoječi mreži predslik dodamo novo celico.
 Ploskev iz nabora dodane celice se zvezno veže s ploskvijo
 iz obstoječega nabora zveznih ploskev,
 ko se z njo ujema v robu (vozliščema in povezavi med njima).
 Robovi ploskev se ujemajo natanko v primeru, ko se ujemajo prekrivanja okolic.
-Temu je tako, ker so indeksi vozlišč in povezav ekvivalentni vrednosti prekrivanj okolic.
+Temu je tako, ker so indeksi vozlišč in povezav ekvivalentni
+vrednosti prekrivanj okolic v diagonali in v smeri koordinatnih osi.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=network_array,width=14cm}}
@@ -1163,15 +1178,7 @@ Poudarjena je ena zvezna ploskev in njen zvezen rob. Konfiguracija pripadajoče 
 \label{network_array}
 \end{figure}
 
-\section{Robni pogoji} 
-
-Pri 1D CA so robni pogoji definirani na dveh koncih,
-ki omejujejo končno število celic na neskončni premici.
-Če je 1D CA definiran kakor poltrak, je robni pogoj samo eden.
-Robni pogoj definira, katere okolice (vozlišča pri mreži predslik za 1D CA)
-in s kakšnimi utežmi so na voljo ob robu.
-Lahko si jih predstavljamo tudi kakor vpliv neskončnega poltraka celic,
-ki sega izven roba opazovane konfiguracije.
+\section{Robni pogoj v mreži predslik 2D CA} 
 
 Pri 2D CA je robni pogoj definiran kakor utež sklenjene poti okoli ploskve opazovane konfiguracije celic.
 V mreži predslik za 2D CA povezave med vozlišči definirajo rob ploskve (slika \ref{network_array}).
@@ -1183,11 +1190,15 @@ so tukaj vsi robovi obravnavani enako, z utežjo ena. Temu bomo rekli odprti rob
 ker ta ne definira nobenih omejitev, katere zvezne ploskve v mreži predslik
 so dovoljene in katere ne.
 
-Obstaja še en enostaven robni pogoj, ki je definiran za ciklično sklenjena končna polja CA.
+Obstaja še en enostaven robni pogoj, ki je definiran za ciklično sklenjena končna polja CA (torus).
 Ta tip robnega pogoja tukaj ne bo obravnavan, ker še dodatno poveča kompleksnost algoritmov.
 Potrebno bi bilo namreč opraviti celoten postopek iskanja predslik za vsak začetni rob posebej.
-Zvezna ploskev je predslika v cikličnem polju le, če se njen začetni in končni rob ujemata.
+Saj je zvezna ploskev je predslika v cikličnem polju le, če se njen začetni in končni rob ujemata.
 Pojma začetnega in končnega roba sta opisana v poglavju o algoritmu.
+V članku \cite{JerasDobnikar2007} je podrobneje opisan ta problem za 1D CA.
+
+
+
 
 \chapter{Algoritem za štetje in izpis predslik}
 
