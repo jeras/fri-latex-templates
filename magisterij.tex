@@ -913,9 +913,6 @@ r = \sum_{n=0}^{n=|S|^{M_x M_y}-1} |S|^n \cdot f(n)
 r \in \{0, 1, \ldots |S|^{|S|^{M_x M_y}}-1\}
 \end{equation}
 
-Globalna tranzicijska funkcija se pogosto zapisuje kakor tranzicijska tabela,
-ki navaja vrednost tranzicijske funkcije \(f(n)\) za vsako okolico \(n\).
-
 \subsection{Robni pogoji}
 
 Neskončno polje nima roba in zanj ne potrebujemo definicije robnih pogojev.
@@ -979,18 +976,39 @@ Vsaka predslika \(B^{t-1}\) danega polja celic \(A^t\) mora ustrezati naslednjim
 \end{align}
 \end{equation}
 \end{enumerate}
-Opazovanje prekrivanja okolic je glavni element algoritmov za iskanje predslik.
+
+Za potrebe nekaterih ilustracij je uporabljena bolj splošna definicija inverzne lokalne tranzicijske funkcije.
+Za vsako celico je lahko definiran lasten nabor predslik \(n^{t-1} \in S^M\),
+ki je na splošno neodvisen od stanja celice.
+Ta posplošitev je uporabljena za konstrukcijo umetnih mrež predslik,
+ki poudarjajo konkretne probleme, povezane s kompleksnostjo algoritma.
 
 \subsection{Primer}
+
+Za klasične 2D CA sta definirani von Neumannova in Mooreova okolica (slika \ref{neighborhood_clasic}).
+Von Neumanova okolica je podmnožica Mooreove okolice, kjer so stanja vogalnih okolic ignorirana,
+To pomeni, da tukaj opisana splošna definicija 2D okolice zaobjame obe klasični okolici.
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=neighborhood_classic,width=16cm}}
+\caption[Klasične 2D okolice.]
+{Celica \(c(x,y)\) in pripadajoča okolica \(n(x,y)\) z dimenzijama \(M_x=M_y=3\).}
+\label{neighborhood_classic}
+\end{figure}
+
+\subsubsection{Conwayev GoL}
+
+To je binarni celični avtomat \(|S|=2\), ki uporablja Mooreovo okolico \(M_x=M_y=3\).
+V okolici \(n\) je \(M=M_x \cdot M_y=3 \cdot 3=9\) celic, kar da nabor velikosti \(|S|^9=512\).
+V prekrivanju v smereh X in Y je \(M=(M_x-1) \cdot M_y=M_x \cdot (M_y-1)=6\) celic, kar da nabor velikosti \(|S|^9=64\).
+V prekrivanjih \(o_{\leftrightarrow}\) in \(o_{\updownarrow}\) v diagonalnih smereh
+je \(M=(M_x-1) \cdot (M_y-1)=2 \cdot 2=4\) celic, kar da nabor velikosti \(|S|^4=16\).
+Nabor vseh pravil \(n\) za to okolico je \(|S|^{|S|^{M}}=2^512\).
+
 
 Pri 1D elementarnih CA (\(m=3\)) je vseh pravil le 256, tako da so bila že vsa opazovana in opisana.
 Za 2D CA z okolico quad (\(m=4\)) je pravil 65536, kar je nekje na meji, kar lahko raziskovalci podrobno pregledajo.
 Za 2D CA z Moorovo okolico (\(m=9\)) je vseh pravil dosti preveč, da bi lahko pregledali posamično.
-
-Podana konstrukcija mreže predslik in algoritem za izračun predslik omogočata uporabo
-bolj splošne definicije. Za vsako celico je lahko definiran lasten nabor predslik \( n^{t-1} \in S^m \),
-ki je na splošno neodvisen od stanja celice. Ta posplošitev je uporabljena za konstrukcijo umetnih
-mrež predslik, ki poudarjajo konkretne probleme, povezane s kompleksnostjo algoritma.
 
 \chapter{Konstrukcija mreže predslik}
 
