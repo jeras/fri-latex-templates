@@ -22,6 +22,7 @@
 \usepackage{cite}
 \usepackage{enumitem}
 \usepackage{amsmath}
+\usepackage{amssymb}
 %\usepackage{url}
 \usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black]{hyperref}
 \usepackage[top=2cm, bottom=3cm, inner=3cm, outer=2cm]{geometry}
@@ -220,10 +221,10 @@ o algoritmih za štetje in izpis predslik pri enodimenzionalnih celičnih avtoma
 \item[\(c^{t+1}\)] vrednost celice v prihodnosti (en korak)
 \item[\(N_x\)] velikost pravokotnega 2D polja celic v dimenziji X
 \item[\(N_y\)] velikost pravokotnega 2D polja celic v dimenziji Y
-\item[\(N\)] število celic v 2D polju
+\item[\(N\)] število celic v 1D ali 2D polju
 \item[\(M_x\)] velikost pravokotne 2D okolice celice v dimenziji X
 \item[\(M_y\)] velikost pravokotne 2D okolice celice v dimenziji Y
-\item[\(m\)] število celic v 2D okolici
+\item[\(M\)] število celic v 1D ali 2D okolici
 \item[\(n\)] stanje okolice posamezne celice (celoštevilska vrednost)
 \item[\(n_{x,y}\)] vrednost okolice celice na koordinatah \((x,y)\) znotraj 2D polja celic
 \item[\(n^{t-1}\)] vrednost okolice celice v preteklosti (en korak)
@@ -578,30 +579,188 @@ ki opisuje prostor predslik (mreža predslik).
 
 \chapter{Definicija CA}
 
-\section{Definicija 1D CA}
+Omejujemo se na celične avtomate, ki so:
+\begin{itemize}
+\item prostorsko diskretni (celice),
+\item časovno diskretni (korak),
+\item homogeni (pravila so enaka za vse celice in vse celice se posodobijo naenkrat) in
+\item deterministični (novo stanje je odvisno le od trenutnega stanja).
+\end{itemize}
 
-\section{Definicija 2D CA}
-
-\subsection{Stanje celic in polje}
-
-Osnovni element 2D CA je celica, ki je del polja celic.
 Vsaka celica ima diskretno vrednost \(c\) iz nabora stanj celice \(S\).
-Stanja so običajno kar oštevilčena.
+Stanja so oštevilčena.
 
 \begin{equation}
 c \in S
 \quad \textrm{in} \quad
-S = \{ 0, 1, \ldots, {\lvert S \rvert} -1 \}
+S = \{ 0, 1, \ldots, |S|-1 \}
 \end{equation}
 
-Mreža polja je lahko pravokotna, šestkotna ali celo kvazikristalna. Tukaj se
-bomo omejili na pravokotno mrežo. Na splošno je velikost polja lahko neskončna,
-bolj običajna pa so končna polja, definirana kakor pravokotnik velikosti \(N_x \times N_y\).
-Skupno število celic v končnem polju je \(N=N_x \cdot N_y\).
+Za potrebe implementacije algoritma je pomembno,
+da smo stanje elementov CA kakor so pravilo, vrednost okolice in podobno
+sposobni indeksirati.
+Uporabljena je metoda, ki je v osnovi bila namenjena zapisu pravila.
+Posplošeno, so vrednosti celic \(c(i)\) zložene v niz \(A=[c(0),c(1), \ldots, c(|A|-1)\)] dolžine \(|A|\),
+ki je interpretiran kakor \(|A|\) mestno pozitivno celo število \(num\) v
+\(S\)-iškem številskem sestavu (za podane primere dvojiškem).
+
+\begin{equation}
+num = \sum_{i=0}^{i=|A|-1} |S|^i \cdot c(i)
+\end{equation}
+
+\section{Definicija 1D CA}
+
+Definicija 1D CA je tukaj na hitro povzeta po \cite{JerasDobnikar2007}.
+Za 1D CA se celice združujejo v regularen niz.
+Na splošno je dolžina niza lahko neskončna,
+bolj običajni pa so končni nizi dolžine \(N\).
 
 \subsection{Okolica}
 
-Prihodnje stanje neke celice \(c_{x,y}\) na s koordinatami \((x,y)\)
+Za potrebe enostavnosti implementacije se okolica celice širi le v pozitivni smeri (slika \ref{neighborhood_1d}).
+Torej je za celico \(c(x)\) njena okolica velikosti \(M\) enaka
+\(n(x) = \{c(x), c(x+1), \ldots, c(x+M-1)\}\).
+V praksi se podana definicija okolice razlikuje od
+bolj običajne centrirane okolice le v tem,
+kako je časovno sosledje stanj poravnano v grafični upodobitvi.
+Nekoliko neobičajno definicijo sem uporabil,
+ker ne potrebuje ločene interpretacije za okolice sode velikosti.
+Hkrati sem se tako izognil uporabi negativnih števil v implementaciji algoritma.
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=neighborhood_1d,width=16cm}}
+\caption[Okolica 1D CA.]{Okolica 1D CA velikosti \(M=3\).}
+\label{neighborhood_1d}
+\end{figure}
+
+Indeks okolice \(n(x)\) in nabor možnih okolic sta:
+
+\begin{equation}
+n(x) = \sum_{i=0}^{i=M-1} |S|^i \cdot c(x+i)
+\end{equation}
+\begin{equation}
+n \in \{0, 1, \ldots, |S|^M-1\}
+\end{equation}
+
+\subsection{Prekrivanje okolic}
+
+Dana okolica \(n(x)\) se za \(M-1\) celic prekriva z okolicama sosednjih celic (slika \ref{overlap_1d}).
+Na levi imamo prekrivanje \(o_{\leftarrow}(x)\) med okolicama \(n(x-1)\) in \(n(x)\).
+Na desni imamo prekrivanje \(o_{\rightarrow}(x)\) med okolicama \(n(x)\) in \(n(x+1)\).
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=overlap_1d,width=12cm}}
+\caption[Prekrivanje okolic 1D CA.]{Prekrivanje okolic 1D CA velikosti \(M-1=2\).}
+\label{overlap_1d}
+\end{figure}
+
+Indeksa levega prekrivanja \(o_{\leftarrow}(x)\) ter desnega prekrivanja \(o_{\rightarrow}(x)\) prekrivanj in nabor možnih prekrivanj so:
+
+\begin{equation}
+o_{\leftarrow}(x) = \sum_{i=0}^{i=M-2} |S|^i \cdot c_{x+i}
+\end{equation}
+\begin{equation}
+o_{\rightarrow}(x) = \sum_{i=1}^{i=M-1} |S|^i \cdot c_{x+i}
+\end{equation}
+\begin{equation}
+o \in \{0, 1, \ldots, |S|^M-2\}
+\end{equation}
+
+\subsection{Lokalna tranzicijska funkcija in pravilo}
+
+Preslikava sedanje okolice \(n^{t}(x)\) v prihodnjo istoležno celico \(c^{t+1}(x)\) je definirana
+s tranzicijsko funkcijo \(f\), ki vsaki vrednosti okolice pripiše vrednost celice:
+
+\begin{equation}
+c^{t+1}(x) = f(n^{t}(x))
+\end{equation}
+
+Za potrebe iskanja predslik je zanimiva obratna funkcija \(f^{-1}\), ki ob
+podanem stanju trenutne celice \(c^{t}(x)\) vrne množico okolic \(n^{t-1}(x)\),
+ki se preslikajo v to vrednost:
+
+\begin{equation}
+f^{-1}(c^{t}(x)) = \{ n^{t-1}(x) \in S^m \ \arrowvert \ f(n^{t-1}(x)) = c^{t}(x) \}
+\end{equation}
+
+Tranzicijsko funkcijo je možno definirati s pravilom  \(r\).
+Pravilo je indeks izbrane funkcije znotraj celotnega nabora \(|S|^{|S|^M}\) funkcij.
+Definirano je kakor celo število v \(S\)-iškem številskem sestavu,
+kjer so cifre zaporedje vrednosti celic v katere tranzicijska funkcija
+preslika vsako od \(|S|^m\) možnih okolic:
+
+\begin{equation}
+r = \sum_{n=0}^{n=|S|^M-1} |S|^n \cdot f(n)
+\end{equation}
+\begin{equation}
+r \in \{0, 1, \ldots |S|^{|S|^M}-1\}
+\end{equation}
+
+Globalna tranzicijska funkcija se pogosto zapisuje kakor tranzicijska tabela,
+ki navaja vrednost tranzicijske funkcije \(f(n)\) za vsako okolico \(n\).
+
+\subsection{Robni pogoji}
+
+Neskončen niz celic nima roba in zanj ne potrebujemo definicije robnih pogojev.
+Hkrati pa v praksi ne moremo računati z neskončnostjo,
+zato obravnavamo končne nize celic.
+
+Če smatramo opazovani niz za del neskončnega niza, in opazujemo le končen segment,
+potem se moramo opredeliti, kako bomo obravnavali vrednosti celic izven opazovanega niza.
+Tukaj je opisan samo odprt robni pogoj, kjer celice izven roba niso definirane,
+oziroma lahko zasedejo poljubno vrednost.
+Za niz dolžine \(N\) je potemtakem definiranih le \(N-(M-1)\) okolic.
+
+Drugi običajen robni pogoj je cikličen, kjer je niz celic sklenjena zanka.
+Ciklično koordinato celice \(x_{\circlearrowright}\) izračunamo iz \(x\) po modulu \(N\).
+
+\begin{equation}
+x_{\circlearrowright} = x \bmod N
+\end{equation}
+
+\subsection{Globalna tranzicijska funkcija}
+
+Globalna tranzicijska funkcija \(F\) s pomočjo lokalne tranzicijske funkcije \(f(n)\)
+preslika vsako okolico \(n^t(x)\) iz niza celic \(\alpha^t\) dolžine v času \(t\)
+v celico \(c^{t+1}(x)\) iz niza celic \(\beta^{t+1}\) v času \(t+1\).
+
+\begin{equation}
+\beta^{t+1} = F (\alpha^t)
+\end{equation}
+
+Za odprti robni pogoj vrne globalna funkcija za vhodni niz dolžine \(N\)
+izhodni niz dolžine \(N-(M-1)\), za cikličen robni pogoj pa niz dolžine \(N\).
+
+\subsection{Predslike}
+
+Vsaka predslika \(\beta^{t-1}\) danega niza celic \(\alpha^t\) mora ustrezati dvema pogojema.
+\begin{enumerate}
+\item
+
+\item
+\end{enumerate}
+Dodaten pogoj za predslike polja celic je, da se morajo okolice sosednjih celic
+ujemati povsod, kjer se prekrivajo.
+Opazovanje prekrivanja okolic je tudi glavni element algoritmov za iskanje predslik.
+
+\section{Definicija 2D CA}
+
+Za 2D CA se celice združujejo v regularno 2D polje.
+Mreža polja je lahko pravokotna, šestkotna ali celo kvazikristalna.
+Tukaj se bomo omejili na pravokotno mrežo.
+Na splošno je velikost polja lahko neskončna,
+bolj običajna pa so končna polja,
+definirana kakor pravokotnik velikosti \(N_x \times N_y\).
+Skupno število celic v končnem polju je \(N=N_x \cdot N_y\).
+
+Za potrebe indeksiranja elementov CA, so ploskve razdeljene v vrstice,
+nato so vrstice sestavljene v niz, ki je interpretiran kakor število.
+Cifre v številu si sledijo od spodaj levo do zgoraj desno znotraj okolice
+(sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}).
+
+\subsection{Okolica}
+
+Prihodnje stanje neke celice \(c_{x,y}\) s koordinatami \((x,y)\)
 je odvisno od trenutnega stanja pripadajoče okolice \(n_{x,y}\) (slika \ref{neighborhood}).
 Tudi pri obliki okolice se bom omejil na pravokotnik velikosti \(M_x \times M_y\).
 Število celic v okolici je \(m=M_x \cdot M_y\).
@@ -613,23 +772,7 @@ n \in S^m
 S^m = \{ 0, 1, \ldots, {\lvert S \rvert}^m -1 \}
 \end{equation}
 
-Prostorski odnos med okolico in celico v prihodnjem stanju avtomata, ki jo ta okolica določa,
-ni podrobno definiran. Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
-nujno pomembno. Moja implementacija algoritma celice, okolice in samo polje indeksira tako,
-da je začetna ali referenčna celica v spodnjem levem kotu.
-
-\begin{figure}[htb]
-\centerline{\psfig{figure=neighborhood,width=16cm}}
-\caption[Velikost okolice.]{Celica \(c_{x,y}\) in pripadajoča okolica \(n_{x,y}\) z dimenzijama \(M_x=M_y=3\).}
-\label{neighborhood}
-\end{figure}
-
-\subsection{Prekrivanje okolic}
-
-Elemente celičnega avtomata, kot so okolice in prekrivanja okolic, je potrebno indeksirati,
-tako da se lahko vsakemu elementu pripiše unikatna števna vrednost.
-Vsaki okolici je pripisana zaporedna vrednost, ki je konstruirana kakor \(m\)-mestno število
-v \(S\)-iškem številskem sistemu (za podane primere dvojiškem):
+Indeks okolice je (sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}):
 
 \begin{equation}
 n = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{M_x y + x} \cdot c_{x,y}
@@ -637,9 +780,6 @@ n = \sum_{\substack{x=0 \\ y=0}}^{\substack{x=M_x-1 \\ y=M_y-1}} |S|^{M_x y + x}
 \begin{equation}
 n \in \{0, 1, \ldots, |S|^{M_x M_y}-1\}
 \end{equation}
-
-Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice
-(sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}).
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood_index_moore,width=12cm}}
@@ -652,6 +792,20 @@ Cifre si sledijo od spodaj levo do zgoraj desno znotraj okolice
 \caption[Indeksiranje okolice \(2 \times 2\).]{Indeksiranje okolice celice z dimenzijama \(M_x=M_y=2\).}
 \label{neighborhood_index_quad}
 \end{figure}
+
+Prostorski odnos med okolico in celico v prihodnjem stanju avtomata, ki jo ta okolica določa,
+ni podrobno definiran. Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
+nujno pomembno. Moja implementacija algoritma celice, okolice in samo polje indeksira tako,
+da je začetna ali referenčna celica v spodnjem levem kotu.
+
+\begin{figure}[htb]
+\centerline{\psfig{figure=neighborhood,width=16cm}}
+\caption[Velikost okolice.]{Celica \(c_{x,y}\) in pripadajoča okolica \(n_{x,y}\) z dimenzijama \(M_x=M_y=3\).}
+\label{neighborhood}
+\end{figure}
+
+
+\subsection{Prekrivanje okolic}
 
 Celice se v smeri dimenzije X prekrivajo za ploskev velikosti \((M_x-1) \times M_y\) (sliki \ref{overlap_dimension_moore} in \ref{overlap_dimension_quad}).
 To ob indeksiranju da nabor:
@@ -803,7 +957,7 @@ De Bruijnov podgraf predstavlja nabor vseh preteklosti celice z danim stanjem.
 \centerline{\psfig{figure=de_bruijn_diagram,width=12cm}}
 \caption[De Bruijnov graf, pravilo 110.]
 {De Bruijnov graf za elementarni 1D CA, pravilo 110.
-Na levi je McIntosheva upodobitev, na desni pa moja, ki omogoča veriženje.
+Na levi je McIntosheva upodobitev, na desni pa moja, ki omogoča nizanje.
 S prekinjeno črto so predstavljene kopije vozlišč.}
 \label{de_bruijn_diagram}
 \end{figure}
@@ -813,12 +967,12 @@ S prekinjeno črto so predstavljene kopije vozlišč.}
 Sam sem razvil \cite{JerasDobnikar2007} modificirano upodobitev De Bruijnovega grafa,
 kjer so originalna vozlišča podvojena,
 in gredo poti vedno od originala proti dvojniku (slika \ref{de_bruijn_diagram} desno).
-Taka upodobidev omogoča veriženje grafov.
+Taka upodobitev omogoča nizanje grafov.
 Originalna vozlišča grafa za naslednjo celico se
 ujemajo s kopijami vozlišč za naslednjo celico (slika \ref{network_rule110_quiescent}).
 Medtem ko osnovni De Bruijnov graf opisuje okolico le ene same celice,
-verižen graf opisuje verigo celic.
-Verižen graf sem poimenoval mreža predslik,
+nizan graf opisuje niz celic.
+Nizan graf sem poimenoval mreža predslik,
 saj predstavlja nabor vseh preteklosti celotne konfiguracije.
 
 \section{Mreža predslik 2D CA}
