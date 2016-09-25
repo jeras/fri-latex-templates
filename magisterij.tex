@@ -985,30 +985,52 @@ ki poudarjajo konkretne probleme, povezane s kompleksnostjo algoritma.
 
 \subsection{Primer}
 
-Za klasične 2D CA sta definirani von Neumannova in Mooreova okolica (slika \ref{neighborhood_clasic}).
+Za klasične 2D CA sta definirani von Neumannova in Mooreova okolica (slika \ref{neighborhood_classic}).
 Von Neumanova okolica je podmnožica Mooreove okolice, kjer so stanja vogalnih okolic ignorirana,
 To pomeni, da tukaj opisana splošna definicija 2D okolice zaobjame obe klasični okolici.
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=neighborhood_classic,width=16cm}}
+\centerline{\psfig{figure=neighborhood_classic,width=10cm}}
 \caption[Klasične 2D okolice.]
-{Celica \(c(x,y)\) in pripadajoča okolica \(n(x,y)\) z dimenzijama \(M_x=M_y=3\).}
+{Klacični 2D okolici, von Neumannova levo in Mooreova desno.}
 \label{neighborhood_classic}
 \end{figure}
 
 \subsubsection{Conwayev GoL}
 
-To je binarni celični avtomat \(|S|=2\), ki uporablja Mooreovo okolico \(M_x=M_y=3\).
+GoL je binarni celični avtomat \(|S|=2\), ki uporablja Mooreovo okolico \(M_x=M_y=3\) (slika \ref{neighborhood_index_moore}).
 V okolici \(n\) je \(M=M_x \cdot M_y=3 \cdot 3=9\) celic, kar da nabor velikosti \(|S|^9=512\).
-V prekrivanju v smereh X in Y je \(M=(M_x-1) \cdot M_y=M_x \cdot (M_y-1)=6\) celic, kar da nabor velikosti \(|S|^9=64\).
-V prekrivanjih \(o_{\leftrightarrow}\) in \(o_{\updownarrow}\) v diagonalnih smereh
+V prekrivanjih \(o_{\leftrightarrow}\) in \(o_{\updownarrow}\) v smereh X in Y
+je \(M=(M_x-1) \cdot M_y=M_x \cdot (M_y-1)=6\) celic, kar da nabor velikosti \(|S|^9=64\).
+V prekrivanjih \(o_{\times}\) v diagonalnih smereh
 je \(M=(M_x-1) \cdot (M_y-1)=2 \cdot 2=4\) celic, kar da nabor velikosti \(|S|^4=16\).
-Nabor vseh pravil \(n\) za to okolico je \(|S|^{|S|^{M}}=2^512\).
 
+Nabor vseh pravil \(n\) za to okolico je \(|S|^{|S|^{M}}=2^{512}\).
+Lokalna tranzicijska funkcija je definirana opisno \cite{WikiGoL}.
+Stanji celice sta opisani kakor mrtvo \(c=0\) in živo \(c=1\).
+V vsakem časovnem koraku se z vsako celico zgodi naslednje:
+\begin{enumerate}
+\item živa celica z manj kakor dvema živima sosedoma umre,
+\item živa celica z dvema ali tremi živimi sosedi živi naprej v naslednji korak,
+\item živa celica z več kakor tremi živimi sosedi umre,
+\item mrtva celica z natanko temi živimi sosedi oživi.
+\end{enumerate}
+Pravilo GoL je 512 bitna binarna vrednost, v šestnajstiškem zapisu je \(r\):
+\begin{verbatim}
+00000000000100010001000101170116000100010117011601170116177E1668
+000100010117011601170116177E166801170116177E1668177E16687EE86880
+\end{verbatim}
 
-Pri 1D elementarnih CA (\(m=3\)) je vseh pravil le 256, tako da so bila že vsa opazovana in opisana.
-Za 2D CA z okolico quad (\(m=4\)) je pravil 65536, kar je nekje na meji, kar lahko raziskovalci podrobno pregledajo.
-Za 2D CA z Moorovo okolico (\(m=9\)) je vseh pravil dosti preveč, da bi lahko pregledali posamično.
+\subsubsection{Okolica quad}
+
+V primerih je uporabljen binarni \(|S|=2\) 2D CA z okolico quad \(M_x=M_y=2\) (slika \ref{neighborhood_index_quad}).
+V okolici \(n\) je \(M=M_x \cdot M_y=2 \cdot 2=4\) celic, kar da nabor velikosti \(|S|^4=16\).
+V prekrivanjih \(o_{\leftrightarrow}\) in \(o_{\updownarrow}\) v smereh X in Y
+sta \(M=(M_x-1) \cdot M_y=M_x \cdot (M_y-1)=2\) celici, kar da nabor velikosti \(|S|^2=4\).
+V prekrivanjih \(o_{\times}\) v diagonalnih smereh
+je \(M=(M_x-1) \cdot (M_y-1)=1 \cdot 1=1\) celic, kar da nabor velikosti \(|S|^1=2\).
+
+Pravilo ni določeno.
 
 \chapter{Konstrukcija mreže predslik}
 
