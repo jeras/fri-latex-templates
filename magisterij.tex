@@ -1249,7 +1249,7 @@ Vsak algoritem za štetje ima tudi logaritmično komponento,
 saj število bitov, potrebnih za zapis števcev, raste logaritmično s preštetim številom.
 Ampak ta komponenta se pozna pri implementaciji,
 šele ko velikost števcev preseže velikost registrov.
-(64 bitov zadošča za binarno polje celic \(8 \times 8\)).
+64 bitov zadošča za binarno polje celic \(8 \times 8\).
 
 Za 2D CA se je izkazalo, da obstajajo problemi, ki niso rešljivi z linearno kompleksnostjo.
 Prikazanemu algoritmu raste maksimalna procesna zahtevnost
@@ -1263,25 +1263,41 @@ neizogibno eksponentno kompleksnost \(O(C^N)\) (\(C\) je konstanta, odvisna od o
 saj maksimalno in povprečno število predslik raste eksponentno
 v odvisnosti od števila celic.
 
-\section{Štetje predslik}
+\section{Štetje poti v grafu}
 
 Algoritem za štetje uporablja principe iz teorije grafov \cite{DBLP:journals/corr/cs-DL-0309023}.
 Število poti med dvema vozliščema v acikličnem usmerjenem grafu se računa tako,
 da se vsakemu vozlišču pripiše utež \(w\).
-V prvem koraku začetno vozlišče dobi utež \(w=1\).
-Vse poti, ki izhajajo iz obteženega vozlišča
+V prvem koraku začetno vozlišče dobi utež \(w(začetek)=1\).
+Vse poti, ki izhajajo iz obteženega vozlišča,
 imajo utež enako uteži izvornega vozlišča.
-V naslednjih korakih se računajo uteži vozlišč,
-tako da je izhodna utež vsota vhodnih uteži \(w_{out}=\Sigma w_{in}\).
+V naslednjih korakih se računajo uteži vozlišč tako,
+da je izhodna utež vsota vhodnih uteži \(w_{izhod}=\Sigma w_{vhod}\).
 Algoritem se zaključi, ko število opravljenih korakov doseže dolžino najdaljše poti.
+Na koncu je utež končnega vozlišča \(w(konec)\)
+enaka številu vseh poti med začetnim in končnim vozliščem.
+
+Če želimo vedeti koliko od teh poti gre skozi posamezno vozlišče
+ali po posamezni povezavi med vozlišči,
+potem postopek ponovimo v obratni smeri.
+Vlogi začetnega in končnega vozlišča se zamenjata,
+in obrnejo se smeri vseh poti.
+Skupna utež vozlišča je zmnožek uteži za naprej in nazaj
+\(w_{skupna} = w_{naprej} \cdot w_{nazaj}\).
+
 Pri celičnih avtomatih je opazovani graf mreža predslik, ki ima zelo regularno strukturo.
-Dolžina najdaljše pot je enaka velikosti ene od dimenzij polja CA.
-Poleg tega ob vsakem koraku opazujemo samo vozlišča iz enega prereza grafa.
-Za primere glej \cite{JerasDobnikar2007}.
+Dolžina najdaljše poti je enaka velikosti ene od dimenzij polja CA.
+Poleg tega ob vsakem koraku opazujemo samo del vozlišč, ki pripadajo enemu prerezu.
+
+\section{Štetje predslik}
 
 Opisani algoritem razdeli polje celic na vrstice v dimenziji X.
 Delitev po stolpcih v dimenziji Y bi bila ekvivalentna, tako da je to arbitrarna odločitev.
 S stališča procesne zahtevnosti je najbolje izbrati krajšo dimenzijo.
+
+TODO >>>
+
+SEM PRIDE PSEUDO-KODA
 
 Ker mreža predslik ni navaden graf, temveč je razširjen s pojmom ploskve,
 je potrebno mrežo predslik pred začetkom štetja najprej preslikati v navaden graf.
@@ -1306,13 +1322,13 @@ potrebno ga je izračunati za vsako vrstico posebej.
 \label{algoritm_count-y}
 \end{figure}
 
-
+<<< TODO
 
 \subsection{Procesiranje niza v dimenziji X}
 
 Procesiranje se začne z 1D nizom celic (vrstico).
-Vsaki celici v nizu pripada lastna mreža predslik, eno dimenzionalnemu nizu celic
-posledično pripada povezan niz mrež predslik (slika \ref{algorithm_line} mreža \textbf{1}).
+Vsaki celici v nizu pripada lastna mreža predslik, eno-dimenzionalnemu nizu celic
+posledično pripada povezan niz mrež predslik (slika \ref{algorithm_line}, mreža \textbf{1}).
 Vsak segment mreže v nizu ima svoj nabor veljavnih okolic,
 ki je definiran s tranzicijsko funkcijo (ali pa je posplošeno poljuben nabor).
 Na začetku se ploskve okolic sosednjih celic še ne povezujejo v
@@ -1322,24 +1338,26 @@ ki se ne povezujejo z okolicami svojih sosednjih celic.
 Ker se vsaka vrstica povezuje s predhodno in naslednjo vrstico, je potrebno
 upoštevati tudi zveznost ploskev na prehodu med vrsticami.
 Ta povezava med vrsticami je prerez opazovane ploskve na meji med vrsticama.
-Vsako ploskev se obravnavana posebej in prerez se izrazi kakor robni pogoj.
-Začetni robni pogoj za vsako vrstico je nabor poti med vozlišči na začetku vrstice.
-Vsaka pot je obravnavana posebej (slika \ref{algorithm_line}, mreža \textbf{2}, odebeljena pot).
-Začetni robni pogoj je ekvivalenten nizu prekrivanja okolic \(o_{y^-}\).
+Vsako ploskev obravnavamo posebej in prerez izrazimo kakor robni pogoj.
+Začetni robni pogoj \(e_{\downarrow}\) za vsako vrstico
+je nabor poti med vozlišči na spodnji strani vrstice.
+Vsak začetni pogoj obravnavamo posebej (slika \ref{algorithm_line}, mreža \textbf{2}, odebeljena pot).
 
-Začetni robni pogoj se aplicira tako, da se izloči iz obravnave vse ploskve,
-ki nimajo skupnega roba z robno potjo (slika \ref{algorithm_line},
-prehod iz mreže \textbf{1} v mrežo \textbf{2}). Po tem koraku, so vse ploskve definirane
-v dveh od štirih vozlišč. Do nezveznosti lahko prihaja le še na robu, nasprotnem
-začetnemu robu.
+Začetni robni pogoj \(e_{\downarrow}\) apliciramo tako,
+da izločimo iz obravnave vse ploskve,
+ki nimajo skupnega roba z robnim pogojem (slika \ref{algorithm_line},
+prehod iz mreže \textbf{1} v mrežo \textbf{2}).
+Po tem koraku so vse okolice definirane na spodnjem prekrivanju.
+Do nezveznosti lahko prihaja le še na robu,
+nasprotnem začetnemu robu \(e_{\uparrow}\).
 
-Problem se reducira iz 3D mreže in procesiranja ploskev v
-2D mrežo, kjer se procesirajo poti med vozlišči (slika \ref{algorithm_line},
-prehod iz mreže \textbf{2} v mrežo \textbf{3}). To je problem ekvivalenten iskanju predslik
-(zvenih poti v grafu) za 1D CA, za kar se uporabi algoritem, opisan v \cite{JerasDobnikar2007}.
-Rezultat so poti na prerezu med ploskvami (slika \ref{algorithm_line}, mreža \textbf{4},
-končni robni pogoj je odebeljen).
-Končni robni pogoj je ekvivalenten nizu prekrivanja okolic \(o_{y^+}\).
+Problem se reducira iz 3D mreže in procesiranja ploskev v 2D mrežo,
+kjer se procesirajo poti med vozlišči (slika \ref{algorithm_line},
+prehod iz mreže \textbf{2} v mrežo \textbf{3}).
+To je problem, ekvivalenten štetju in izpisu predslik za 1D CA,
+za kar sem uporabil algoritem, opisan v \cite{JerasDobnikar2007}.
+Rezultat je nabor končnih robnih pogojev \(e_{\uparrow}\)
+(slika \ref{algorithm_line}, mreža \textbf{4}, končni robni pogoj je odebeljen).
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=algorithm_line,width=14cm}}
@@ -1347,20 +1365,19 @@ Končni robni pogoj je ekvivalenten nizu prekrivanja okolic \(o_{y^+}\).
 Nabor okolic/ploskev za posamezno celico je arbitraren. Izbran je tako, da poudari korake algoritma.}
 \label{algorithm_line}
 \end{figure}
+\vspace{5mm}
 
-Po procesiranju nabora vseh začetnih robnih pogojev nastane nabor vseh končnih robnih pogojev.
+Po procesiranju nabora vseh začetnih robnih pogojev \(e_{\downarrow}\)
+nastane nabor vseh končnih robnih pogojev \(e_{\uparrow}\).
 Ta nabor se v naslednjem koraku uporabi kakor začetni robni pogoj za naslednjo vrstico.
 
-Nabor vseh možnih poti na meji vrstice raste eksponentno z dolžino vrstice.
-Število vseh poti se izračuna iz števila celic, ki se prekrivajo med okolicama dveh vrstic.
-Za deljenje po vrsticah v dimenziji X je ta nabor velikosti \( |S|^{(M_y-1)(M_x-1+N_x)} \).
-Posledično kompleksnost algoritma raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
+Zaradi procesa izpisa poti v grafu,
+procesna raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
 
 \subsection{Procesiranje polja v dimenziji Y}
 
 V drugi dimenziji se procesira zaporedje vrstic od prve do zadnje (slika \ref{algorithm_list}).
 Vsaka vrstica se začne in konča z robnim pogojem.
-Ti robni pogoji so prerezi ploskev v celotni mreži predslik.
 Vsako vrstico je potrebno v drugi dimenziji procesirati le enkrat, kar pomeni,
 da je računska zahtevnost linearno odvisna od števila vrstic \(O(N_y)\).
 
@@ -1376,10 +1393,12 @@ Vsota uteži vseh končnih robov daje število predslik celotne mreže.
 Z uporabo Boolove algebre namesto operacij množenja in seštevanja
 je možno poenostaviti iskanje predslik samo na njihov obstoj za opazovani robni pogoj.
 Uteži postanejo binarne vrednosti \(w \in \{0, 1\}\).
+Predslika ali delna predslika obstaja, če je njena utež neničelna \(w>0\).
+Za preverjanje tega pogoja ni potrebno štetje, zadoščajo že logične operacije.
 
 \section{Izpis predslik}
 
-Algoritem za izpis predslik je nadaljevaje algoritma za štetje.
+Algoritem za izpis predslik je nadaljevanje algoritma za štetje.
 Začne z znanim številom predslik, ki ga je dalo štetje, in izpisuje predslike
 po vrsticah v obratni smeri, kakor je potekalo štetje (od zadnje do prve vrstice).
 Pridobljen seznam predslik je sortiran. Smer sortiranja je odvisna od smeri procesiranja.
@@ -1395,8 +1414,6 @@ začne pri zadnji vrstici in konča pri prvi vrstici (slika \ref{algorithm_list}
 Z vsakim korakom se izloča še preostale slepe poti iz mreže predslik.
 Za vsako vrstico je potrebno ponovno rešiti 1D problem,
 le da sta začetni in končni rob zamenjana.
-Začetni rob je zaporedje prekrivanja okolic \(o_{y^+}\)
-in končni rob zaporedje prekrivanja okolic \(o_{y^-}\).
 
 Hkrati je možno še izpisovati predslike. Že na začetku procesiranja v obratni smeri
 je znano število vseh predslik, kar omogoča rezervacijo pomnilnika in inicializacijo seznama predslik.
@@ -1416,14 +1433,17 @@ ki tvorijo zvezne ploskve na celotnem polju celic.
 \label{algorithm_list}
 \end{figure}
 
-Algoritem tukaj ni podrobno opisan, je pa preprosta razširitev algoritma uporabljenega
-za 1D CA, opisanega v \cite{JerasDobnikar2007}. Za podrobnosti je na voljo izvorna koda \cite{Jeras2016-algirithm}.
+TODO >>>
+
+SEM PRIDE PSEUDO-KODA
+
+<<< TODO 
 
 \section{Nezmožnost štetja z linearno zahtevnostjo}
 
 Podan je primer, ki kaže, zakaj procesiranje z linearno zahtevnostjo ni mogoče.
 
-Cilj raziskovalnega dela za to raziskovalno nalogo je bil poiskati
+Cilj raziskovalnega dela je bil poiskati
 učinkovit algoritem za iskanje predslik 2D CA. Na podlagi izkušenj z 1D CA
 sem optimistično pričakoval, da bo možno problem rešiti v linearnem času.
 
@@ -1460,23 +1480,35 @@ Veljavni robni pogoj je odebeljen, neveljavni pa črtkan.}
 \label{algorithm_issue}
 \end{figure}
 
+
+
+
 \chapter{Primerjava z znanimi algoritmi}
 
 Obstoječi algoritmi za predslike 2D CA se osredotočajo izključno na GoL.
-Največ algoritmov je namenjenih iskanju stanj GoE, skratka, preverjajo le
-obstoj predslik in jih ne štejejo ali izpisujejo. Tukaj opisani algoritem
-je zamišljen bolj univerzalno za poljuben 2D CA. Vendar univerzalnost v
-praksi ni ravno pomembna, saj izven raziskovalcev GoL ni dosti zanimanja
-za teoretične probleme, kakor je iskanje predslik.
+Največ algoritmov je namenjenih iskanju stanj GoE, skratka,
+preverjajo le obstoj predslik in jih ne štejejo ali izpisujejo.
+Naslednja skupina algoritmov sicer izpisuje predslike,
+ampak tega ne počne sistematično,
+ampak je njihov cilje poiskati le eno ali nekaj predslik.
+Algoritmi, ki so namenjeni dejanskemu štetju in izpisu vseh predslik so redki.
+
+Zelo redki so tudi akademski prispevki,
+kjer bi bil kak algoritem povezan s predslikami 2D CA tudi strokovno opisan.
 
 \section{Iskanje stanj GoE za GoL}
 
-Conway je leta 1970 predstavil CA po imenu GoL. Že leta 1971 sta Roger Banks in Steve Ward
+Conway je leta 1970 predstavil CA po imenu \emph{Game of Life},
+ki je kmalu začel nabirati navdušence.
+Del teh je zanimalo, če v GoL obstajajo stanja brez predslik imenovana \emph{Garden of Eden}.
+Nekateri so se lotili raziskovanja in Martin Gardner je obstoj GoE stanj dokazal teoretično \cite{WikiGoE}.
+Spet drugi so se lotili iskanja takega stanja.
+Že leta 1971 sta Roger Banks in Steve Ward
 predstavila prvo stanje GoE velikosti \(9 \times 33\) celic.
 Odkritje je bilo objavljeno v \cite{Lifeline3}. Kasneje je Don Woods
 \cite{Lifeline3, Lifeline4} s pomočjo računalnika dokazal, da je stanje res GoE.
 
-Woodsov algoritem, tako kakor moj, deluje na vrsticah.
+Woodsov algoritem deluje po principu sestopanja. Polje celic razdeli v vrstice.
 Začne z eno vogalno celico, katere nabor predslik je kar nabor okolic,
 ki se preslikajo v stanje celice. V naslednjem koraku opazuje sosednjo celico v vrstici.
 Za vse kombinacije okolic dodane celice in obstoječi nabor predslik preveri,
@@ -1491,9 +1523,9 @@ Temu je tako, ker imajo v praksi tudi deli konfiguracije GoE malo predslik.
 Algoritem bi bil za konfiguracije z dosti predslikami veliko bolj pomnilniško in časovno potraten.
 
 Nicolay Beluchenko je poiskal večje število stanj GoE velikosti \(11 \times 11\).
-Sicer ne poznam vseh njegovih pristopov, ampak vsaj v enem primeru je uporabljal
-podoben algoritem kakor Woods. Začel je z osrednjo celico in dodajal nove celice
-v spirali okoli osrednje. Za vrednost dodane celice je uporabil tisto, ki je dala manjši nabor predslik.
+Vsaj v enem primeru je uporabljal podoben algoritem kakor Woods.
+Začel je z osrednjo celico in dodajal nove celice v spirali okoli osrednje.
+Za vrednost dodane celice je uporabil tisto, ki je dala manjši nabor predslik.
 Algoritem zaključi, ko z novo dodano celico ni več možno tvoriti predslik.
 
 Leta 1974 je Duparc \cite{Duparc1972, Duparc1974} razvil drugačen algoritem,
@@ -1509,7 +1541,7 @@ takratne in sedanje strojne opreme že za kratke vrstice.
 Dokaže le, da za vrstice dolžine 1 ne obstaja stolpec, ki bi bil stanje GoE.
 Originalni članek je v francoščini, tako da lahko algoritem opišem le na podlagi tega, kako ga opisujejo drugi.
 
-V zadnjih letih podoben algoritem uporablja Steven Eker (CSL, SRI International, California, USA).
+V zadnjih letih podoben algoritem uporablja Steven Eker (CSL, SRI International, California, USA) \cite{achim-orphan}.
 Dokazal je, da za pravokotne konfiguracije višine 2 in 3 ne obstajajo stanja GoE.
 Dokaz za konfiguracije višine 4 z danim algoritmom še vedno presega sposobnosti sodobne strojne opreme.
 Število stanj avtomata, ki opisuje jezik GoE, namreč raste eksponentno z višino.
@@ -1519,43 +1551,38 @@ Tako imamo za sedaj na voljo le zgoraj navedene podatke.
 
 Drugačen algoritem uporablja Marijn Heule \cite{Hartman2013}.
 S sodelavci je zapisal vsa prekrivanja za določeno stanje v obliki binarnih enačb.
-Te je nato predal orodju za reševanje SAT problemov.
+Te je nato predal orodju za reševanje problemov SAT.
 Če rešitev ne obstaja, pomeni, da je stanje GoE.
 Uporabljena je dodatna predpostavka, da bo rešitev zrcalno simetrična v obeh dimenzijah,
 kar občutno zmanjša velikost problema.
 Algoritem je še dodatno optimiziran za iskanje stanj GoE in
 omogoča pregled večjega števila podobnih stanj.
 Ob spremembi vrednosti ene same celice omogoča uporabo delnih rezultatov prejšnjega izračuna.
-SAT metode ne poznam dobro, tako da ne morem primerjati procesne zahtevnosti.
 
-\section{Iskanje predslik GoL na splošno}
+\section{Ne sistematično iskanje predslik GoL}
 
 Erlan \cite{Erlan2012} je predstavil igro, pri kateri se za dano stanje
 GoL išče predslike. To dejansko ni implementacija algoritma za iskanje predslik,
 je pa vzpodbudil druge k iskanju takega algoritma.
 
 Spletna stran \url{kaggle.com} je pripravila tekmovanje \cite{kaggle2013},
-kjer so morali kandidati reševati problem iskanja predslik. Podali so
-nabor stanj, za katere je treba poiskati predslike, in nabor učnih sekvenc.
+kjer so morali kandidati reševati problem iskanja predslik.
+Podali so nabor stanj, za katere je treba poiskati predslike več korakov v preteklost.
+Podali so tudi nabor učnih sekvenc.
 Pričakovali so rešitev, ki temelji na strojnem učenju ali optimizaciji,
 torej fokus ni bil na eksaktni rešitvi.
+Cilj tudi nikakor ni bil prešteti ali izpisati vse predslike,
+temveč so se morali kandidati le čim bolj približati učni sekvenci.
 
 Pri iskanju implementacij algoritma, sem našel Atabot \cite{Borah2013},
-Celični kronometer \cite{Duxbury2013} in program baziran na SAT metodi \cite{Pigorsch2015}.
+Celični kronometer \cite{Duxbury2013} in program, baziran na metodi SAT \cite{Pigorsch2015}.
 Cilj teh algoritmov sicer je iskanje predslik, ampak iskanje ni sistematično
 in cilj ni nabor vseh možnih predslik.
 Algoritmi se tudi poslužujejo določene hevristike pri iskanju.
 
-\section{Polni algoritmi za štetje in izpis predslik}
+Našel sem še aplikacijo, napisano v jeziku APL \cite{ionreq2013}.
 
-Opisani algoritmi za iskanje stanj GoE, na primer Woods,
-sicer omogočajo iskanje vseh predslik, ampak to ni njihov glavni namen.
-Optimizirani so le za stanja GoE, kjer je predslik malo tudi za samo del konfiguracije GoE.
-Predvsem niso optimizirani za splošen primer, kjer je lahko predslik veliko,
-posledično so potratni s porabo pomnilnika.
-Morda bi bilo možno optimizirati porabo pomnilnika,
-tako da bi algoritem hranil le tekoče razlike med predslikami, namesto da jih hrani v celoti.
-Nekaj podobnega počne moj algoritem, ko šteje le robove, in ne hrani celotnih predslik.
+\section{Sistematični algoritmi za štetje in izpis predslik}
 
 Našel sem le eno aplikacijo, ki je namenjena štetju in izpisu vseh predslik.
 Neil Bickford \cite{Bickford2012} prav tako kakor ostali procesira konfiguracijo
@@ -1565,11 +1592,63 @@ kvadratnih podsklopov konfiguracij. Na žalost poda primerjavo med različnimi a
 le kakor procesni čas za posamezno implementacijo, ne pa tudi bolj splošne
 ocene maksimalne in povprečne procesne/pomnilniške zahtevnosti.
 
-Našel sem še aplikacijo, napisano v jeziku APL \cite{ionreq2013}.
-Dokumentacija te aplikacije ni dovolj jasna, da bi bilo očitno, kaj točno počne.
-Iz primera pa sklepam, da je sposobna poiskati vse predslike.
+Opisani algoritmi za iskanje stanj GoE, na primer Woods,
+sicer omogočajo iskanje vseh predslik, ampak to ni njihov glavni namen.
+Optimizirani so le za stanja GoE, kjer je predslik malo tudi za samo del konfiguracije GoE.
+Predvsem niso optimizirani za splošen primer, kjer je lahko predslik veliko,
+posledično so potratni s porabo pomnilnika.
+Morda bi bilo možno optimizirati porabo pomnilnika,
+tako da bi algoritem hranil le tekoče razlike med predslikami, namesto da jih hrani v celoti.
+
+
+
 
 \chapter{Sklepne ugotovitve}
+
+\section{Dokazovanje}
+
+Magistrska naloga je bolj skopa z dokazi.
+Za 1D CA sem uporabljal neposredno dokaze iz teorije grafov \cite{JerasDobnikar2007},
+pri 2D CA pa mreža predslik ni običajen graf,
+tako da dokazovanje s teorijo grafov ni tako preprosto.
+Verjetno pa je možno pretvoriti dani graf v dualno obliko s transformacijo zvezda-trikot.
+Če obstaja dualna oblika grafa, kjer ni ploskev, temveč samo vozlišča in povezave,
+bi jo lahko uporabili za izpeljavo in dokazovanje dejanske računske kompleksnosti problema.
+
+Nekajkrat sem preveril rezultate, ki jih daje implementacija algoritma.
+Za dano vhodno stanje sem vsako predsliko s tranzicijsko funkcijo
+pretvoril nazaj v sedanjost in rezultat primerjal z vhodnim stanjem.
+Preveril sem še, če so vse naštete predslike enolične.
+Za nekaj manjših primerov, sem tudi poiskal predslike z metodo surove sile.
+Na ta način nisem našel nobene napake v algoritmu.
+
+Nazadnje sem še primerjal rezultate s programom RetroGUI \cite{Bickford2012}
+in ugotovil da se ujemajo.
+
+\section{Doprinos}
+
+Glavni doprinos magistrske naloge je aplikacija
+naprednih algoritmov razvitih za 1D CA na 2D problem.
+Večina znanih algoritmov uporablja metodo sestopanja,
+ki se sicer izkaže, če je predslik relativno malo,
+je pa neprimerna za situacije, ko je predslik relativno veliko.
+
+Tukaj opisan algoritem za štetje predslik ima predvidljivo porabo pomnilnika,
+ki je asimptotično manjša od porabe pomnilnika pri sestopanju \(O(C^{N_x N_y})\) (podajam brez dokaza).
+Algoritem za izpis predslik je striktno ločen od štetja in
+ima linearno zahtevnost v odvisnosti od števila predslik, kar je optimalno.
+
+Grafična upodobitev mreža predslik omogoča boljše razumevanje problema predslik
+in lahko olajša dokumentiranje algoritmov.
+Obtežena mreža predslik tudi nakazuje,
+prostorsko razporeditev izgube informacije.
+
+Na zadnje, je opisani algoritem je zamišljen univerzalno, za poljuben 2D CA.
+Čeprav univerzalnost v praksi ni ravno pomembna,
+saj izven raziskovalcev GoL ni dosti zanimanja za teoretične probleme,
+kakor je iskanje predslik.
+
+\section{Zanimivi tematsko povezani problemi}
 
 Probleme, povezane z iskanjem predslik, lahko delimo v nivoje glede na zahtevnost:
 \begin{enumerate}[noitemsep,nolistsep]
@@ -1586,7 +1665,7 @@ Problem reverzibilnosti je na splošno dokazano nerešljiv \cite{Kari1989}.
 Problem jezika stanj GoE je za 1D preprosto rešljiv, za 2D pa je
 verjetno podobno kakor vprašanje reverzibilnosti nerešljiv.
 
-\section{Analiza 2D CA s pomočjo končnih avtomatov}
+\subsection{Analiza 2D celičnih avtomatov s pomočjo končnih avtomatov}
 
 Problem jezika stanj brez predslik bi potreboval teorijo 2D formalnega jezika, ki še ne obstaja.
 Kljub temu je možno zastaviti probleme, ki se jih da preslikati v končni avtomat.
@@ -1615,7 +1694,7 @@ Podobno so verjetno tudi pri 2D CA konfiguracije GoE večje pri pravilih,
 ki omogočajo kompleksno dinamiko delcev. Verjetno bi bilo možno to izkoristiti
 za iskanje zanimivih pravil v okolici quad.
 
-\section{Izboljšave podanega algoritma}
+\subsection{Izboljšave podanega algoritma}
 
 Implementacijo algoritma je možno izboljšati, tako da zahtevnost
 ne raste tako hitro z velikostjo problema.
@@ -1630,7 +1709,7 @@ Morda bi bilo možno vnaprej določiti zgornjo mejo števila ne-ničelnih robov.
 To bi omogočalo zgodnjo oceno, če je izračun za dan problem izvedljiv.
 Na primer, če bi v vrstičnem procesiranju obravnavali vse začetne robove hkrati,
 namesto vsakega posebej, bi dobili prevelik nabor končnih robov.
-Tak nabor bi vedno vseboval vse pravilne končne robove, in še nekaj napačnih.
+Tak nabor bi vedno vseboval vse pravilne končne robove in še nekaj napačnih.
 Ampak skupno število bi bilo lahko občutno manjše od polnega nabora.
 To število bi lahko uporabili za oceno porabe pomnilnika in časa.
 Na ta način bi bilo možno reševati probleme, ki so na meji tega,
@@ -1650,25 +1729,6 @@ Procesiranje v algoritmu poteka v gnezdenih zankah in v znanem vrstnem redu.
 Le manjši del dostopov do pomnilnika je naključen.
 Zaporednost podatkov že sama po sebi omogoča dobro optimizacijo dostopa do predpomnilnika,
 tako da na tem področju ni dosti očitnih optimizacij.
-
-\section{Dokazovanje}
-
-Magistrska naloga je bolj skopa z dokazi.
-Za 1D CA sem uporabljal neposredno dokaze iz teorije grafov,
-pri 2D CA pa mreža predslik ni običajen graf,
-tako da dokazovanje s teorijo grafov ni tako preprosto.
-Verjetno pa je možno pretvoriti dani graf v dualno obliko s transformacijo zvezda-trikot.
-Če obstaja dualna oblika grafa, kjer ni ploskev, temveč samo vozlišča in povezave,
-bi jo lahko uporabili za izpeljavo in dokazovanje dejanske računske kompleksnosti problema.
-
-Nekajkrat sem preveril rezultate, ki jih daje implementacija algoritma.
-Za dano vhodno stanje sem vsako predsliko s tranzicijsko funkcijo
-pretvoril nazaj v sedanjost in rezultat primerjal z vhodnim stanjem.
-Ker je moj algoritem vračal za dva velikostna razreda več predslik,
-kakor referenčna aplikacija RetroGUI \cite{Bickford2012},
-sem tudi preveril, če so vse naštete predslike enolične.
-Za nekaj manjših primerov, sem tudi poiskal predslike z brute force metodo.
-Na ta način nisem našel nobene napake v algoritmu.
 
 %********************************************
 
