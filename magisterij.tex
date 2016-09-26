@@ -659,10 +659,10 @@ Na desni imamo prekrivanje \(o_{\rightarrow}(x)\) med okolicama \(n(x)\) in \(n(
 Indeksa levega prekrivanja \(o_{\leftarrow}(x)\) ter desnega prekrivanja \(o_{\rightarrow}(x)\) prekrivanj in nabor možnih prekrivanj so:
 
 \begin{equation}
-o_{\leftarrow}(x) = \sum_{i=0}^{i=M-2} |S|^i \cdot c_{x+i}
+o_{\leftarrow}(x) = \sum_{i=0}^{i=M-2} |S|^i \cdot c(x+i)
 \end{equation}
 \begin{equation}
-o_{\rightarrow}(x) = \sum_{i=1}^{i=M-1} |S|^i \cdot c_{x+i}
+o_{\rightarrow}(x) = \sum_{i=1}^{i=M-1} |S|^i \cdot c(x+i)
 \end{equation}
 \begin{equation}
 o \in \{0, 1, \ldots, |S|^M-2\}
@@ -780,7 +780,7 @@ S^M = \{ 0, 1, \ldots, {\lvert S \rvert}^M -1 \}
 Indeks okolice je (sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}):
 
 \begin{equation}
-n(x,y) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-1 \\ j=M_y-1}} |S|^{M_x j + i} \cdot c_{x+i,y+j}
+n(x,y) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-1 \\ j=M_y-1}} |S|^{M_x j + i} \cdot c(x+i,y+j)
 \end{equation}
 \begin{equation}
 n \in \{0, 1, \ldots, |S|^{M_x M_y}-1\}
@@ -814,10 +814,10 @@ da je začetna ali referenčna celica v spodnjem levem kotu.
 Okolice se v smeri dimenzije X prekrivajo za ploskev velikosti \((M_x-1) \times M_y\) (sliki \ref{overlap_dimension_moore} in \ref{overlap_dimension_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
-o_{\leftarrow}(x,y) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-2 \\ j=M_y-1}} |S|^{(M_x-1) j + i} \cdot c_{x+i,y+j}
+o_{\leftarrow}(x,y) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-2 \\ j=M_y-1}} |S|^{(M_x-1) j + i} \cdot c(x+i,y+j)
 \end{equation}
 \begin{equation}
-o_{\rightarrow}(x,y) = \sum_{\substack{i=1 \\ j=0}}^{\substack{i=M_x-1 \\ j=M_y-1}} |S|^{(M_x-1) j + i} \cdot c_{x+i,y+j}
+o_{\rightarrow}(x,y) = \sum_{\substack{i=1 \\ j=0}}^{\substack{i=M_x-1 \\ j=M_y-1}} |S|^{(M_x-1) j + i} \cdot c(x+i,y+j)
 \end{equation}
 \begin{equation}
 o_{\leftrightarrow} \in \{0, 1, \ldots, |S|^{(M_x-1)M_y}-1\}
@@ -826,10 +826,10 @@ o_{\leftrightarrow} \in \{0, 1, \ldots, |S|^{(M_x-1)M_y}-1\}
 Okolice se v smeri dimenzije Y prekrivajo za ploskev velikosti \(M_x \times (M_y-1)\) (sliki \ref{overlap_dimension_moore} in \ref{overlap_dimension_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
-o_{\downarrow}(x,y) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-1 \\ j=M_y-2}} |S|^{M_x j + i} \cdot c_{x+i,y+j}
+o_{\downarrow}(x,y) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-1 \\ j=M_y-2}} |S|^{M_x j + i} \cdot c(x+i,y+j)
 \end{equation}
 \begin{equation}
-o_{\uparrow}(x,y) = \sum_{\substack{i=0 \\ j=1}}^{\substack{i=M_x-1 \\ j=M_y-1}} |S|^{M_x j + i} \cdot c_{x+i,y+j}
+o_{\uparrow}(x,y) = \sum_{\substack{i=0 \\ j=1}}^{\substack{i=M_x-1 \\ j=M_y-1}} |S|^{M_x j + i} \cdot c(x+i,y+j)
 \end{equation}
 \begin{equation}
 o_{\updownarrow} \in \{0, 1, \ldots, |S|^{M_x(M_y-1)}-1\}
@@ -854,16 +854,16 @@ Okolice se prekrivajo v 2 celicah od 4.}
 Okolice se v diagonalni smeri prekrivajo za ploskev velikosti \((M_x-1) \times (M_y-1)\) (sliki \ref{overlap_diagonal_moore} in \ref{overlap_diagonal_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
-o_{\swarrow} = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-2 \\ j=M_y-2}} |S|^{(M_x-1) j + i} \cdot c_{x+i,y+j}
+o_{\swarrow} = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-2 \\ j=M_y-2}} |S|^{(M_x-1) j + i} \cdot c(x+i,y+j)
 \end{equation}
 \begin{equation}
-o_{\searrow} = \sum_{\substack{i=1 \\ j=0}}^{\substack{i=M_x-1 \\ j=M_y-2}} |S|^{(M_x-1) j + i} \cdot c_{x+i,y+j}
+o_{\searrow} = \sum_{\substack{i=1 \\ j=0}}^{\substack{i=M_x-1 \\ j=M_y-2}} |S|^{(M_x-1) j + i} \cdot c(x+i,y+j)
 \end{equation}
 \begin{equation}
-o_{\nwarrow} = \sum_{\substack{i=0 \\ j=1}}^{\substack{i=M_x-2 \\ j=M_y-1}} |S|^{(M_x-1) j + i} \cdot c_{x+i,y+j}
+o_{\nwarrow} = \sum_{\substack{i=0 \\ j=1}}^{\substack{i=M_x-2 \\ j=M_y-1}} |S|^{(M_x-1) j + i} \cdot c(x+i,y+j)
 \end{equation}
 \begin{equation}
-o_{\nearrow} = \sum_{\substack{i=1 \\ j=1}}^{\substack{i=M_x-1 \\ j=M_y-1}} |S|^{(M_x-1) j + i} \cdot c_{x+i,y+j}
+o_{\nearrow} = \sum_{\substack{i=1 \\ j=1}}^{\substack{i=M_x-1 \\ j=M_y-1}} |S|^{(M_x-1) j + i} \cdot c(x+i,y+j)
 \end{equation}
 \begin{equation}
 o_{\times} \in \{0, 1, \ldots, |S|^{(M_x-1)(M_y-1)}-1\}
@@ -985,14 +985,29 @@ ki je na splošno neodvisen od stanja celice.
 Ta posplošitev je uporabljena za konstrukcijo umetnih mrež predslik,
 ki poudarjajo konkretne probleme, povezane s kompleksnostjo algoritma.
 
-\subsection{Prekrivanje predslik}
+\subsection{Prekrivanje predslik in prerez}
 
 Če polje 2D celičnega avtomata razdelimo na dva dela
 lahko definiramo predsliko za vsak del posebej.
 Tukaj se bomo omejili na ravne prereze polja,
 čeprav je na splošno mogoče definirati poljuben prerez.
 
+Prerez v smeri dimenzije X na koordinati \(y\) je definiran kakor:
+\begin{equation}
+e_{\leftrightarrow}(y) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=N_x+M_x-1 \\ j=M_y-1}} |S|^{(N_x-1) j + i} \cdot c(i,y+j)
+\end{equation}
+\begin{equation}
+e_{\leftrightarrow} \in \{0, 1, \ldots, |S|^{(N_x+M_x-1)(M_y-1)}-1\}
+\end{equation}
+Prerez v smeri dimenzije Y na koordinati \(x\) je definiran kakor:
+\begin{equation}
+e_{\updownarrow}(x) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-1 \\ j=N_y+M_y-1}} |S|^{(N_x-1) j + i} \cdot c(x+i,j)
+\end{equation}
+\begin{equation}
+e_{\updownarrow} \in \{0, 1, \ldots, |S|^{(M_x-1)(N_y+M_y-1)}-1\}
+\end{equation}
 
+Prerezi se uporabljajo za zapis vmesnih rezultatov pri algoritmih za iskanje predslik 2D CA.
 
 \subsection{Primer}
 
@@ -1247,18 +1262,15 @@ Opisani algoritem razdeli polje celic na vrstice v dimenziji X.
 Delitev po stolpcih v dimenziji Y bi bila ekvivalentna, tako da je to arbitrarna odločitev.
 S stališča procesne zahtevnosti je najbolje izbrati krajšo dimenzijo.
 
-
-Robni pogoj 
 Na podlagi zunanjega robnega pogoja algoritem najprej poišče nabor predslik za prvo vrstico.
 Nabor predslik izračuna kakor uteži za robove na nasprotni strani od začetne.
 Seznam robov in njihove uteži uporabi kakor vhodni robni pogoji za naslednjo vrstico.
 Robne uteži, izračunane za zadnjo vrstico, predstavljajo število vseh predslik.
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=network_array,width=14cm}}
-\caption[Mreža polja celic.]{Mreža velikosti \(N_x=3\) in \(N_y=3\) za binarni CA z okolico quad.
-Poudarjena je ena zvezna ploskev in njen zvezen rob. Konfiguracija pripadajoče predslike je izpisana.}
-\label{network_array}
+\centerline{\psfig{figure=algorithm_count-y,width=14cm}}
+\caption[Algoritem.]{Algoritem.}
+\label{algoritm}
 \end{figure}
 
 \subsection{Procesiranje v eni dimenziji}
