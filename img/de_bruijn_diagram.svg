@@ -176,9 +176,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.6355172"
-     inkscape:cx="414.57795"
-     inkscape:cy="87.058336"
+     inkscape:zoom="1.6722525"
+     inkscape:cx="320.83487"
+     inkscape:cy="58.537022"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -784,8 +784,8 @@
          x="566.77124"
          y="737.18164"
          style="font-size:20px">o<tspan
-   style="font-size:20px;baseline-shift:sub"
-   id="tspan4272">←</tspan>(x+1)</tspan></text>
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan4374">→</tspan>(x+1)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:17.5px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -798,7 +798,18 @@
          x="424.99176"
          y="737.18164"
          style="font-size:20px">o<tspan
-   style="font-size:20px;baseline-shift:sub"
-   id="tspan4274">→</tspan>(x)</tspan></text>
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan4376">←</tspan>(x)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:17.5px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="544.77423"
+       y="735.42444"
+       id="text4364"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4366"
+         x="544.77423"
+         y="735.42444"></tspan></text>
   </g>
 </svg>

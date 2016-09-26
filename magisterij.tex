@@ -1084,9 +1084,9 @@ Harold V. McIntosh \cite{McIntosh1991} in njegova skupina \cite{Soto2008}
 so priredili De Bruijnove grafe za potrebe analize 1D CA (slika \ref{de_bruijn_diagram} levo).
 Vozlišča predstavljajo nabor možnih prekrivanj med okolicami,
 poti med njimi pa okolice, ki se v vrednosti celic ujemajo s temi prekrivanji.
-Tranzicijska funkcija pripiše vsaki okolici stanje celice,
+Tranzicijska funkcija pripiše vsaki okolici stanje celice;
 posledično so poti med vozlišči označene z vrednostmi iz tranzicijske tabele.
-De Bruijnove Grafe nato razdelimo na podgrafe za vsako stanje celice.
+De Bruijnove grafe nato razdelimo na podgrafe za vsako stanje celice.
 Podgraf vsebujejo le tiste poti, katerih pripadajoče okolice se preslikajo v eno od stanj celice.
 De Bruijnov podgraf predstavlja nabor vseh preteklosti celice z danim stanjem.
 
@@ -1099,23 +1099,23 @@ S prekinjeno črto so predstavljene kopije vozlišč.}
 \label{de_bruijn_diagram}
 \end{figure}
 
-\section{Mreža predslik 1D CA}
+\section{Mreža predslik 1D celičnih avtomatov}
 
-Razvil sem \cite{JerasDobnikar2007} modificirano upodobitev De Bruijnovega grafa,
-kjer so originalna vozlišča (prekrivanja \(o\)) podvojena,
-in gredo poti (okolice \(n\)) vedno od originala \(o_{\rightarrow}\)
-proti dvojniku \(o_{\leftarrow}\) (slika \ref{de_bruijn_diagram} desno).
+Razvil sem \cite{JerasDobnikar2007} modificirano upodobitve De Bruijnovega grafa,
+kjer so originalna vozlišča (prekrivanja \(o\)) podvojena
+in gredo poti (okolice \(n\)) vedno od originala \(o_{\leftarrow}\)
+proti dvojniku \(o_{\rightarrow}\) (slika \ref{de_bruijn_diagram} desno).
 Tako upodobitev sem poimenoval \textbf{graf predslik}.
 
 Graf predslik omogoča \textbf{nizanje} grafov v \textbf{mrežo predslik}.
-Dvojniki vozlišč za trenutno celico \(o_{\leftarrow}(x)\) se ujemajo z
-originalnimi vozlišči za naslednjo celico \(o_{\rightarrow}(x+1)\) (slika \ref{network_rule110_quiescent}).
-Medtem ko osnovni De Bruijnov graf opisuje okolico le ene same celice,
+Dvojniki vozlišč za trenutno celico \(o_{\rightarrow}(x)\) se ujemajo z
+originalnimi vozlišči za naslednjo celico \(o_{\leftarrow}(x+1)\) (slika \ref{network_rule110_quiescent}).
+Medtem ko osnovni De Bruijnov graf opisuje okolico ene same celice,
 nizan graf opisuje okolice niza celic.
 Nizan graf sem poimenoval mreža predslik,
 saj predstavlja nabor vseh predslik celotne konfiguracije.
 Število predslik je enako številu vseh poti,
-ki povezujejo eden in drugi rob.
+ki povezujejo en in drugi rob.
 
 \textbf{Robni pogoji} 1D CA so definirani na levem in desnem koncu,
 ki omejujeta končno število celic znotraj neskončnega niza (premica).
@@ -1125,13 +1125,13 @@ Lahko si jih predstavljamo tudi kakor vpliv pol neskončnega niza celic (poltrak
 ki sega izven roba opazovane konfiguracije.
 Podrobneje so robni pogoji 1D CA definirani v \cite{JerasDobnikar2007}.
 
-\section{Mreža predslik 2D CA}
+\section{Mreža predslik 2D celičnih avtomatov}
 
 \subsection{Graf predslik}
 
-Za potrebe opisa 2D celičnih avtomatov je bila elementom
-grafa predslik dodana nova dimenzija. Povezave med vozlišči se spremenijo
-v ploskve, vozlišča pa se spremenijo v robove ploskev.
+Za potrebe opisa 2D CA je bila elementom grafa predslik dodana nova dimenzija.
+Povezave med vozlišči se spremenijo v ploskve,
+vozlišča pa se spremenijo v robove ploskev.
 Elementi celičnega avtomata, ki se preslikajo v graf, so:
 \begin{itemize}[noitemsep,nolistsep]
 \item nabor \textbf{okolic} (\(n\)) postane nabor \textbf{ploskev} (slika \ref{neighborhood_surfaces})
@@ -1150,14 +1150,14 @@ Nad vsakim vogalom je nabor vozlišč, ki predstavljajo nabor diagonalnih prekri
 \(o_{\swarrow}\), \(o_{\searrow}\), \(o_{\nwarrow}\) in \(o_{\nearrow}\).
 
 Vozlišči sosednjih vogalov v dimenziji X (\(o_{\swarrow}\) in \(o_{\searrow}\)) sta povezani,
-če sta del iste konfiguracije celic, ki predstavlja povezavo v smeri X (\(o_{\leftarrow}\)).
+če sta del iste konfiguracije celic, ki predstavlja povezavo v smeri X (\(o_{\downarrow}\)).
 Vozlišči sosednjih vogalov v dimenziji Y (\(o_{\swarrow}\) in \(o_{\nwarrow}\)) sta povezani,
-če sta del iste konfiguracije celic, ki predstavlja povezavo v smeri Y (\(o_{\downarrow}\)).
+če sta del iste konfiguracije celic, ki predstavlja povezavo v smeri Y (\(o_{\leftarrow}\)).
 
 Nastali graf (slika \ref{network_single} desno) ima poleg vozlišč in povezav med njimi tudi ploskve.
 Vogali \(o_{\swarrow}\), \(o_{\searrow}\), \(o_{\nwarrow}\) in \(o_{\nearrow}\)
 pripadajo določeni ploskvi \(n\), če so del iste konfiguracije celic.
-Podobno velja za robove \(o_{\leftarrow}\), \(o_{\rightarrow}\), \(o_{\downarrow}\) in \(o_{\uparrow}\)
+Podobno velja za robove; \(o_{\leftarrow}\), \(o_{\rightarrow}\), \(o_{\downarrow}\) in \(o_{\uparrow}\)
 pripadajo določeni ploskvi \(n\), če so del iste konfiguracije celic.
 
 Za primer je uporabljena binarna okolica quad.
@@ -1176,7 +1176,7 @@ ima vogale \(o_{\swarrow}=1\), \(o_{\searrow}=0\), \(o_{\nwarrow}=0\) in \(o_{\n
 
 \subsection{Mreža predslik}
 
-Podobno kakor je pri 1D CA možno grafe predslik nizati v mrežo predslik,
+Podobno kot je pri 1D CA možno grafe predslik nizati v mrežo predslik,
 je pri 2D CA grafe predslik možno \textbf{tlakovati} v \textbf{mrežo predslik},
 ki opisuje polje več celic.
 Nabor predslik celotnega polja je ekvivalenten naboru vseh \textit{zveznih} ploskev,
@@ -1187,12 +1187,12 @@ in ki jih je možno sestaviti iz naborov ploskev diagramov posameznih celic
 Preslikava iz zvezne ploskve v mreži predslik v konfiguracijo polja celic predslike \(B^{t-1}\) je enolična.
 Iz ploskve vsake okolice \(n(x,y)\) vzamemo izhodiščno celico
 \(c_{\swarrow}(x,y)\) (celica spodaj levo znotraj okolice).
-Nato dodamo vrstico celic višine \(M_y-1\) iz zgornjega prekrivanja na vrhu \(o_{\uparrow}(x,y=N_y-1)\),
-ter stolpec celic širine \(M_x-1\) iz desnega prekrivanja na skrajni desni \(o_{\rightarrow}(x=N_x-1,y)\).
+Nato dodamo vrstico celic višine \(M_y-1\) iz zgornjega prekrivanja na vrhu \(o_{\uparrow}(x,y=N_y)\),
+ter stolpec celic širine \(M_x-1\) iz desnega prekrivanja na skrajni desni \(o_{\rightarrow}(x=N_x,y)\).
 
 Podani primeri uporabljajo binarni CA z okolico quad.
 Za ta CA je velikost diagonalnega prekrivanja okolic ena sama celica (slika \ref{overlap_diagonal_quad});
-posledično ima nabor vozlišč le dve vrednosti, ki neposredno predstavljajo
+posledično ima nabor vozlišč le dve vrednosti, ki neposredno predstavljata
 vrednosti celic v predsliki (slika \ref{network_array}).
 
 Pravilnost razširitve diagrama ene celice v mrežo lahko dokažemo z indukcijo.
@@ -1233,7 +1233,7 @@ so dovoljene in katere ne.
 Obstaja še en enostaven robni pogoj, ki je definiran za ciklično sklenjena končna polja CA (torus).
 Ta tip robnega pogoja tukaj ne bo obravnavan, ker še dodatno poveča kompleksnost algoritmov.
 Potrebno bi bilo namreč opraviti celoten postopek iskanja predslik za vsak začetni rob posebej.
-Saj je zvezna ploskev je predslika v cikličnem polju le, če se njen začetni in končni rob ujemata.
+Saj je zvezna ploskev predslika v cikličnem polju le, če se njen začetni in končni rob ujemata.
 Pojma začetnega in končnega roba sta opisana v poglavju o algoritmu.
 V članku \cite{JerasDobnikar2007} je podrobneje opisan ta problem za 1D CA.
 
@@ -1242,20 +1242,24 @@ V članku \cite{JerasDobnikar2007} je podrobneje opisan ta problem za 1D CA.
 
 \chapter{Algoritem za štetje in izpis predslik}
 
-Pri 1D CA (glej \cite{JerasDobnikar2007}) ima algoritem za štetje predslik
+Pri 1D CA \cite{JerasDobnikar2007} ima algoritem za štetje predslik
 linearno \(O(N)\) procesno in pomnilniško zahtevnost.
 Posplošeno to pomeni, da se vsaka celica pojavi v izračunu samo enkrat.
 Vsak algoritem za štetje ima tudi logaritmično komponento,
 saj število bitov, potrebnih za zapis števcev, raste logaritmično s preštetim številom.
+Ampak ta komponenta se pozna pri implementaciji,
+šele ko velikost števcev preseže velikost registrov.
+(64 bitov zadošča za binarno polje celic \(8 \times 8\)).
 
 Za 2D CA se je izkazalo, da obstajajo problemi, ki niso rešljivi z linearno kompleksnostjo.
-Prikazani algoritem za štetje ima maksimalno eksponentno kompleksnost
-v odvisnosti od ene dimenzije in linearno kompleksnost v odvisnosti od druge dimenzije,
+Prikazanemu algoritmu raste maksimalna procesna zahtevnost
+eksponentno v odvisnosti od ene dimenzije in
+linearno v odvisnosti od druge dimenzije,
 torej \(O(C^{N_x} N_y)\) ali \(O(N_x C^{N_y})\) (\(C=|S|^M\) je konstantna velikost nabora okolic).
-Za sedaj je še neznano, če obstoja algoritem s polinomsko kompleksnostjo.
+Za sedaj je še neznano, če obstoja algoritem z manjšo maksimalno kompleksnostjo.
 
 Algoritem za izpis predslik ima ne glede na število dimenzij
-neizogibno eksponentno kompleksnost \(O(C^N)\) (\(C\) je konstanta odvisna od optimizacij),
+neizogibno eksponentno kompleksnost \(O(C^N)\) (\(C\) je konstanta, odvisna od optimizacij),
 saj maksimalno in povprečno število predslik raste eksponentno
 v odvisnosti od števila celic.
 
@@ -1291,7 +1295,7 @@ torej število vseh 2D predslik.
 
 Slika \ref{algoritm_count-y} ponazarja algoritem za procesiranje polja v dimenziji Y.
 Procesiranje se izvaja nad zgoraj opisanim grafom. TODO
-Poudarjen blok [X] v algoritmu za dimenzijo X je podoben algoritem (slika \ref{algoritm_count-x}), ki pa 
+Poudarjen blok [X] v algoritmu za dimenzijo X je podoben algoritem (slika \ref{algoritm_count-y}), ki pa 
 ne definira nabora predslik vrstice,
 potrebno ga je izračunati za vsako vrstico posebej.
 
@@ -1302,12 +1306,7 @@ potrebno ga je izračunati za vsako vrstico posebej.
 \label{algoritm_count-y}
 \end{figure}
 
-\begin{figure}[htb]
-\centerline{\psfig{figure=algorithm_count-x,width=16cm}}
-\caption[Algoritem za procesiranje niza v dimenziji X.]
-{Algoritem za procesiranje niza v dimenziji X.}
-\label{algoritm_count-x}
-\end{figure}
+
 
 \subsection{Procesiranje niza v dimenziji X}
 
