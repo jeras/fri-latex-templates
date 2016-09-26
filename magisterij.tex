@@ -1107,6 +1107,8 @@ Medtem ko osnovni De Bruijnov graf opisuje okolico le ene same celice,
 nizan graf opisuje okolice niza celic.
 Nizan graf sem poimenoval mreža predslik,
 saj predstavlja nabor vseh predslik celotne konfiguracije.
+Število predslik je enako številu vseh poti,
+ki povezujejo eden in drugi rob.
 
 \textbf{Robni pogoji} 1D CA so definirani na levem in desnem koncu,
 ki omejujeta končno število celic znotraj neskončnega niza (premica).
@@ -1209,12 +1211,6 @@ Poudarjena je ena zvezna ploskev in njen zvezen rob. Konfiguracija pripadajoče 
 \label{network_array}
 \end{figure}
 
-\subsection{Presek}
-
-\textbf{Presek} 2D mreže predslik \(P_x(x)\) je nabor zveznih poti \(e\) na koordinati \(x\).
-S stališča polja celic, je to nabor vseh možnih prekrivanj ploskev 
-
-
 \subsection{Robni pogoj}
 
 Pri 2D CA je robni pogoj definiran kakor utež sklenjene poti okoli ploskve opazovane konfiguracije celic.
@@ -1258,22 +1254,55 @@ v odvisnosti od števila celic.
 
 \section{Štetje predslik}
 
+Algoritem za štetje uporablja principe iz teorije grafov \cite{DBLP:journals/corr/cs-DL-0309023}.
+Število poti med dvema vozliščema v acikličnem usmerjenem grafu se računa tako,
+da se vsakemu vozlišču pripiše utež \(w\).
+V prvem koraku začetno vozlišče dobi utež \(w=1\).
+Vse poti, ki izhajajo iz obteženega vozlišča
+imajo utež enako uteži izvornega vozlišča.
+V naslednjih korakih se računajo uteži vozlišč,
+tako da je izhodna utež vsota vhodnih uteži \(w_{out}=\Sigma w_{in}\).
+Algoritem se zaključi, ko število opravljenih korakov doseže dolžino najdaljše poti.
+Pri celičnih avtomatih je opazovani graf mreža predslik, ki ima zelo regularno strukturo.
+Dolžina najdaljše pot je enaka velikosti ene od dimenzij polja CA.
+Poleg tega ob vsakem koraku opazujemo samo vozlišča iz enega prereza grafa.
+Za primere glej \cite{JerasDobnikar2007}.
+
 Opisani algoritem razdeli polje celic na vrstice v dimenziji X.
 Delitev po stolpcih v dimenziji Y bi bila ekvivalentna, tako da je to arbitrarna odločitev.
 S stališča procesne zahtevnosti je najbolje izbrati krajšo dimenzijo.
 
-Na podlagi zunanjega robnega pogoja algoritem najprej poišče nabor predslik za prvo vrstico.
-Nabor predslik izračuna kakor uteži za robove na nasprotni strani od začetne.
-Seznam robov in njihove uteži uporabi kakor vhodni robni pogoji za naslednjo vrstico.
-Robne uteži, izračunane za zadnjo vrstico, predstavljajo število vseh predslik.
+Ker mreža predslik ni navaden graf, temveč je razširjen s pojmom ploskve,
+je potrebno mrežo predslik pred začetkom štetja najprej preslikati v navaden graf.
+Vozlišča predstavljajo vsi možni robovi \(e_{\leftrightarrow}(y)\) na vseh presekih med vrsticami.
+Povezave med vozlišči so ploskve med dvema roboma
+\(e_{\leftrightarrow}(y)\) in \(e_{\leftrightarrow}(y+1)\),
+ki predstavljajo predslike vrstice celic.
+Uteži začetnih vozlišč \(y=0\) so kar enota,
+vsota uteži končnih vozlišč \(y=N_y\) pa je število vseh poti od začetnega do končnega roba,
+torej število vseh 2D predslik.
+
+Slika \ref{algoritm_count-y} ponazarja algoritem za procesiranje polja v dimenziji Y.
+Procesiranje se izvaja nad zgoraj opisanim grafom. TODO
+Poudarjen blok [X] v algoritmu za dimenzijo X je podoben algoritem (slika \ref{algoritm_count-x}), ki pa 
+ne definira nabora predslik vrstice,
+potrebno ga je izračunati za vsako vrstico posebej.
 
 \begin{figure}[htb]
-\centerline{\psfig{figure=algorithm_count-y,width=14cm}}
-\caption[Algoritem.]{Algoritem.}
-\label{algoritm}
+\centerline{\psfig{figure=algorithm_count-y,width=16cm}}
+\caption[Algoritem za procesiranje polja v dimenziji Y.]
+{Algoritem za procesiranje polja v dimenziji Y.}
+\label{algoritm_count-y}
 \end{figure}
 
-\subsection{Procesiranje v eni dimenziji}
+\begin{figure}[htb]
+\centerline{\psfig{figure=algorithm_count-x,width=16cm}}
+\caption[Algoritem za procesiranje niza v dimenziji X.]
+{Algoritem za procesiranje niza v dimenziji X.}
+\label{algoritm_count-x}
+\end{figure}
+
+\subsection{Procesiranje niza v dimenziji X}
 
 Procesiranje se začne z 1D nizom celic (vrstico).
 Vsaki celici v nizu pripada lastna mreža predslik, eno dimenzionalnemu nizu celic
@@ -1321,7 +1350,7 @@ Nabor vseh možnih poti na meji vrstice raste eksponentno z dolžino vrstice.
 Za deljenje po vrsticah v dimenziji X je ta nabor velikosti \( |S|^{(M_y-1)(M_x-1+N_x)} \).
 Posledično kompleksnost algoritma raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
 
-\subsection{Procesiranje v drugi dimenziji}
+\subsection{Procesiranje polja v dimenziji Y}
 
 V drugi dimenziji se procesira zaporedje vrstic od prve do zadnje (slika \ref{algorithm_list}).
 Vsaka vrstica se začne in konča z robnim pogojem.
