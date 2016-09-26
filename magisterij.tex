@@ -588,14 +588,14 @@ ki opisuje prostor predslik (mreža predslik).
 
 
 
-\chapter{Definicija CA}
+\chapter{Definicija celičnih avtomatov}
 
 Omejujemo se na celične avtomate, ki so:
-\begin{itemize}
-\item prostorsko diskretni (celice),
-\item časovno diskretni (korak),
-\item homogeni (pravila so enaka za vse celice in vse celice se posodobijo naenkrat) in
-\item deterministični (novo stanje je odvisno le od trenutnega stanja).
+\begin{itemize}[noitemsep,nolistsep]
+ \item prostorsko diskretni (celice),
+ \item časovno diskretni (korak),
+ \item homogeni (pravila so enaka za vse celice in vse celice se posodobijo naenkrat) in
+ \item deterministični (novo stanje je odvisno le od trenutnega stanja).
 \end{itemize}
 
 Vsaka celica ima diskretno vrednost \(c\) iz nabora stanj celice \(S\).
@@ -608,10 +608,10 @@ S = \{ 0, 1, \ldots, |S|-1 \}
 \end{equation}
 
 Za potrebe implementacije algoritma je pomembno,
-da smo stanje elementov CA kakor so pravilo, vrednost okolice in podobno
+da smo stanje elementov CA, kakor so pravilo, vrednost okolice in podobno,
 sposobni indeksirati.
-Uporabljena je metoda, ki je v osnovi bila namenjena zapisu pravila.
-Posplošeno, so vrednosti celic \(c(i)\) zložene v niz \(A=[c(0),c(1), \ldots, c(|A|-1)\)] dolžine \(|A|\),
+Uporabljena je metoda, ki je bila v osnovi namenjena zapisu pravila.
+Posplošeno, vrednosti celic \(c(i)\) so zložene v niz \(A=[c(0),c(1), \ldots, c(|A|-1)\)] dolžine \(|A|\),
 ki je interpretiran kakor \(|A|\) mestno pozitivno celo število \(num\) v
 \(S\)-iškem številskem sestavu (za podane primere dvojiškem).
 
@@ -619,7 +619,7 @@ ki je interpretiran kakor \(|A|\) mestno pozitivno celo število \(num\) v
 num = \sum_{i=0}^{i=|A|-1} |S|^i \cdot c(i)
 \end{equation}
 
-\section{Definicija 1D CA}
+\section{Definicija 1D celičnih avtomatov}
 
 Definicija 1D CA je tukaj na hitro povzeta po \cite{JerasDobnikar2007}.
 Za 1D CA se celice združujejo v regularen niz.
@@ -634,7 +634,7 @@ Torej je za celico \(c(x)\) njena okolica velikosti \(M\) enaka
 V praksi se podana definicija okolice razlikuje od
 bolj običajne centrirane okolice le v tem,
 kako je časovno sosledje stanj poravnano v grafični upodobitvi.
-Nekoliko neobičajno definicijo sem uporabil,
+Nekoliko neobičajno definicijo sem uporabil zato,
 ker ne potrebuje ločene interpretacije za okolice sode velikosti.
 Hkrati sem se tako izognil uporabi negativnih števil v implementaciji algoritma.
 
@@ -643,6 +643,7 @@ Hkrati sem se tako izognil uporabi negativnih števil v implementaciji algoritma
 \caption[Okolica 1D CA.]{Okolica 1D CA velikosti \(M=3\).}
 \label{neighborhood_1d}
 \end{figure}
+\vspace{5mm}
 
 Indeks okolice \(n(x)\) in nabor možnih okolic sta:
 
@@ -665,7 +666,7 @@ Na desni imamo prekrivanje \(o_{\rightarrow}(x)\) med okolicama \(n(x)\) in \(n(
 \label{overlap_1d}
 \end{figure}
 
-Indeksa levega prekrivanja \(o_{\leftarrow}(x)\) ter desnega prekrivanja \(o_{\rightarrow}(x)\) prekrivanj in nabor možnih prekrivanj so:
+Indeksa levega prekrivanja \(o_{\leftarrow}(x)\) ter desnega prekrivanja \(o_{\rightarrow}(x)\) in nabor možnih prekrivanj so:
 
 \begin{equation}
 o_{\leftarrow}(x) = \sum_{i=0}^{i=M-2} |S|^i \cdot c(x+i)
@@ -723,7 +724,7 @@ oziroma lahko zasedejo poljubno vrednost.
 Za niz dolžine \(N\) je potemtakem definiranih le \(N-(M-1)\) okolic.
 
 Drugi običajen robni pogoj je cikličen, kjer je niz celic sklenjena zanka.
-Ciklično koordinato celice \(x_{\circlearrowright}\) izračunamo iz \(x\) po modulu \(N\).
+Ciklično koordinato celice \(x_{\circlearrowright}\) izračunamo iz \(x\) po modulu \(N\):
 
 \begin{equation}
 x_{\circlearrowright} = x \bmod N
@@ -733,7 +734,7 @@ x_{\circlearrowright} = x \bmod N
 
 Globalna tranzicijska funkcija \(F\) s pomočjo lokalne tranzicijske funkcije \(f(n)\)
 preslika vsako okolico \(n^t(x)\) iz niza celic \(\alpha^t\) v času \(t\)
-v celico \(c^{t+1}(x)\) iz niza celic \(\beta^{t+1}\) v času \(t+1\).
+v celico \(c^{t+1}(x)\) iz niza celic \(\beta^{t+1}\) v času \(t+1\):
 
 \begin{equation}
 \beta^{t+1} = F (\alpha^t)
@@ -750,14 +751,14 @@ Vsaka predslika \(\beta^{t-1}\) danega niza celic \(\alpha^t\) mora ustrezati dv
 \begin{equation}
 \forall x : c^{t}(x) = f(n^{t-1}(x))
 \end{equation}
-\item Vsak par okolic \(\{n^{t-1}(x), n^{t-1}(x+1)\}\) se mora ujemati v prekrivanju.
+\item Vsak par okolic \(\{n^{t-1}(x), n^{t-1}(x+1)\}\) se mora ujemati v prekrivanju:
 \begin{equation}
 \forall x : o^{t-1}(x) = o_{\rightarrow}^{t-1}(x) = o_{\leftarrow}^{t-1}(x+1)
 \end{equation}
 \end{enumerate}
 Opazovanje prekrivanja okolic je glavni element algoritmov za iskanje predslik.
 
-\section{Definicija 2D CA}
+\section{Definicija 2D celičnih avtomatov}
 
 Za 2D CA se celice združujejo v regularno 2D polje.
 Mreža polja je lahko pravokotna, šestkotna ali celo kvazikristalna.
@@ -767,27 +768,19 @@ bolj običajna pa so končna polja,
 definirana kakor pravokotnik velikosti \(N_x \times N_y\).
 Skupno število celic v končnem polju je \(N=N_x \cdot N_y\).
 
-Za potrebe indeksiranja elementov CA, so ploskve razdeljene v vrstice,
-nato so vrstice sestavljene v niz, ki je interpretiran kakor število.
+Za potrebe indeksiranja elementov CA so ploskve razdeljene v vrstice,
+nato pa so vrstice sestavljene v niz, ki je interpretiran kakor število.
 Cifre v številu si sledijo od spodaj levo do zgoraj desno znotraj okolice
 (sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}).
 
 \subsection{Okolica}
 
-Prihodnje stanje neke celice \(c_{x,y}\) s koordinatami \((x,y)\)
-je odvisno od trenutnega stanja pripadajoče okolice \(n_{x,y}\) (slika \ref{neighborhood}).
-Tudi pri obliki okolice se bom omejil na pravokotnik velikosti \(M_x \times M_y\).
+Prihodnje stanje neke celice \(c_(x,y)\) s koordinatami \((x,y)\)
+je odvisno od trenutnega stanja pripadajoče okolice \(n_(x,y)\) (slika \ref{neighborhood}).
+Tudi pri obliki okolice se bomo omejili na pravokotnik velikosti \(M_x \times M_y\).
 Število celic v okolici je \(M=M_x \cdot M_y\).
-Na voljo je \({\lvert S \rvert}^M\) možnih okolic.
-
-\begin{equation}
-n \in S^M
-\quad \textrm{in} \quad
-S^M = \{ 0, 1, \ldots, {\lvert S \rvert}^M -1 \}
-\end{equation}
-
-Indeks okolice je (sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad}):
-
+Indeks okolice (sliki \ref{neighborhood_index_moore} in \ref{neighborhood_index_quad})
+in nabor možnih okolic sta:
 \begin{equation}
 n(x,y) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-1 \\ j=M_y-1}} |S|^{M_x j + i} \cdot c(x+i,y+j)
 \end{equation}
@@ -807,14 +800,14 @@ n \in \{0, 1, \ldots, |S|^{M_x M_y}-1\}
 \label{neighborhood_index_quad}
 \end{figure}
 
-Prostorski odnos med okolico in celico v prihodnjem stanju avtomata, ki jo ta okolica določa,
-ni podrobno definiran. Običajno se smatra, da je celica v sredini okolice, ampak za opisani algoritem to ni
-nujno pomembno. Moja implementacija algoritma celice, okolice in samo polje indeksira tako,
-da je začetna ali referenčna celica v spodnjem levem kotu.
+Običajno se smatra, da je celica poravnana s sredino svoje okolice.
+Tukaj pa je celica poravnana v levi spodnji kot svoje okolice.
+To omogoča uporabo enake definicije tudi za sode velikosti okolic in
+odpravlja potrebo po uporabi negativnih števil v algoritmu.
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood,width=16cm}}
-\caption[Velikost okolice.]{Celica \(c(x,y)\) in pripadajoča okolica \(n(x,y)\) z dimenzijama \(M_x=M_y=3\).}
+\caption[Celica in pripadajoča okolica.]{Celica \(c(x,y)\) in pripadajoča okolica \(n(x,y)\) z dimenzijama \(M_x=M_y=3\).}
 \label{neighborhood}
 \end{figure}
 
@@ -844,6 +837,7 @@ o_{\uparrow}(x,y) = \sum_{\substack{i=0 \\ j=1}}^{\substack{i=M_x-1 \\ j=M_y-1}}
 o_{\updownarrow} \in \{0, 1, \ldots, |S|^{M_x(M_y-1)}-1\}
 \end{equation}
 
+\vspace{5mm}
 \begin{figure}[htb]
 \centerline{\psfig{figure=overlap_dimension_moore,width=8cm}}
 \caption[Prekrivaje okolic \(3 \times 3\) v smeri dimenzij X in Y.]
@@ -852,6 +846,7 @@ Okolice se prekrivajo v 6 celicah od 9.}
 \label{overlap_dimension_moore}
 \end{figure}
 
+\vspace{5mm}
 \begin{figure}[htb]
 \centerline{\psfig{figure=overlap_dimension_quad,width=8cm}}
 \caption[Prekrivaje okolic \(2 \times 2\) v smeri dimenzij X in Y.]
@@ -860,6 +855,7 @@ Okolice se prekrivajo v 2 celicah od 4.}
 \label{overlap_dimension_quad}
 \end{figure}
 
+\vspace{5mm}
 Okolice se v diagonalni smeri prekrivajo za ploskev velikosti \((M_x-1) \times (M_y-1)\) (sliki \ref{overlap_diagonal_moore} in \ref{overlap_diagonal_quad}).
 To ob indeksiranju da nabor:
 \begin{equation}
@@ -878,6 +874,7 @@ o_{\nearrow} = \sum_{\substack{i=1 \\ j=1}}^{\substack{i=M_x-1 \\ j=M_y-1}} |S|^
 o_{\times} \in \{0, 1, \ldots, |S|^{(M_x-1)(M_y-1)}-1\}
 \end{equation}
 
+\vspace{5mm}
 \begin{figure}[htb]
 \centerline{\psfig{figure=overlap_diagonal_moore,width=10cm}}
 \caption[Prekrivanje okolic \(3 \times 3\) - diagonalno.]
@@ -886,6 +883,7 @@ Okolice se prekrivajo v 4 celicah od 9.}
 \label{overlap_diagonal_moore}
 \end{figure}
 
+\vspace{5mm}
 \begin{figure}[htb]
 \centerline{\psfig{figure=overlap_diagonal_quad,width=8cm}}
 \caption[Prekrivanje okolic \(2 \times 2\) - diagonalno.]
@@ -914,7 +912,7 @@ f^{-1}(c^{t}(x,y)) = \{ n^{t-1}(x,y) \in S^m \ \arrowvert \ f(n^{t-1}(x,y)) = c^
 Tranzicijsko funkcijo je možno definirati s pravilom  \(r\).
 Pravilo je indeks izbrane funkcije znotraj celotnega nabora \(|S|^{|S|^{M_x M_y}}\) funkcij.
 Definirano je kakor celo število v \(S\)-iškem številskem sestavu,
-kjer so cifre zaporedje vrednosti celic v katere tranzicijska funkcija
+kjer so cifre zaporedje vrednosti celic, v katere tranzicijska funkcija
 preslika vsako od \(|S|^{M_x M_y}\) možnih okolic:
 
 \begin{equation}
@@ -937,13 +935,12 @@ oziroma lahko zasedejo poljubno vrednost.
 Za polje velikosti \(N_x \times N_y\) je potemtakem definiranih le \((N_x+(M_x-1)) \times (N_y+(M_y-1))\) okolic.
 
 Drugi običajen robni pogoj je cikličen, kjer je polje celic torus.
-Ciklično koordinato celice \(x_{\circlearrowright},x_{\circlearrowright}\) izračunamo iz \(x,y\) po modulu \(N_x\) oziroma \(N_y\).
+Ciklično koordinato celice \((x_{\circlearrowright},x_{\circlearrowright})\) izračunamo iz \((x,y)\) po modulu \(N_x\) oziroma \(N_y\).
 
 \begin{equation}
-\substack{
-x_{\circlearrowright} = x \bmod N_x \\
+x_{\circlearrowright} = x \bmod N_x
+\hspace{10mm}
 y_{\circlearrowright} = y \bmod N_y
-}
 \end{equation}
 
 \subsection{Globalna tranzicijska funkcija}
@@ -958,28 +955,28 @@ B^{t+1} = F (A^t)
 
 Za odprti robni pogoj vrne globalna funkcija za vhodno polje velikosti \(N_x \times N_y\)
 izhodno polje velikosti \((N_x+(M_x-1)) \times (N_y+(M_y-1))\),
-za cikličen robni pogoj pa polje velikosti \(N_x \times N_y\).
+za ciklični robni pogoj pa polje velikosti \(N_x \times N_y\).
 
 \subsection{Predslike}
 
-Vsaka predslika \(B^{t-1}\) danega polja celic \(A^t\) mora ustrezati naslednjim pogojem.
+Vsaka predslika \(B^{t-1}\) danega polja celic \(A^t\) mora ustrezati naslednjim pogojem:
 \begin{enumerate}
 \item Za vsako celico \(c^{t}(x,y)\) mora okolica \(n^{t-1}(x,y)\) ustrezati invezni funkciji \(f^{-1}\):
 \begin{equation}
 \forall x,y : c^{t}(x,y) = f(n^{t-1}(x,y))
 \end{equation}
-\item Vsak par okolic v dimenziji X \(\{n^{t-1}(x,y), n^{t-1}(x+1,y)\}\) se mora ujemati v prekrivanju.
+\item Vsak par okolic v dimenziji X \(\{n^{t-1}(x,y), n^{t-1}(x+1,y)\}\) se mora ujemati v prekrivanju:
 \begin{equation}
 \forall x,y : o_{\leftrightarrow}^{t-1}(x,y) = o_{\rightarrow}^{t-1}(x,y) = o_{\leftarrow}^{t-1}(x+1,y)
 \end{equation}
-\item Vsak par okolic v dimenziji Y \(\{n^{t-1}(x,y), n^{t-1}(x,y+1)\}\) se mora ujemati v prekrivanju.
+\item Vsak par okolic v dimenziji Y \(\{n^{t-1}(x,y+0), n^{t-1}(x,y+1)\}\) se mora ujemati v prekrivanju:
 \begin{equation}
 \begin{align}
 \forall x,y : o_{\updownarrow}^{t-1}(x,y) &= o_{\downarrow}^{t-1}(x,y+1) \\
                                           &= o_{\uparrow}  ^{t-1}(x,y+0)
 \end{align}
 \end{equation}
-\item Vsaka četvorka diagonalnih okolic \(\{n^{t-1}(x,y), n^{t-1}(x+1,y), n^{t-1}(x,y+1), n^{t-1}(x+1,y+1)\}\) se mora ujemati v prekrivanju.
+\item Vsaka četvorka diagonalnih okolic \(\{n^{t-1}(x,y), n^{t-1}(x+1,y), n^{t-1}(x,y+1), n^{t-1}(x+1,y+1)\}\) se mora ujemati v prekrivanju:
 \begin{equation}
 \begin{align}
 \forall x,y : o_{\times}^{t-1}(x,y) &= o_{\searrow}^{t-1}(x+0,y+1) = o_{\swarrow}^{t-1}(x+1,y+1) \\
@@ -996,19 +993,19 @@ ki poudarjajo konkretne probleme, povezane s kompleksnostjo algoritma.
 
 \subsection{Prekrivanje predslik in prerez}
 
-Če polje 2D celičnega avtomata razdelimo na dva dela
+Če polje 2D celičnega avtomata razdelimo na dva dela,
 lahko definiramo predsliko za vsak del posebej.
 Tukaj se bomo omejili na ravne prereze polja,
 čeprav je na splošno mogoče definirati poljuben prerez.
 
-Prerez v smeri dimenzije X na koordinati \(y\) je definiran kakor:
+Indeks prereza v smeri dimenzije X na koordinati \(y\) in njegov nabor sta definirana kot:
 \begin{equation}
 e_{\leftrightarrow}(y) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=N_x+M_x-1 \\ j=M_y-1}} |S|^{(N_x-1) j + i} \cdot c(i,y+j)
 \end{equation}
 \begin{equation}
 e_{\leftrightarrow} \in \{0, 1, \ldots, |S|^{(N_x+M_x-1)(M_y-1)}-1\}
 \end{equation}
-Prerez v smeri dimenzije Y na koordinati \(x\) je definiran kakor:
+Indeks prereza v smeri dimenzije Y na koordinati \(x\) in njegov nabor sta definiran kakor:
 \begin{equation}
 e_{\updownarrow}(x) = \sum_{\substack{i=0 \\ j=0}}^{\substack{i=M_x-1 \\ j=N_y+M_y-1}} |S|^{(N_x-1) j + i} \cdot c(x+i,j)
 \end{equation}
@@ -1021,36 +1018,37 @@ Prerezi se uporabljajo za zapis vmesnih rezultatov pri algoritmih za iskanje pre
 \subsection{Primer}
 
 Za klasične 2D CA sta definirani von Neumannova in Mooreova okolica (slika \ref{neighborhood_classic}).
-Von Neumanova okolica je podmnožica Mooreove okolice, kjer so stanja vogalnih okolic ignorirana,
-To pomeni, da tukaj opisana splošna definicija 2D okolice zaobjame obe klasični okolici.
+Von Neumanova okolica je podmnožica Mooreove okolice, kjer so stanja vogalnih okolic ignorirana.
+To pomeni, da tukaj opisana splošna definicija zaobjame obe klasični okolici.
 
+\vspace{5mm}
 \begin{figure}[htb]
 \centerline{\psfig{figure=neighborhood_classic,width=10cm}}
 \caption[Klasične 2D okolice.]
-{Klacični 2D okolici, von Neumannova levo in Mooreova desno.}
+{Klasični 2D okolici, von Neumannova (levo) in Mooreova (desno).}
 \label{neighborhood_classic}
 \end{figure}
 
 \subsubsection{Conwayev GoL}
 
-GoL je binarni celični avtomat \(|S|=2\), ki uporablja Mooreovo okolico \(M_x=M_y=3\) (slika \ref{neighborhood_index_moore}).
+GoL je binaren celični avtomat \((|S|=2)\), ki uporablja Mooreovo okolico \(M_x=M_y=3\) (slika \ref{neighborhood_index_moore}).
 V okolici \(n\) je \(M=M_x \cdot M_y=3 \cdot 3=9\) celic, kar da nabor velikosti \(|S|^9=512\).
 V prekrivanjih \(o_{\leftrightarrow}\) in \(o_{\updownarrow}\) v smereh X in Y
 je \(M=(M_x-1) \cdot M_y=M_x \cdot (M_y-1)=6\) celic, kar da nabor velikosti \(|S|^9=64\).
 V prekrivanjih \(o_{\times}\) v diagonalnih smereh
 je \(M=(M_x-1) \cdot (M_y-1)=2 \cdot 2=4\) celic, kar da nabor velikosti \(|S|^4=16\).
 
-Nabor vseh pravil \(n\) za to okolico je \(|S|^{|S|^{M}}=2^{512}\).
+Nabor vseh pravil \(n\) za to okolico je velikosti \(|S|^{|S|^{M}}=2^{512}\).
 Lokalna tranzicijska funkcija je definirana opisno \cite{WikiGoL}.
-Stanji celice sta opisani kakor mrtvo \(c=0\) in živo \(c=1\).
+Stanji celice sta opisani kakor mrtvo \((c=0)\) in živo \((c=1)\).
 V vsakem časovnem koraku se z vsako celico zgodi naslednje:
 \begin{enumerate}
 \item živa celica z manj kakor dvema živima sosedoma umre,
 \item živa celica z dvema ali tremi živimi sosedi živi naprej v naslednji korak,
 \item živa celica z več kakor tremi živimi sosedi umre,
-\item mrtva celica z natanko temi živimi sosedi oživi.
+\item mrtva celica z natanko tremi živimi sosedi oživi.
 \end{enumerate}
-Pravilo GoL je 512 bitna binarna vrednost, v šestnajstiškem zapisu je \(r\):
+Pravilo GoL je 512-bitna binarna vrednost, v šestnajstiškem zapisu je \(r\):
 \begin{verbatim}
 00000000000100010001000101170116000100010117011601170116177E1668
 000100010117011601170116177E166801170116177E1668177E16687EE86880
@@ -1058,7 +1056,7 @@ Pravilo GoL je 512 bitna binarna vrednost, v šestnajstiškem zapisu je \(r\):
 
 \subsubsection{Okolica quad}
 
-V primerih je uporabljen binarni \(|S|=2\) 2D CA z okolico quad \(M_x=M_y=2\) (slika \ref{neighborhood_index_quad}).
+V primerih je uporabljen binarni \((|S|=2)\) 2D CA z okolico quad \(M_x=M_y=2\) (slika \ref{neighborhood_index_quad}).
 V okolici \(n\) je \(M=M_x \cdot M_y=2 \cdot 2=4\) celic, kar da nabor velikosti \(|S|^4=16\).
 V prekrivanjih \(o_{\leftrightarrow}\) in \(o_{\updownarrow}\) v smereh X in Y
 sta \(M=(M_x-1) \cdot M_y=M_x \cdot (M_y-1)=2\) celici, kar da nabor velikosti \(|S|^2=4\).
