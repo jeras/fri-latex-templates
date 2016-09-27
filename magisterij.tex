@@ -1094,7 +1094,7 @@ Pravilo GoL je 512-bitna binarna vrednost, v šestnajstiškem zapisu je \(r\):
 
 Mreža predslik je grafični konstrukt, ki omogoča upodobitev
 okolice, prekrivanja okolic in tranzicijske funkcije
-kakor ločene grafične elemente (vozlišča, poti in ploskve).
+kot ločene grafične elemente (vozlišča, poti in ploskve).
 Odnosi med temi elementi definirajo pravila,
 na katerih se gradijo algoritmi za iskanje predslik.
 
@@ -1123,10 +1123,10 @@ S prekinjeno črto so predstavljene kopije vozlišč.}
 
 \section{Mreža predslik 1D celičnih avtomatov}
 
-Razvil sem \cite{JerasDobnikar2007} modificirano upodobitve De Bruijnovega grafa,
+Razvil sem modificirano upodobitve De Bruijnovega grafa,
 kjer so originalna vozlišča (prekrivanja \(o\)) podvojena
 in gredo poti (okolice \(n\)) vedno od originala \(o_{\leftarrow}\)
-proti dvojniku \(o_{\rightarrow}\) (slika \ref{de_bruijn_diagram} desno).
+proti dvojniku \(o_{\rightarrow}\) (slika \ref{de_bruijn_diagram} desno) \cite{JerasDobnikar2007}.
 Tako upodobitev sem poimenoval \textbf{graf predslik}.
 
 Graf predslik omogoča \textbf{nizanje} grafov v \textbf{mrežo predslik}.
@@ -1156,9 +1156,9 @@ Povezave med vozlišči se spremenijo v ploskve,
 vozlišča pa se spremenijo v robove ploskev.
 Elementi celičnega avtomata, ki se preslikajo v graf, so:
 \begin{itemize}[noitemsep,nolistsep]
-\item nabor \textbf{okolic} (\(n\)) postane nabor \textbf{ploskev} (slika \ref{neighborhood_surfaces})
-\item nabor \textbf{prekrivanj v smeri dimenzij X in Y} (\(o_{\leftrightarrow}\) in \(o_{\updownarrow}\)) (slika \ref{overlap_dimension_quad}) postane nabor \textbf{povezav}
-\item nabor \textbf{prekrivanj v diagonalni smeri} (\(o_{\times}\)) (slika \ref{overlap_diagonal_quad}) postane nabor \textbf{vozlišč}
+\item nabor \textbf{okolic} (\(n\)) postane nabor \textbf{ploskev} (slika \ref{neighborhood_surfaces}),
+\item nabor \textbf{prekrivanj v smeri dimenzij X in Y} (\(o_{\leftrightarrow}\) in \(o_{\updownarrow}\)) (slika \ref{overlap_dimension_quad}) postane nabor \textbf{povezav},
+\item nabor \textbf{prekrivanj v diagonalni smeri} (\(o_{\times}\)) (slika \ref{overlap_diagonal_quad}) postane nabor \textbf{vozlišč}.
 \end{itemize}
 
 \begin{figure}[htb]
@@ -1270,7 +1270,7 @@ linearno \(O(N)\) procesno in pomnilniško zahtevnost.
 Posplošeno to pomeni, da se vsaka celica pojavi v izračunu samo enkrat.
 Vsak algoritem za štetje ima tudi logaritmično komponento,
 saj število bitov, potrebnih za zapis števcev, raste logaritmično s preštetim številom.
-Ampak ta komponenta se pozna pri implementaciji,
+Ta komponenta se pozna pri implementaciji,
 šele ko velikost števcev preseže velikost registrov.
 64 bitov zadošča za binarno polje celic \(8 \times 8\).
 
@@ -1291,7 +1291,7 @@ v odvisnosti od števila celic.
 Algoritem za štetje uporablja principe iz teorije grafov \cite{DBLP:journals/corr/cs-DL-0309023}.
 Število poti med dvema vozliščema v acikličnem usmerjenem grafu se računa tako,
 da se vsakemu vozlišču pripiše utež \(w\).
-V prvem koraku začetno vozlišče dobi utež \(w_{začetek}=1\).
+V prvem koraku začetno vozlišče dobi utež \(w(zacetek)=1\).
 Vse poti, ki izhajajo iz obteženega vozlišča,
 imajo utež enako uteži izvornega vozlišča.
 V naslednjih korakih se računajo uteži vozlišč tako,
@@ -1330,6 +1330,12 @@ Povezava v grafu obstaja, če obstaja ekvivalentna predslika vrstice,
 torej je za izgradnjo grafa potrebno poiskati vse predslike za vsako vrstico.
 Ker je vrstica v 2D polju 1D objekt, lahko problem pretvorimo v 1D CA in
 uporabimo za izračun predslik vrstice algoritme za štetje in izpis predslik 1D CA.
+
+Z uporabo Boolove algebre namesto operacij množenja in seštevanja
+je možno poenostaviti iskanje predslik samo na njihov obstoj za opazovani robni pogoj.
+Uteži postanejo binarne vrednosti \(w \in \{0, 1\}\).
+Predslika ali delna predslika obstaja, če je njena utež neničelna \(w>0\).
+Za preverjanje tega pogoja ni potrebno štetje, zadoščajo že logične operacije.
 
 Tukaj opisana implementacija algoritma ne išče vseh predslik za vrstico hkrati,
 temveč se omeji le na predslike, ki so skladne z enim od možnih robov
@@ -1383,7 +1389,7 @@ nastane nabor vseh končnih robnih pogojev \(e_{\uparrow}\).
 Ta nabor se v naslednjem koraku uporabi kakor začetni robni pogoj za naslednjo vrstico.
 
 Zaradi procesa izpisa poti v grafu,
-procesna raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
+procesna zahtevnost raste eksponentno z dolžino vrstice \(O(C^{N_x})\).
 
 \subsection{Procesiranje polja v dimenziji Y}
 
@@ -1400,12 +1406,6 @@ Robovi, s katerimi se ne konča nobena od predslik, dobijo utež \(w=0\).
 
 Za tem, ko so procesirane vse vrstice, je znan končni rob nabora vseh zveznih ploskev na celotni mreži predslik.
 Vsota uteži vseh končnih robov daje število predslik celotne mreže.
-
-Z uporabo Boolove algebre namesto operacij množenja in seštevanja
-je možno poenostaviti iskanje predslik samo na njihov obstoj za opazovani robni pogoj.
-Uteži postanejo binarne vrednosti \(w \in \{0, 1\}\).
-Predslika ali delna predslika obstaja, če je njena utež neničelna \(w>0\).
-Za preverjanje tega pogoja ni potrebno štetje, zadoščajo že logične operacije.
 
 \section{Izpis predslik}
 
