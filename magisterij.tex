@@ -571,7 +571,7 @@ Simulator se lahko zažene kar v internetnem brskalniku.
 Večina primerov in ilustracij opisuje binarni 2D CA z majhno okolico quad
 (štiri celice na kvadratnem polju, Toffoli 2008 \cite{Toffoli2008}).
 Večina primerov in sploh ilustracije za GoL bi bile zaradi
-\(2^{3 \cdot 3}=512\) možnih stanj okolice preveč kompleksne in nepregledne.
+\(2^{3 \cdot 3}=512\) možnih stanj okolice preveč kompleksne in nepregledne (glej prilogo \ref{GoLmatrika}).
 V nasprotju ima binarna okolica quad le \(2^{2 \cdot 2}=16\) možnih stanj.
 
 Želel sem sicer uporabiti kako določeno pravilo za okolico quad,
@@ -582,14 +582,25 @@ Na slikah je uporabljena izometrična projekcija,
 saj je za potrebe analize osnovnemu 2D polju dodana tretja dimenzija,
 ki opisuje prostor predslik (mreža predslik).
 
-\section{Pregled dela}
+\section{Pregled vsebine}
 
-Opisan algoritem na koncu primerjam z ostalimi doslej znanimi algoritmi,
-ki večinoma temeljijo na principu DFS.
+V poglavju \ref{definicija} podajam definicijo 1D in 2D CA.
+V poglavju \ref{mreža} opišem konstrukcijo mreže predslik za 2D CA
+in razložim njen odnos z naborom predslik za dano konfiguracijo.
+V poglavju \ref{algoritem} opišem na novo razvit algoritem za štetje in izpis predslik
+ter razložim, zakaj algoritem z linearno zahtevnostjo ni možen.
+V poglavju \ref{pregled} opravim pregled obstoječih algoritmov
+ter jih v poglavju \ref{sklep} primerjam s svojim algoritmom.
+Tukaj še navedem doprinos tega magistrskega dela k področju celičnih avtomatov
+in naštejem nekaj problemov, ki bi jih rad raziskal v prihodnje.
+V dodatku \ref{primer} navedem primer delovanja algoritma in
+v dodatku \ref{koda} navedem izvorno kodo algoritma.
+
 
 
 
 \chapter{Definicija celičnih avtomatov}
+\label{definicija}
 
 Omejujemo se na celične avtomate, ki so:
 \begin{itemize}[noitemsep,nolistsep]
@@ -1070,6 +1081,7 @@ Pravilo ni določeno.
 
 
 \chapter{Konstrukcija mreže predslik}
+\label{mreža}
 
 Mreža predslik je grafični konstrukt, ki omogoča upodobitev
 okolice, prekrivanja okolic in tranzicijske funkcije
@@ -1242,6 +1254,7 @@ V članku \cite{JerasDobnikar2007} je podrobneje opisan ta problem za 1D CA.
 
 
 \chapter{Algoritem za štetje in izpis predslik}
+\label{algoritem}
 
 Pri 1D CA \cite{JerasDobnikar2007} ima algoritem za štetje predslik
 linearno \(O(N)\) procesno in pomnilniško zahtevnost.
@@ -1269,7 +1282,7 @@ v odvisnosti od števila celic.
 Algoritem za štetje uporablja principe iz teorije grafov \cite{DBLP:journals/corr/cs-DL-0309023}.
 Število poti med dvema vozliščema v acikličnem usmerjenem grafu se računa tako,
 da se vsakemu vozlišču pripiše utež \(w\).
-V prvem koraku začetno vozlišče dobi utež \(w(začetek)=1\).
+V prvem koraku začetno vozlišče dobi utež \(w_{začetek}=1\).
 Vse poti, ki izhajajo iz obteženega vozlišča,
 imajo utež enako uteži izvornega vozlišča.
 V naslednjih korakih se računajo uteži vozlišč tako,
@@ -1467,6 +1480,7 @@ Veljavni robni pogoj je odebeljen, neveljavni pa črtkan.}
 
 
 \chapter{Pregled obstoječih algoritmov in implementacij}
+\label{pregled}
 
 Obstoječi algoritmi za predslike 2D CA se osredotočajo izključno na GoL.
 Največ algoritmov je namenjenih iskanju stanj GoE, skratka,
@@ -1587,6 +1601,7 @@ tako da bi algoritem hranil le tekoče razlike med predslikami, namesto da jih h
 
 
 \chapter{Sklepne ugotovitve}
+\label{sklep}
 
 \section{Dokazovanje}
 
@@ -1713,11 +1728,15 @@ Le manjši del dostopov do pomnilnika je naključen.
 Zaporednost podatkov že sama po sebi omogoča dobro optimizacijo dostopa do predpomnilnika,
 tako da na tem področju ni dosti očitnih optimizacij.
 
+
+
+
 %********************************************
 
 \appendix
 
 \chapter{De Bruijnov diagram za GoL}
+\label{GoLmatrika}
 
 Slika \ref{network_single_moore} prikazuje del De Bruijnovega diagrama za GoL.
 Graf s 16 vozlišči in 64 povezavami je očitno preveč kompleksen, da bi bil primeren za razlago algoritma.
@@ -1729,7 +1748,11 @@ Graf s 16 vozlišči in 64 povezavami je očitno preveč kompleksen, da bi bil p
 \label{network_single_moore}
 \end{figure}
 
+
+
+
 \chapter{Primer delovanja algoritma za CA z okolico quad}
+\label{primer}
 
 V naslednjem primeru je prikazano štetje in iskanje predslik
 za binarni CA (celica ima lahko \(2\) stanji) z okolico velikosti \(2 \times 2\)
@@ -1884,6 +1907,7 @@ preimage i=18:  CA configuration siz [y↓,x→] = [3,3]:
 %********************************************
 
 \chapter{Opis algoritma Dona Woodsa}
+\label{woods}
 
 Prilagam pisno izmenjavo z avtorjem \footnote{Don Woods /url{http://www.icynic.com/~don/}} prvega algoritma za iskanje predslik GoL.
 
@@ -1973,6 +1997,7 @@ Permission granted.  Good luck with your thesis!
 %********************************************
 
 \chapter{Izvorna koda implementacije algoritma}
+\label{koda}
 
 Prilagam izvorno kodo, ki se sicer nahaja na naslovu:\\
 \url{https://github.com/jeras/preimages-2D}
