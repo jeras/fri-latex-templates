@@ -23,6 +23,7 @@
 \usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{listings}
 %\usepackage{url}
 \usepackage[pdftex,colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black]{hyperref}
 \usepackage[top=2cm, bottom=3cm, inner=3cm, outer=2cm]{geometry}
@@ -1295,34 +1296,22 @@ Opisani algoritem razdeli polje celic na vrstice v dimenziji X.
 Delitev po stolpcih v dimenziji Y bi bila ekvivalentna, tako da je to arbitrarna odločitev.
 S stališča procesne zahtevnosti je najbolje izbrati krajšo dimenzijo.
 
-TODO >>>
-
-SEM PRIDE PSEUDO-KODA
-
 Ker mreža predslik ni navaden graf, temveč je razširjen s pojmom ploskve,
 je potrebno mrežo predslik pred začetkom štetja najprej preslikati v navaden graf.
 Vozlišča predstavljajo vsi možni robovi \(e_{\leftrightarrow}(y)\) na vseh presekih med vrsticami.
+Vozlišča so fiksni elementi v grafu, obstajajo ne glede na konfiguracijo in stanje predslik.
+
 Povezave med vozlišči so ploskve med dvema roboma
-\(e_{\leftrightarrow}(y)\) in \(e_{\leftrightarrow}(y+1)\),
-ki predstavljajo predslike vrstice celic.
-Uteži začetnih vozlišč \(y=0\) so kar enota,
-vsota uteži končnih vozlišč \(y=N_y\) pa je število vseh poti od začetnega do končnega roba,
-torej število vseh 2D predslik.
+\(e_{\leftrightarrow}(y)\) in \(e_{\leftrightarrow}(y+1)\).
+Vsaka povezava predstavlja eno predsliko vrstice celic na koordinati \(y\).
+Povezava v grafu obstaja, če obstaja ekvivalentna predslika vrstice,
+torej je za izgradnjo grafa potrebno poiskati vse predslike za vsako vrstico.
+Ker je vrstica v 2D polju 1D objekt, lahko problem pretvorimo v 1D CA in
+uporabimo za izračun predslik vrstice algoritme za štetje in izpis predslik 1D CA.
 
-Slika \ref{algoritm_count-y} ponazarja algoritem za procesiranje polja v dimenziji Y.
-Procesiranje se izvaja nad zgoraj opisanim grafom. TODO
-Poudarjen blok [X] v algoritmu za dimenzijo X je podoben algoritem (slika \ref{algoritm_count-y}), ki pa 
-ne definira nabora predslik vrstice,
-potrebno ga je izračunati za vsako vrstico posebej.
-
-\begin{figure}[htb]
-\centerline{\psfig{figure=algorithm_count-y,width=16cm}}
-\caption[Algoritem za procesiranje polja v dimenziji Y.]
-{Algoritem za procesiranje polja v dimenziji Y.}
-\label{algoritm_count-y}
-\end{figure}
-
-<<< TODO
+Tukaj opisana implementacija algoritma ne išče vseh predslik za vrstico hkrati,
+temveč se omeji le na predslike, ki so skladne z enim od možnih robov
+\(e_{\leftrightarrow}\) in to naredi za vse robove, ki so na voljo.
 
 \subsection{Procesiranje niza v dimenziji X}
 
@@ -1432,12 +1421,6 @@ ki tvorijo zvezne ploskve na celotnem polju celic.
 \caption[Algoritem za izpis predslik.]{Potek smeri procesiranja pri algoritmu za štetje in izpis predslik.}
 \label{algorithm_list}
 \end{figure}
-
-TODO >>>
-
-SEM PRIDE PSEUDO-KODA
-
-<<< TODO 
 
 \section{Nezmožnost štetja z linearno zahtevnostjo}
 
@@ -1986,6 +1969,62 @@ Permission granted.  Good luck with your thesis!
 
         -- Don Woods
 \end{Verbatim}
+
+%********************************************
+
+\chapter{Izvorna koda implementacije algoritma}
+
+Prilagam izvorno kodo, ki se sicer nahaja na naslovu:\\
+\url{https://github.com/jeras/preimages-2D}
+
+\vspace{5mm}
+\lstset{language=C}
+\begin{lstlisting}[frame=single]
+#ifndef CA2D_H
+#define CA2D_H
+
+// math libraries
+#include <gmp.h>
+
+#define uintca_t long long int unsigned
+
+typedef struct {
+    // basic parameters
+    int unsigned y;  // Y size
+    int unsigned x;  // X size
+    // calculated parameters
+    int unsigned a;  // area (x*y)
+    int unsigned n;  // number of states
+} ca2d_size_t;
+
+typedef struct {
+    // basic parameters
+    int unsigned sts;  // number of cell states
+    ca2d_size_t  ngb;  // neighborhood size
+    mpz_t        rule; // rule
+    // calculated neighborhood/overlap parameters
+    struct {
+        ca2d_size_t y;
+        ca2d_size_t x;
+    } ovl;             // overlap size
+    struct {
+        ca2d_size_t y;
+        ca2d_size_t x;
+    } rem;             // remainder size (remainder and overlap add to a whole neighborhood)
+    ca2d_size_t ver;   // vertice size (corner overlap)
+    struct {
+        ca2d_size_t y;
+        ca2d_size_t x;
+    } shf;             // shift size (shift and vertice add to a whole overlap)
+    // rule table
+    int unsigned *tab;
+} ca2d_t;
+
+int ca2d_update (ca2d_t *ca2d);
+int ca2d_bprint (ca2d_t  ca2d);
+
+#endif // CA2D_H
+\end{lstlisting}
 
 %********************************************
 
