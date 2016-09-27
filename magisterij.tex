@@ -1337,7 +1337,7 @@ Uteži postanejo binarne vrednosti \(w \in \{0, 1\}\).
 Predslika ali delna predslika obstaja, če je njena utež neničelna \(w>0\).
 Za preverjanje tega pogoja ni potrebno štetje, zadoščajo že logične operacije.
 
-Tukaj opisana implementacija algoritma ne išče vseh predslik za vrstico hkrati,
+Tukaj opisana implementacija algoritma (izvorna koda je v dodatku \ref{koda}) ne išče vseh predslik za vrstico hkrati,
 temveč se omeji le na predslike, ki so skladne z enim od možnih robov
 \(e_{\leftrightarrow}\) in to naredi za vse robove, ki so na voljo.
 
@@ -1409,7 +1409,7 @@ Vsota uteži vseh končnih robov daje število predslik celotne mreže.
 
 \section{Izpis predslik}
 
-Algoritem za izpis predslik je nadaljevanje algoritma za štetje.
+Algoritem za izpis predslik (izvorna koda je v dodatku \ref{koda}) je nadaljevanje algoritma za štetje.
 Začne z znanim številom predslik, ki ga je dalo štetje, in izpisuje predslike
 po vrsticah v obratni smeri, kakor je potekalo štetje (od zadnje do prve vrstice).
 Pridobljen seznam predslik je sortiran. Smer sortiranja je odvisna od smeri procesiranja.
@@ -1492,13 +1492,12 @@ Veljavni robni pogoj je odebeljen, neveljavni pa črtkan.}
 \label{pregled}
 
 Obstoječi algoritmi za predslike 2D CA se osredotočajo izključno na GoL.
-Največ algoritmov je namenjenih iskanju stanj GoE, skratka,
-preverjajo le obstoj predslik in jih ne štejejo ali izpisujejo.
+Največ algoritmov je namenjenih iskanju stanj GoE,
+tako da le-ti zgolj preverjajo obstoj predslik in jih ne štejejo ali izpisujejo.
 Naslednja skupina algoritmov sicer izpisuje predslike,
 ampak tega ne počne sistematično,
-ampak je njihov cilje poiskati le eno ali nekaj predslik.
+saj je njihov cilje poiskati le eno ali nekaj predslik.
 Algoritmi, ki so namenjeni dejanskemu štetju in izpisu vseh predslik so redki.
-
 Zelo redki so tudi akademski prispevki,
 kjer bi bil kak algoritem povezan s predslikami 2D CA tudi strokovno opisan.
 
@@ -1514,7 +1513,7 @@ predstavila prvo stanje GoE velikosti \(9 \times 33\) celic.
 Odkritje je bilo objavljeno v \cite{Lifeline3}. Kasneje je Don Woods
 \cite{Lifeline3, Lifeline4} s pomočjo računalnika dokazal, da je stanje res GoE.
 
-Woodsov algoritem deluje po principu sestopanja. Polje celic razdeli v vrstice.
+Woodsov algoritem deluje po principu sestopanja (glej dodatek \ref{woods}). Polje celic razdeli v vrstice.
 Začne z eno vogalno celico, katere nabor predslik je kar nabor okolic,
 ki se preslikajo v stanje celice. V naslednjem koraku opazuje sosednjo celico v vrstici.
 Za vse kombinacije okolic dodane celice in obstoječi nabor predslik preveri,
@@ -1528,8 +1527,8 @@ relativno majhni v primerjavi z naborom vseh stanj.
 Temu je tako, ker imajo v praksi tudi deli konfiguracije GoE malo predslik.
 Algoritem bi bil za konfiguracije z dosti predslikami veliko bolj pomnilniško in časovno potraten.
 
-Nicolay Beluchenko je poiskal večje število stanj GoE velikosti \(11 \times 11\).
-Vsaj v enem primeru je uporabljal podoben algoritem kakor Woods.
+Nicolay Beluchenko je poiskal večje število stanj GoE velikosti \(11 \times 11\) \cite{FoE}.
+Vsaj v enem primeru je uporabljal podoben algoritem kakor Woods \cite{oeis.org/A196447}.
 Začel je z osrednjo celico in dodajal nove celice v spirali okoli osrednje.
 Za vrednost dodane celice je uporabil tisto, ki je dala manjši nabor predslik.
 Algoritem zaključi, ko z novo dodano celico ni več možno tvoriti predslik.
@@ -1545,7 +1544,8 @@ temveč se osredotoča na vrstice, ki zmanjšujejo nabor predslik.
 Obravnavanje vseh stanj vrstic bi namreč preseglo pomnilniške sposobnosti
 takratne in sedanje strojne opreme že za kratke vrstice.
 Dokaže le, da za vrstice dolžine 1 ne obstaja stolpec, ki bi bil stanje GoE.
-Originalni članek je v francoščini, tako da lahko algoritem opišem le na podlagi tega, kako ga opisujejo drugi.
+Originalni članek je v francoščini, tako da lahko algoritem opišem le na podlagi tega,
+kako ga opisujejo drugi \cite{WikiGoE, Bickford2012}.
 
 V zadnjih letih podoben algoritem uporablja Steven Eker (CSL, SRI International, California, USA) \cite{achim-orphan}.
 Dokazal je, da za pravokotne konfiguracije višine 2 in 3 ne obstajajo stanja GoE.
@@ -1565,7 +1565,7 @@ Algoritem je še dodatno optimiziran za iskanje stanj GoE in
 omogoča pregled večjega števila podobnih stanj.
 Ob spremembi vrednosti ene same celice omogoča uporabo delnih rezultatov prejšnjega izračuna.
 
-\section{Ne sistematično iskanje predslik GoL}
+\section{Nesistematično iskanje predslik GoL}
 
 Erlan \cite{Erlan2012} je predstavil igro, pri kateri se za dano stanje
 GoL išče predslike. To dejansko ni implementacija algoritma za iskanje predslik,
@@ -1587,25 +1587,18 @@ in cilj ni nabor vseh možnih predslik.
 Algoritmi se tudi poslužujejo določene hevristike pri iskanju.
 
 Našel sem še aplikacijo, napisano v jeziku APL \cite{ionreq2013}.
+Iz navedenega primera je razvidno, da je aplikacija sposobna izpisovati predslike.
+Avtorja mi ni uspelo kontaktirati, tako da ne morem podati več podrobnosti.
 
 \section{Sistematični algoritmi za štetje in izpis predslik}
 
-Našel sem le eno aplikacijo, ki je namenjena štetju in izpisu vseh predslik.
-Neil Bickford \cite{Bickford2012} prav tako kakor ostali procesira konfiguracijo
+Našel sem le eno aplikacijo, imenovano \emph{RetroGUI}, ki je namenjena štetju in izpisu vseh predslik \cite{Bickford2012}.
+Neil Bickford prav tako kakor ostali procesira konfiguracijo
 po vrsticah, znotraj vrstice pa lahko uporablja različne algoritme (Woods, Duparc).
 Bickford opiše tudi algoritem, ki namesto procesiranja po vrsticah združuje predslike
 kvadratnih podsklopov konfiguracij. Na žalost poda primerjavo med različnimi algoritmi
 le kakor procesni čas za posamezno implementacijo, ne pa tudi bolj splošne
 ocene maksimalne in povprečne procesne/pomnilniške zahtevnosti.
-
-Opisani algoritmi za iskanje stanj GoE, na primer Woods,
-sicer omogočajo iskanje vseh predslik, ampak to ni njihov glavni namen.
-Optimizirani so le za stanja GoE, kjer je predslik malo tudi za samo del konfiguracije GoE.
-Predvsem niso optimizirani za splošen primer, kjer je lahko predslik veliko,
-posledično so potratni s porabo pomnilnika.
-Morda bi bilo možno optimizirati porabo pomnilnika,
-tako da bi algoritem hranil le tekoče razlike med predslikami, namesto da jih hrani v celoti.
-
 
 
 
@@ -1630,16 +1623,19 @@ Za nekaj manjših primerov, sem tudi poiskal predslike z metodo surove sile.
 Na ta način nisem našel nobene napake v algoritmu.
 
 Nazadnje sem še primerjal rezultate s programom RetroGUI \cite{Bickford2012}
-in ugotovil da se ujemajo.
+in ugotovil, da se ujemajo.
 
 \section{Doprinos}
 
+Večina znanih algoritmov (naprimer Woods) uporablja metodo sestopanja.
+Izkažejo se, če je predslik relativno malo (naprimer iskanje GoE).
+So pa neprimerni za situacije, ko je predslik relativno veliko,
+ker hranijo vse predslike v pomnilniku ves čas izvajanja.
+Morda bi bilo možno optimizirati porabo pomnilnika,
+tako da bi algoritem hranil le tekoče razlike med predslikami, namesto da jih hrani v celoti.
+
 Glavni doprinos magistrske naloge je aplikacija
 naprednih algoritmov razvitih za 1D CA na 2D problem.
-Večina znanih algoritmov uporablja metodo sestopanja,
-ki se sicer izkaže, če je predslik relativno malo,
-je pa neprimerna za situacije, ko je predslik relativno veliko.
-
 Tukaj opisan algoritem za štetje predslik ima predvidljivo porabo pomnilnika,
 ki je asimptotično manjša od porabe pomnilnika pri sestopanju \(O(C^{N_x N_y})\) (podajam brez dokaza).
 Algoritem za izpis predslik je striktno ločen od štetja in
@@ -1650,8 +1646,8 @@ in lahko olajša dokumentiranje algoritmov.
 Obtežena mreža predslik tudi nakazuje,
 prostorsko razporeditev izgube informacije.
 
-Na zadnje, je opisani algoritem je zamišljen univerzalno, za poljuben 2D CA.
-Čeprav univerzalnost v praksi ni ravno pomembna,
+Na zadnje, je opisani algoritem zamišljen univerzalno, za poljuben 2D CA,
+čeprav univerzalnost v praksi ni ravno pomembna,
 saj izven raziskovalcev GoL ni dosti zanimanja za teoretične probleme,
 kakor je iskanje predslik.
 
@@ -1659,11 +1655,11 @@ kakor je iskanje predslik.
 
 Probleme, povezane z iskanjem predslik, lahko delimo v nivoje glede na zahtevnost:
 \begin{enumerate}[noitemsep,nolistsep]
-\item določitev, ali obstajajo predslike za dano trenutno stanje sistema
-\item štetje predslik za dano trenutno stanje sistema
-\item naštevanje konfiguracij predslik
-\item vprašanje reverzibilnosti sistema
-\item jezik vseh stanj GoE
+\item Določitev, ali obstajajo predslike za dano trenutno stanje sistema.
+\item Štetje predslik za dano trenutno stanje sistema.
+\item Naštevanje konfiguracij predslik.
+\item Vprašanje reverzibilnosti sistema.
+\item Jezik vseh stanj GoE.
 \end{enumerate}
 
 V magistrskem delu opišem algoritem, ki rešuje prve tri probleme.
