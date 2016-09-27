@@ -205,21 +205,21 @@ o algoritmih za štetje in izpis predslik pri enodimenzionalnih celičnih avtoma
 \item[1D] enodimenzionalen
 \item[2D] dvodimenzionalen
 \item[3D] tridimenzionalen
-\item[CA] cellular automata (celični avtomat)
-\item[GoL] Conway's Game of Life (Conwayeva igra življenja)
-\item[GoE] Garden of Eden (rajski vrt)
+\item[CA] celični avtomati (angl. cellular automata)
+\item[GoL] Conwayeva igra življenja (angl. Conway's Game of Life)
+\item[GoE] rajski vrt (angl. Garden of Eden)
 \item[trid] okolica CA, sestavljena iz treh celic na heksagonalni mreži
 \item[quad] okolica CA, sestavljena iz štirih celic na kvadratni mreži
-\item[DFS] depth first search (iskanje v globino)
-\item[SAT] boolean satisfiability problem (problem izpolnjivosti)
-
+\item[DFS] iskanje v globino (angl. depth first search)
+\item[SAT] problem izpolnjivosti (angl. boolean satisfiability problem)
+\vspace{10mm}
 \item[\(C\)] poljubna konstanta
 \item[\(S\)] nabor stanj celice
 \item[\(|S|\)] število možnih stanj celice
 \item[\(c\)] stanje posamezne celice (celoštevilska vrednost)
-\item[\(c_{x,y}\)] vrednost celice na koordinatah \((x,y)\) znotraj 2D polja celic
-\item[\(c^t\)] vrednost celice v sedanjosti
-\item[\(c^{t+1}\)] vrednost celice v prihodnosti (en korak)
+\item[\(c(x,y)\)] stanje celice na koordinatah \((x,y)\) znotraj 2D polja celic
+\item[\(c^t\)] stanje celice v sedanjosti
+\item[\(c^{t+1}\)] stanje celice v prihodnosti (en korak)
 \item[\(N_x\)] velikost pravokotnega 2D polja celic v dimenziji X
 \item[\(N_y\)] velikost pravokotnega 2D polja celic v dimenziji Y
 \item[\(N\)] število celic v 1D ali 2D polju
@@ -227,14 +227,14 @@ o algoritmih za štetje in izpis predslik pri enodimenzionalnih celičnih avtoma
 \item[\(M_y\)] velikost pravokotne 2D okolice celice v dimenziji Y
 \item[\(M\)] število celic v 1D ali 2D okolici
 \item[\(n\)] stanje okolice posamezne celice (celoštevilska vrednost)
-\item[\(n_{x,y}\)] vrednost okolice celice na koordinatah \((x,y)\) znotraj 2D polja celic
-\item[\(n^{t-1}\)] vrednost okolice celice v preteklosti (en korak)
-\item[\(n^t\)] vrednost okolice celice v sedanjosti
+\item[\(n(x,y)\)] stanje okolice celice na koordinatah \((x,y)\) znotraj 2D polja celic
+\item[\(n^{t-1}\)] stanje okolice celice v preteklosti (en korak)
+\item[\(n^t\)] stanje okolice celice v sedanjosti
 \item[\(f\)] tranzicijska funkcija, ki definira časovno evolucijo avtomata
 \item[\(f^{-1}\)] obratna tranzicijska funkcija
-\item[\(o_x\)] prekrivanje okolic v dimenziji X
-\item[\(o_y\)] prekrivanje okolic v dimenziji Y
-\item[\(o_{xy}\)] prekrivanje okolic v diagonalni smeri
+\item[\(o_{\leftrightarrow}\)] prekrivanje okolic v dimenziji X
+\item[\(o_{\updownarrow}\)] prekrivanje okolic v dimenziji Y
+\item[\(o_{\times}\)] prekrivanje okolic v diagonalni smeri
 \end{abbreviations}
 
 %\cleardoublepage
@@ -261,9 +261,9 @@ Pri 2D problemu sicer poznamo nekaj algoritmov za iskanje predslik,
 vendar so slabo teoretično raziskani.
 Vemo tudi, da je problem reverzibilnosti 2D celičnih avtomatov na splošno neodločljiv.
 
-Mreža predslik, ki sem jo razvil za potrebe analize predslik 1D celičnih avtomatov,
+Mreža predslik, ki sem jo v preteklosti razvil za potrebe analize predslik 1D celičnih avtomatov,
 se je izkazala za praktično orodje pri razlagi algoritmov in pri dokazovanju njihove pravilnosti.
-Tukaj opišem, kako se mrežo predslik tvori za 2D celične avtomate.
+Tukaj opišem kako se mrežo predslik tvori za 2D celične avtomate.
 Če je bila ta mreža za 1D problem navaden graf, je za 2D problem razširjena v tretjo dimenzijo.
 Predslike so namesto poti v grafu ploskve na mreži.
 Robni pogoj se spremeni iz uteži za vozlišča, ki zaključujejo pot v 1D problemu,
@@ -275,11 +275,11 @@ Zahtevnost podanega algoritma narašča eksponentno z velikostjo problema v eni 
 Podani algoritem se ne razlikuje dosti od obstoječih.
 Celični avtomat razdeli na vrstice in išče predslike za posamezno vrstico od prve do zadnje.
 Vrstične rezultate nato združi v rešitev za celoten 2D problem.
-Podobno kot pri algoritmu za 1D probleme, je analiza razdeljena v dva prehoda.
+Podobno kot pri algoritmu za 1D probleme je analiza razdeljena v dva prehoda.
 V prvem prehodu po vrsticah algoritem prešteje predslike,
 v drugem opcijskem prehodu pa predslike izpiše.
-Drugi prehod poteka v obratni smeri kakor prvi prehod,
-tudi procesiranje posamezne vrstice poteka iz drugega zornega kota.
+Drugi prehod poteka v obratni smeri kakor prvi prehod.
+Tudi procesiranje posamezne vrstice poteka iz drugega zornega kota.
 
 Glavni napredek algoritma vidim v uporabi učinkovitih rešitev za 1D problem pri analizi vrstic ter
 v uporabi progresivnega kodiranja vmesnih rezultatov, kar lahko zmanjša porabo pomnilnika.
@@ -366,18 +366,18 @@ cellular automata, preimages, predecessors, ataviser, computational complexity, 
 
 Ker lahko vsak univerzalen sistem modelira vsak drug univerzalen sistem, lahko predpostavimo,
 da lahko z univerzalnimi \emph{celičnimi avtomati} (angl. \emph{cellular automata, CA}) modeliramo vesolje. Samo modeliranje vesolja
-je še izven našega dosega, poizkuša pa se vsaj približati teorijo CA in teoretično fiziko.
+je še izven našega dosega, poizkuša pa se vsaj približati teorijo CA teoretični fiziki.
 S strani informacijske teorije in termodinamike je predvsem zanimiv model gravitacije
-kakor entropijske sile (Entropic gravity \cite{Verlinde2010}), ki predpostavlja, da je
+kakor entropijske sile (angl. Entropic gravity) \cite{Verlinde2010}, ki predpostavlja, da je
 3D vesolje projekcija procesov, ki se odvijajo na 2D ploskvi. Z druge strani pa CA tudi omogočajo
 opazovanje abstraktnega kopiranja informacij (replikacija) in evolucije \cite{Salzberg2004}.
 Oba sta pomembna informacijska pojava v našem vesolju.
 
 \subsection{Informacijska dinamika}
 
-Informacijsko dinamiko CA se najpogosteje opisuje samo kakor reverzibilno ali ireverzibilno,
-obstaja tudi nekaj člankov, ki opazujejo entropijo sistema.
-Pri reverzibilnem avtomatu se vsa informacija ohranja, vsako stanje ima natanko eno prihodnost in eno preteklost.
+Informacijsko dinamiko CA se najpogosteje opisuje samo kakor reverzibilno ali ireverzibilno.
+Obstaja tudi nekaj člankov, ki opazujejo entropijo sistema.
+Pri reverzibilnem avtomatu se vsa informacija ohranja. Vsako stanje ima natanko eno prihodnost in eno preteklost.
 Za reverzibilen celični avtomat lahko tudi definiramo pravilo oziroma funkcijo,
 s katero preprosto procesiramo avtomat v preteklost namesto v prihodnost.
 Za reverzibilne CA je torej računanje predslik (preteklosti)
@@ -469,12 +469,12 @@ Laično lahko sklepamo, da se tam, kjer se predsliki razlikujeta, izgubi 1 bit i
 
 \subsection{Atraktorjevo korito}
 
-Pomembno orodje za analizo časovno in prostorsko diskretnih dinamičnih sistemov je atraktorjevo korito (slika \ref{basin_of_attraction}).
+Pomembno orodje za analizo časovno in prostorsko diskretnih dinamičnih sistemov
+je \emph{atraktorjevo korito} (angl. \emph{basin of attraction}) (slika \ref{basin_of_attraction}).
 Andrew Wuensche že leta proučuje atraktorjeva korita naključnih binarnih mrež in celičnih avtomatov \cite{Wuensche1992, WuenscheDDLab}.
 To je graf, kjer so vozlišča stanja cikličnega končnega CA,
 usmerjene poti pa povezujejo vsako stanje z njegovim časovnim naslednikom.
 Vsa stanja se lahko zberejo v eno ali več korit, odvisno od sistema.
-
 V vsakem CA, ki ni lokalno injektiven, se pojavljajo stanja brez predslik,
 imenovana \emph{rajski vrt} (angl. \emph{Garden of Eden, GoE}) \cite{Moore1962, Myhill1963}.
 Stanja GoE so listi v grafu korita.
@@ -484,7 +484,8 @@ To je časovno periodično stanje, v katerem se končna časovna evolucija vsake
 Cikel lahko vsebuje eno ali več stanj, njihovo število imenujemo perioda atraktorja.
 Atraktor predstavlja tudi stabilne objekte v neskončnem CA.
 Za GoL obstajajo katalogi takih objektov, kjer so ti urejeni po velikosti, periodi in hitrosti premikanja.
-Kot primer bi navedel mrtvo ozadje (perioda 1) in drsalca (perioda 4).
+Kot primer bi navedel \emph{mrtvo ozadje} (angl. \emph{quiescent background}) (perioda 1)
+in \emph{drsalca} (angl. \emph{glider}) (perioda 4).
 
 \begin{figure}[htb]
 \centerline{\psfig{figure=basin_of_attraction_rule110_conf00010011011111,width=15cm}}
@@ -504,11 +505,9 @@ računska zahtevnost in opisna/implementacijska zahtevnost:
  \item algoritmi s \emph{surovo silo} (angl. \emph{brute force}) \cite{WikiBruteForce} imajo zahtevnost \( O(C^N) \),
  \item algoritmi z \emph{iskanjem v globino} (angl. \emph{depth first search, DFS}) \cite{WikiDFS}, \\
        algoritmi s \emph{sestopanjem} (angl. \emph{backtacking}) \cite{WikiBacktracking}, \\
-       algoritmi, ki rešujejo \emph{problem izpolnjivosti} (angl. \emph{Boolean satisfiability problem, SAT}) \cite{WikiSAT}
- \item optimalni algoritmi, kjer sta izpis in štetje strogo ločena
+       algoritmi, ki rešujejo \emph{problem izpolnjivosti} (angl. \emph{Boolean satisfiability problem, SAT}) \cite{WikiSAT},
+ \item optimalni algoritmi, kjer sta izpis in štetje strogo ločena.
 \end{enumerate}
-Algoritme za reševanje problemov SAT poznam bolj slabo,
-tako da nisem čisto prepričan, v katero kategorijo bi jih postavil.
 
 Bistvo optimalnega algoritma je, da je proces štetja predslik optimalen.
 Za 1D CA je to doseženo, saj je zahtevnost štetja
@@ -545,7 +544,7 @@ Posamezen De Bruijnov diagram je mreža predslik ene celice.
 Mreže posameznih celic se nato povezujejo,
 tako da na koncu opisujejo celotno polje celic.
 
-McIntosh in njegovi učenci so bili pobudniki uporabe De Bruijnovih diagramov za analizo 1D CA.
+McIntosh in njegovi učenci so bili pobudniki uporabe De Bruijnovih diagramov za analizo 1D CA \cite{McIntosh1991}.
 Uporabljali so jih za štetje in izpis predslik ter za analizo delcev in njihovih interakcij.
 Paulina Léon in Genaro Martínez (McIntoshev učenec) \cite{PaulinaGenaro2016}
 sta začetnika apliciranja De Bruijnovih diagramov na 2D CA,
@@ -555,9 +554,6 @@ Največ raziskav s področja predslik 2D CA je bilo opravljenih ravno s ciljem i
 S stališča algoritma za štetje predslik je stanje GoE tako stanje, katerega število predslik je nič.
 Algoritem za štetje predslik je možno pretvoriti v manj zahteven algoritem za preverjanje, ali je dano stanje stanje GoE,
 tako da se operacije nad celimi števili pretvori v logične operacije nad Boolovimi stanji.
-
-Opisan algoritem na koncu primerjam z ostalimi doslej znanimi algoritmi,
-ki večinoma temeljijo na principu DFS.
 
 \subsection{Implementacija algoritma}
 
@@ -586,6 +582,10 @@ Na slikah je uporabljena izometrična projekcija,
 saj je za potrebe analize osnovnemu 2D polju dodana tretja dimenzija,
 ki opisuje prostor predslik (mreža predslik).
 
+\section{Pregled dela}
+
+Opisan algoritem na koncu primerjam z ostalimi doslej znanimi algoritmi,
+ki večinoma temeljijo na principu DFS.
 
 
 
