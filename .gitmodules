@@ -1,0 +1,6 @@
+[submodule "src"]
+	path = src
+	url = ../preimages-2D.git
+[submodule "preimages-2D"]
+	path = preimages-2D
+	url = ../preimages-2D.git

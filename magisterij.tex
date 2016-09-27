@@ -1769,7 +1769,7 @@ ki bi za večjo konfiguracijo dal majhno število predslik.
 
 Uporabljen je program \cite{Jeras2016-algirithm} z verzijo \verb|v1|.
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\footnotesize]
 $ ./ca2d_preimages 2 2 2 0x725a 2 2 test_2x2.cas
 CA parameters:
   sts  : 2
@@ -1907,7 +1907,10 @@ preimage i=18:  CA configuration siz [y↓,x→] = [3,3]:
  1 1 1
  0 0 1
  0 1 1
-\end{verbatim}
+\end{Verbatim}
+
+
+
 
 %********************************************
 
@@ -1916,7 +1919,7 @@ preimage i=18:  CA configuration siz [y↓,x→] = [3,3]:
 
 Prilagam pisno izmenjavo z avtorjem \footnote{Don Woods /url{http://www.icynic.com/~don/}} prvega algoritma za iskanje predslik GoL.
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\footnotesize]
 
 Don Woods <don@icynic.com>	Thu, Jul 28, 2016 at 11:45 PM
 To: iztok.jeras@gmail.com
@@ -1999,6 +2002,9 @@ Permission granted.  Good luck with your thesis!
         -- Don Woods
 \end{Verbatim}
 
+
+
+
 %********************************************
 
 \chapter{Izvorna koda implementacije algoritma}
@@ -2007,54 +2013,53 @@ Permission granted.  Good luck with your thesis!
 Prilagam izvorno kodo, ki se sicer nahaja na naslovu:\\
 \url{https://github.com/jeras/preimages-2D}
 
-\vspace{5mm}
-\lstset{language=C}
-\begin{lstlisting}[frame=single]
-#ifndef CA2D_H
-#define CA2D_H
+Zanimivi sta predvsem funkciji \verb|ca1d_net| in \verb|ca2d_net|
+ki se nahajata proti koncu datoteke: \\
+\verb|preimages–2D/ca2d_net.c|
+\vspace{10mm}
 
-// math libraries
-#include <gmp.h>
+\lstset{ %
+%  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\tiny,          % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+%  captionpos=b,                    % sets the caption-position to bottom
+%  commentstyle=\color{mygreen},    % comment style
+%  deletekeywords={...},            % if you want to delete keywords from the given language
+  %escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+%  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+%  keywordstyle=\color{blue},       % keyword style
+  language=C,                      % the language of the code
+%  otherkeywords={*,...},           % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+%  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+%  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+%  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+%  showstringspaces=false,          % underline spaces within strings only
+%  showtabs=false,                  % show tabs within strings adding particular underscores
+%  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+%  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
 
-#define uintca_t long long int unsigned
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d.h}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d.c}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_array.h}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_array.c}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_base.c}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_cfg.h}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_cfg.c}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_rule.h}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_rule.c}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_fwd.h}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_fwd.c}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_net.h}
+\lstinputlisting[language=C, firstline=30]{preimages-2D/ca2d_net.c}
 
-typedef struct {
-    // basic parameters
-    int unsigned y;  // Y size
-    int unsigned x;  // X size
-    // calculated parameters
-    int unsigned a;  // area (x*y)
-    int unsigned n;  // number of states
-} ca2d_size_t;
-
-typedef struct {
-    // basic parameters
-    int unsigned sts;  // number of cell states
-    ca2d_size_t  ngb;  // neighborhood size
-    mpz_t        rule; // rule
-    // calculated neighborhood/overlap parameters
-    struct {
-        ca2d_size_t y;
-        ca2d_size_t x;
-    } ovl;             // overlap size
-    struct {
-        ca2d_size_t y;
-        ca2d_size_t x;
-    } rem;             // remainder size (remainder and overlap add to a whole neighborhood)
-    ca2d_size_t ver;   // vertice size (corner overlap)
-    struct {
-        ca2d_size_t y;
-        ca2d_size_t x;
-    } shf;             // shift size (shift and vertice add to a whole overlap)
-    // rule table
-    int unsigned *tab;
-} ca2d_t;
-
-int ca2d_update (ca2d_t *ca2d);
-int ca2d_bprint (ca2d_t  ca2d);
-
-#endif // CA2D_H
-\end{lstlisting}
 
 %********************************************
 
