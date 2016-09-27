@@ -1420,7 +1420,7 @@ Možno je, da nobena pot na končnem robu ne zadošča začetnemu pogoju in mre�
 Torej po prejšnjih korakih še ni točno določeno, katere ploskve se združujejo v zvezno
 celoto in katere ne. Možne so ploskve, ki prekrivajo polje samo do neke vrstice in ne naprej.
 
-Procesiranje po drugi dimenziji poteka v obratni smeri kakor pri štetj;
+Procesiranje po drugi dimenziji poteka v obratni smeri kakor pri štetju;
 začne pri zadnji vrstici in konča pri prvi vrstici (slika \ref{algorithm_list}).
 Z vsakim korakom se izloča še preostale slepe poti iz mreže predslik.
 Za vsako vrstico je potrebno ponovno rešiti 1D problem,
@@ -1430,7 +1430,7 @@ Hkrati je možno še izpisovati predslike. Že na začetku procesiranja v obratn
 je znano število vseh predslik, kar omogoča rezervacijo pomnilnika in inicializacijo seznama predslik.
 Končne robne poti in njihove uteži se uporabijo za popis tekoče vrstice celic v predslikah.
 Indeks robne poti (določeno zaporedje prekrivajočih okolic) da vrednost celic v vrstici predslike.
-Uteži, izračunane v smeri štetja, pa dajo število predslik,
+Uteži, izračunane v smeri štetja pa dajo število predslik,
 ki jih je potrebno popisati z dano vrednostjo za vrstico celic.
 
 Z vsakim korakom v obratni smeri se popiše nova vrstica za vsako od preštetih predslik.
@@ -1468,7 +1468,7 @@ uporabili hkrati, kakor začetni robni pogoj za naslednjo vrstico, bi dobili
 enak rezultat, kakor če bi bili del robnega pogoja tudi poti \textbf{0111} in \textbf{1110}.
 To pa zato, ker algoritem, ki poti ne obravnava ločeno, ne more vedeti,
 kje se je pot začela, da bi jo lahko tudi pravilno zaključil.
-Posledično linearen algoritem lahko vzame začetek ene od poti in ga
+Posledično lahko linearen algoritem vzame začetek ene od poti in ga
 na vozlišču, skupnem obema potema, nadaljuje po drugi poti.
 Iz mreže je razvidno, da ti dve poti nista preseka neke zvezne ploskve.
 Skratka, hkratno obravnavanje celotnega nabora robnih pogojev ni možno,
