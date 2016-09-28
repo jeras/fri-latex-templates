@@ -506,9 +506,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.5255295"
-     inkscape:cx="93.477673"
-     inkscape:cy="17.427113"
+     inkscape:zoom="5.7765343"
+     inkscape:cx="96.02696"
+     inkscape:cy="-17.186358"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -543,7 +543,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -615,56 +615,66 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="23.947601"
-       y="1026.1592"
+       x="13.177486"
+       y="1026.2593"
        id="text3901-3-7-0-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3903-1-8-9-7"
-         x="23.947601"
-         y="1026.1592"
-         style="font-size:12.5px">w<tspan
-   style="font-size:64.99999762%;baseline-shift:super"
-   id="tspan5423">+</tspan><tspan
+         x="13.177486"
+         y="1026.2593"
+         style="font-size:12.5px"><tspan
+   style="font-style:italic"
+   id="tspan5262">w</tspan><tspan
    style="font-size:65.00000954%;baseline-shift:sub"
-   id="tspan5157">x</tspan></tspan></text>
+   id="tspan4422">→</tspan>(<tspan
+   style="font-style:italic"
+   id="tspan5260">x</tspan>)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="123.9476"
-       y="1026.1592"
+       x="126.34461"
+       y="1026.2806"
        id="text3901-3-7-0-8-6"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3903-1-8-9-7-4"
-         x="123.9476"
-         y="1026.1592"
-         style="font-size:12.5px">w<tspan
-   style="font-size:64.99999762%;baseline-shift:super"
-   id="tspan4805">-</tspan><tspan
-   style="font-size:65.00000954%;baseline-shift:sub"
-   id="tspan5157-6">x</tspan></tspan></text>
+         x="126.34461"
+         y="1026.2806"
+         style="font-size:12.5px"><tspan
+   style="font-style:italic"
+   id="tspan5276">w</tspan><tspan
+   style="font-size:65.00000775%;baseline-shift:sub"
+   id="tspan4426">←</tspan>(<tspan
+   style="font-style:italic"
+   id="tspan5278">x</tspan>)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="50.215302"
-       y="1046.1592"
+       x="30.154421"
+       y="1046.2593"
        id="text3901-3-7-0-5"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3903-1-8-9-8"
-         x="50.215302"
-         y="1046.1592"
-         style="font-size:12.5px">w<tspan
+         x="30.154421"
+         y="1046.2593"
+         style="font-size:12.5px"><tspan
+   style="font-style:italic"
+   id="tspan5264">w</tspan>(<tspan
+   style="font-style:italic"
+   id="tspan5266">x</tspan>)=<tspan
+   style="font-style:italic"
+   id="tspan5268">w</tspan><tspan
    style="font-size:65.00000954%;baseline-shift:sub"
-   id="tspan5167-6">x</tspan>=w<tspan
-   style="font-size:65.00000775%;baseline-shift:super"
-   id="tspan4999">+</tspan><tspan
-   style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4801">x</tspan>·w<tspan
-   style="font-size:65.00000775%;baseline-shift:super"
-   id="tspan5001">-</tspan><tspan
+   id="tspan4428">→</tspan>(<tspan
+   style="font-style:italic"
+   id="tspan5270">x</tspan>)·<tspan
+   style="font-style:italic"
+   id="tspan5272">w</tspan><tspan
    style="font-size:65.00000954%;baseline-shift:sub"
-   id="tspan5165-8">x</tspan></tspan></text>
+   id="tspan4424">←</tspan>(<tspan
+   style="font-style:italic"
+   id="tspan5274">x</tspan>)</tspan></text>
   </g>
 </svg>

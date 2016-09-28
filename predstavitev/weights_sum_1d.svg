@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="48mm"
+   width="75mm"
    height="17mm"
-   viewBox="0 0 170.07874 60.236225"
+   viewBox="0 0 265.74803 60.236225"
    id="svg4174"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="weights_1d.svg">
+   sodipodi:docname="weights_sum_1d.svg">
   <defs
      id="defs4176">
     <marker
@@ -506,9 +506,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.8213092"
-     inkscape:cx="97.195233"
-     inkscape:cy="24.171419"
+     inkscape:zoom="3.9071394"
+     inkscape:cx="130.77308"
+     inkscape:cy="-12.611247"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -556,7 +556,7 @@
        xml:space="preserve"
        id="flowRoot4207"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(61.371878,70.866134)"><flowRegion
+       transform="translate(111.3719,70.866105)"><flowRegion
          id="flowRegion4209"><rect
            id="rect4211"
            width="70.866142"
@@ -567,7 +567,7 @@
        xml:space="preserve"
        id="flowRoot4233"
        style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(61.371878,70.866134)"><flowRegion
+       transform="translate(111.3719,70.866105)"><flowRegion
          id="flowRegion4235"><rect
            id="rect4237"
            width="106.29921"
@@ -579,7 +579,7 @@
        xml:space="preserve"
        id="flowRoot4245"
        style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(61.371878,70.866134)"><flowRegion
+       transform="translate(111.3719,70.866105)"><flowRegion
          id="flowRegion4247"><rect
            id="rect4249"
            width="92.057823"
@@ -589,7 +589,7 @@
            style="font-size:15px" /></flowRegion><flowPara
          id="flowPara4251" /></flowRoot>    <g
        id="g4385"
-       transform="translate(92.057818,-124.01576)">
+       transform="translate(142.05784,-124.01579)">
       <g
          id="g4861-94"
          transform="translate(-337.54533,17.716535)" />
@@ -597,108 +597,116 @@
     <circle
        style="opacity:1;fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06299222;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4324"
-       cx="9.99998"
+       cx="60"
        cy="1002.3621"
        r="5" />
     <circle
        style="opacity:1;fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06299222;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4324-0"
-       cx="89.999977"
+       cx="140"
        cy="1042.3622"
        r="5.0000005" />
     <circle
        style="opacity:1;fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06299222;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4324-8"
-       cx="9.99998"
+       cx="60"
        cy="1042.3622"
        r="5.0000005" />
     <circle
        style="opacity:1;fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06299222;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4324-5"
-       cx="89.999977"
+       cx="140"
        cy="1002.3621"
        r="5.0000005" />
     <circle
        style="opacity:1;fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06299222;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4324-0-4"
-       cx="49.999996"
+       cx="100.00002"
        cy="1022.3621"
        r="5.000001" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06299222;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend)"
-       d="m 54.999982,1022.3622 c 15.000013,0 15.000023,20.0001 30.000023,20.0001"
+       d="m 105,1022.3622 c 15.00002,0 15.00003,20.0001 30.00003,20.0001"
        id="path4377"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06299222;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend-5)"
-       d="m 14.999972,1002.3621 c 15.00001,10e-5 15.00001,20.0001 30.000002,20"
+       d="m 64.999992,1002.3621 c 15.00001,10e-5 15.00001,20.0001 30.000002,20"
        id="path4377-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06299222;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend-2)"
-       d="m 14.999982,1042.3622 c 15.00001,-10e-5 15.00001,-20.0001 30,-20"
+       d="m 65.000002,1042.3622 c 15.00001,-10e-5 15.00001,-20.0001 30,-20"
        id="path4377-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06299222;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend-2-2)"
-       d="m 54.999982,1022.3622 c 15.000013,0 15.000013,-20 30.000013,-20"
+       d="m 105,1022.3622 c 15.00002,0 15.00002,-20 30.00002,-20"
        id="path4377-7-0"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="24.903713"
-       y="1006.6273"
+       x="12.908936"
+       y="1006.2592"
        id="text3901-3-7-0-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3903-1-8-9-7"
-         x="24.903713"
-         y="1006.6273"
-         style="font-size:12.5px">w<tspan
-   style="font-size:65.00000194%;baseline-shift:super"
-   id="tspan5423">+</tspan><tspan
-   style="font-size:65.00000954%;baseline-shift:sub"
-   id="tspan5157">x</tspan></tspan></text>
+         x="12.908936"
+         y="1006.2592"
+         style="font-size:12.5px"><tspan
+   style="font-style:italic"
+   id="tspan4455">w</tspan><tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan4427">→</tspan>(<tspan
+   style="font-style:italic"
+   id="tspan4449">x</tspan>)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="25.008846"
-       y="1046.5737"
+       x="12.908936"
+       y="1046.2593"
        id="text3901-3-7-0-8-6"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3903-1-8-9-7-4"
-         x="25.008846"
-         y="1046.5737"
-         style="font-size:12.5px">w<tspan
-   style="font-size:65.00000194%;baseline-shift:super"
-   id="tspan5425">+</tspan><tspan
-   style="font-size:65.00000954%;baseline-shift:sub"
-   id="tspan5157-6">x</tspan></tspan></text>
+         x="12.908936"
+         y="1046.2593"
+         style="font-size:12.5px"><tspan
+   style="font-style:italic"
+   id="tspan4453">w</tspan><tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan4429">→</tspan>(<tspan
+   style="font-style:italic"
+   id="tspan4451">x</tspan>)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="75.92009"
-       y="1026.6273"
+       x="148.47839"
+       y="1025.9053"
        id="text3901-3-7-0-5"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3903-1-8-9-8"
-         x="75.92009"
-         y="1026.6273"
-         style="font-size:12.5px">w<tspan
-   style="font-size:64.99999762%;baseline-shift:super"
-   id="tspan5421">+</tspan><tspan
-   style="font-size:65.00000954%;baseline-shift:sub"
-   id="tspan5167-6">x+1</tspan>=∑w<tspan
-   style="font-size:65.00000194%;baseline-shift:super"
-   id="tspan5427">+</tspan><tspan
-   style="font-size:65.00000954%;baseline-shift:sub"
-   id="tspan5165-8">x</tspan></tspan></text>
+         x="148.47839"
+         y="1025.9053"
+         style="font-size:12.5px"><tspan
+   style="font-style:italic"
+   id="tspan4459">w</tspan><tspan
+   style="font-size:65.00000194%;baseline-shift:sub"
+   id="tspan4659">→</tspan>(<tspan
+   style="font-style:italic"
+   id="tspan4461">x</tspan>+1)=∑<tspan
+   style="font-style:italic"
+   id="tspan4463">w</tspan><tspan
+   style="font-size:65.00000194%;baseline-shift:sub"
+   id="tspan4661">→</tspan>(<tspan
+   style="font-style:italic"
+   id="tspan4465">x</tspan>)</tspan></text>
   </g>
 </svg>
